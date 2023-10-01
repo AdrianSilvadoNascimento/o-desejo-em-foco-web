@@ -1,0 +1,33 @@
+mat-drawer-container {
+  height: calc(100% - 130px);
+  background: #fff;
+
+  .sidenav {
+    background: #4d4d4d;
+    width: 220px;
+
+    nav {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      
+      .nav-item {
+        color: #fff;
+        margin-bottom: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 18px;
+        text-align: center;
+      }
+    }
+
+    .exit {
+      position: fixed;
+      bottom: 15px;
+      left: 15px;
+      cursor: pointer;
+    }
+  }
+}
