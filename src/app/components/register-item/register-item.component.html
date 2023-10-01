@@ -1,1 +1,64 @@
-<p>register-item works!</p>
+<section id="register-item">
+  <article class="background">
+    <h2>Novo Produto</h2>
+
+    <form [formGroup]="itemGroup">
+      <mat-form-field appearance="outline" class="custom-mat-form-field">
+        <mat-label for="name" class="custom-mat-label">Nome</mat-label>
+        <input
+          matInput
+          type="text"
+          class="form-control"
+          class="custom-mat-input"
+          name="name"
+          id="name"
+          formControlName="name"
+          required
+        />
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="custom-mat-form-field">
+        <mat-label for="unit_price" class="custom-mat-label">Quantidade</mat-label>
+        <input
+          matInput
+          type="number"
+          class="custom-mat-input"
+          name="unit_price"
+          id="unit_price"
+          min="0"
+          formControlName="unit_price"
+          required
+          step="any"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="custom-mat-form-field">
+        <mat-label for="quantity" class="custom-mat-label">Preço Unitário</mat-label>
+        <input
+          matInput
+          type="number"
+          class="form-control"
+          class="custom-mat-input"
+          name="quantity"
+          id="quantity"
+          min="0"
+          formControlName="quantity"
+          required
+          step="any"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="custom-mat-form-field">
+        <mat-label for="category" class="custom-mat-label">Categoria</mat-label>
+        <input
+          matInput
+          type="text"
+          class="form-control"
+          class="custom-mat-input"
+          name="category"
+          id="category"
+          formControlName="category"
+          required
+        />
+      </mat-form-field>
+    </form>
+  </article>
+</section>

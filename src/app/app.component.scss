@@ -1,6 +1,6 @@
 mat-drawer-container {
   height: calc(100% - 130px);
-  background: #fff;
+  background: #D9D9D9;
 
   .sidenav {
     background: #4d4d4d;
@@ -18,8 +18,13 @@ mat-drawer-container {
         margin-bottom: 30px;
         text-decoration: none;
         font-weight: bold;
-        font-size: 18px;
+        font-size: 14px;
         text-align: center;
+        padding: 5px 10px;
+      }
+
+      .active {
+        border-bottom: 2px solid #fff;
       }
     }
 

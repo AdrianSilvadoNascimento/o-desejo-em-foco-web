@@ -1,0 +1,44 @@
+#home {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  
+  article {
+    margin-top: 50px;
+    width: 900px;
+
+    button {
+      margin-bottom: 20px;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .mat-row:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    table {
+      width: 100%;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+      max-height: 550px;
+
+      th, td {
+        text-align: center;
+      }
+
+      .action_buttons {
+
+        :nth-child(2) {
+          color: #fe2424;
+        }
+
+        fa-icon {
+          padding: 10px;
+          margin: 0 5px;
+          cursor: pointer;
+
+        }
+      }
+    }
+  }
+}

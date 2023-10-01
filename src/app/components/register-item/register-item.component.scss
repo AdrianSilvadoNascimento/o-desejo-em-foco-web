@@ -1,0 +1,39 @@
+#register-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  .background {
+    margin-top: 50px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+
+    h2 {
+      color: #000;
+      text-align: start;
+      font-weight: 500;
+    }
+
+    form {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+
+      mat-form-field.mat-form-field {
+        cursor: pointer;
+      }
+      
+      .custom-mat-form-field {
+        width: 40%;
+      }
+      
+      .custom-mat-label {
+        color: #000;
+      }
+    }
+  }
+}
