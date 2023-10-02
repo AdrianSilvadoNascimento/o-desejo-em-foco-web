@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'index', component: HomeComponent },
   { path: 'info-item/:id', component: InfoItemComponent },
   { path: 'register-item', component: RegisterItemComponent },
+  { path: 'edit-item/:id', component: RegisterItemComponent },
 ]
 
 @NgModule({

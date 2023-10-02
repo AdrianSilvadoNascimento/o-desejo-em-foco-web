@@ -30,7 +30,7 @@
       <ng-container matColumnDef="action_buttons">
         <th mat-header-cell *matHeaderCellDef></th>
         <td class="action_buttons" mat-cell *matCellDef="let element">
-          <fa-icon [icon]="faPen">Edit</fa-icon>
+          <fa-icon [icon]="faPen" [routerLink]="'/edit-item/' + element.id">Edit</fa-icon>
           <fa-icon [icon]="faTrash">Delete</fa-icon>
         </td>
       </ng-container>

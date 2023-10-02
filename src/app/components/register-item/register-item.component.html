@@ -1,8 +1,8 @@
 <section id="register-item">
   <article class="background">
-    <h2>Novo Produto</h2>
+    <h2>{{ header }}</h2>
 
-    <form [formGroup]="itemGroup">
+    <form [formGroup]="itemGroup" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="outline" class="custom-mat-form-field">
         <mat-label for="name" class="custom-mat-label">Nome</mat-label>
         <input
@@ -59,6 +59,34 @@
           required
         />
       </mat-form-field>
+
+      <div class="photo">
+        <label class="custom-file-input">
+          <div class="profile-image">
+            <img
+              [src]="selectedImage"
+              *ngIf="selectedImage"
+              alt="Imagem Selecionada"
+            />
+            <span>
+              <fa-icon [icon]="faCamera" size="2xl"></fa-icon>
+            </span>
+            <input
+              type="file"
+              (change)="onFileSelected($event)"
+              name="product_image"
+              id="product_image"
+              formControlName="product_image"
+              accept="image/*"
+              required
+            />
+          </div>
+        </label>
+      </div>
+
+      <article class="save-button-area">
+        <button mat-raised-button type="submit" class="save-button">{{ save_button }}</button>
+      </article>
     </form>
   </article>
 </section>
