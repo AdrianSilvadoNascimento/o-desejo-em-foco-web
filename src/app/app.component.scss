@@ -1,5 +1,5 @@
 mat-drawer-container {
-  height: calc(100% - 130px);
+  height: calc(100% - 100px);
   background: #fff;
 
   .sidenav {
@@ -29,6 +29,7 @@ mat-drawer-container {
     }
 
     .exit {
+      color: #fff;
       position: fixed;
       bottom: 15px;
       left: 15px;

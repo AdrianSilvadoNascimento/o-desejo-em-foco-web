@@ -15,6 +15,8 @@ import { ActivatedRoute } from '@angular/router'
 export class RegisterItemComponent implements OnInit {
   itemGroup: FormGroup = new FormGroup({})
   selectedImage!: any
+  selectedFile!: File
+  isChangingImage: boolean = false
   faCamera = faCamera
   item_id!: string
   itemInfo!: ItemModel
@@ -41,15 +43,21 @@ export class RegisterItemComponent implements OnInit {
 
       this.itemsService.getItem(this.item_id).subscribe(res => {
         this.itemInfo = res
-        this.createForm(this.itemInfo)
+        this.itemGroup.patchValue({
+          name: res.name,
+          quantity: res.quantity,
+          unit_price: res.unit_price,
+          category: res.category,
+        })
         this.selectedImage = res.product_image
+        const image = new File([res.product_image], 'ovo.jpg', { type: 'image/jpeg' })
+        this.selectedFile = image
       })
     }
   }
 
   createForm(itemModel: ItemModel): void {
     this.itemGroup = this.formBuilder.group({
-      id: [null],
       name: [itemModel.name],
       unit_price: [itemModel.unit_price],
       category: [itemModel.category],
@@ -60,16 +68,17 @@ export class RegisterItemComponent implements OnInit {
 
   async onSubmit() {
     const ITEM: ItemModel = {...this.itemGroup.value}
-    const file: File = this.selectedImage
-    const image = await this.imageConverter.convertToBase64(file)
-    ITEM.product_image = image
-    console.log('chegou aqui', ITEM)
-  
+    
+    ITEM.product_image = this.isChangingImage
+      ? await this.imageConverter.convertToBase64(this.selectedFile)
+      : this.itemInfo.product_image
+    
     if (this.item_id) {
+      console.log(ITEM)
       this.itemsService.updateItem(ITEM, this.item_id).subscribe(() => {
         this.excludeImage()
         this.createForm(new ItemModel())
-        alert('Pet atualizado com sucesso!')
+        alert('Produto atualizado com sucesso!')
       }, err => {
         alert(err.error.message)
       })
@@ -77,7 +86,7 @@ export class RegisterItemComponent implements OnInit {
       this.itemsService.registerItem(ITEM).subscribe(() => {
         this.excludeImage()
         this.createForm(new ItemModel())
-        alert('Pet registrado com sucesso!')
+        alert('Produto registrado com sucesso!')
       }, err => {
         alert(err.error.message)
       })
@@ -90,12 +99,14 @@ export class RegisterItemComponent implements OnInit {
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0]
-
+    
     if (file) {
       const reader = new FileReader()
       reader.readAsDataURL(file)
       reader.onload = async () => {
-        this.selectedImage = await this.imageConverter.convertToBase64(file)
+        this.selectedFile = file
+        this.selectedImage = reader.result
+        this.isChangingImage = true
       }
     }
   }

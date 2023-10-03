@@ -8,6 +8,10 @@
     margin-top: 50px;
     width: 900px;
 
+    .no-products {
+      text-align: center;
+    }
+
     button {
       margin-bottom: 20px;
       box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
@@ -21,6 +25,18 @@
       width: 100%;
       box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
       max-height: 550px;
+
+      td {
+        .product_link {
+          text-decoration: none;
+        }
+
+        .product_image {
+          width: 50px;
+          padding: 10px;
+          cursor: pointer;
+        }
+      }
 
       th, td {
         text-align: center;

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core'
 
 import { ItemModel } from 'src/app/models/item-model'
 import { ItemsService } from 'src/app/services/items.service'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import { faPen } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faPen, faCamera } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-home',
@@ -15,6 +14,7 @@ export class HomeComponent implements OnInit {
   items: ItemModel[] = []
   faTrash = faTrash
   faPen = faPen
+  faCamera = faCamera
 
   constructor(private itemsService: ItemsService) {}
 
@@ -24,8 +24,26 @@ export class HomeComponent implements OnInit {
 
   fetchItems(): void {
     this.itemsService.getItems().subscribe(res => {
-      console.log(res)
+      this.itemsService.updateItemList(res)
+    })
+    
+    this.itemsService.$itemList.subscribe(res => {
       this.items = [ ...res ]
     })
+  }
+
+  deleteItem(item_id: string) {
+    const confirm_delete = confirm('Deseja excluir este item?')
+    if (confirm_delete) {
+      this.itemsService.deleteItem(item_id).subscribe(() => {
+        alert('Produto deletado com sucesso!')
+
+        this.itemsService.getItems().subscribe(res => {
+          this.itemsService.updateItemList(res)
+        })
+      }, err => {
+        alert(err.error.message)
+      })
+    }
   }
 }
