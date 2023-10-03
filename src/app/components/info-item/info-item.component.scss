@@ -1,0 +1,55 @@
+#item-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  article {
+    margin-top: 50px;
+    width: 900px;
+
+    .return-button {
+      background: #000;
+      color: #fff;
+    }
+
+    .card {
+      max-width: 890px;
+      max-height: 550px;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+      padding: 15px;
+      border-radius: 8px;
+
+      h2 {
+        text-align: center;
+        font-weight: 500;
+      }
+      
+      .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 15px;
+
+        img {
+          width: 265px;
+          height: 335px;
+          border-radius: 8px;
+          box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        ul {
+          list-style: none;
+
+          li {
+            margin-bottom: 15px;
+
+            span {
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
+  }
+}

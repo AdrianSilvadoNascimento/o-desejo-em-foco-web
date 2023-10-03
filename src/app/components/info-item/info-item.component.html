@@ -1,1 +1,40 @@
-<p>info-item works!</p>
+<section id="item-info">
+  <h3 *ngIf="!item_id; else hasItemId">O item não foi encontrado</h3>
+  
+  <ng-template #hasItemId>
+    <article class="background">
+      <button class="return-button" mat-raised-button (click)="return()">
+        <fa-icon [icon]="faArrowLeft" size="sm"></fa-icon>
+        Voltar
+      </button>
+  
+      <article class="card">
+        <h2>Especificações do Produto</h2>
+        
+        <div class="content">
+          <img [src]="itemInfo.product_image" alt="">
+          <ul>
+            <li>
+              Nome do Produto: <span>{{ itemInfo.name }}</span>
+            </li>
+            <li>
+              Categoria: <span>{{ itemInfo.category }}</span>
+            </li>
+            <li>
+              Preço Unitário: <span>{{ itemInfo.unit_price }}</span>
+            </li>
+            <li>
+              Quantidade Inicial: <span>{{ itemInfo.quantity }}</span>
+            </li>
+            <li>
+              Adicionado Em: <span>{{ itemInfo.created_at | date: 'dd/MM/yyyy HH:mm':'BRT' }}</span>
+            </li>
+            <li>
+              Última atualização: <span>{{ itemInfo.updated_at | date: 'dd/MM/yyyy HH:mm':'BRT' }}</span>
+            </li>
+          </ul>
+        </div>
+      </article>
+    </article>
+  </ng-template>
+</section>
