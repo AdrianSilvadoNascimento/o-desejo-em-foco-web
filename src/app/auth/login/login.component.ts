@@ -28,8 +28,7 @@ export class LoginComponent implements OnInit {
   createForm(employee: EmployeeModel): void {
     this.loginForm = this.formBuilder.group({
       email: [
-        employee.email,
-        [
+        employee.email, [
           Validators.required,
           Validators.email,
           Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/),

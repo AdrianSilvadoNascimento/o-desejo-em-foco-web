@@ -1,13 +1,8 @@
 <section id="register">
   <article>
     <div class="form">
-      <!-- <button class="return-button" mat-raised-button routerLink="../user-login">
-        <fa-icon [icon]="faArrowLeft" size="sm"></fa-icon>
-        Voltar
-      </button> -->
-
       <div class="register-card">
-        <form>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <mat-form-field appearance="outline" class="custom-mat-form-field">
             <mat-label for="name" class="custom-mat-label">Nome do Estabelecimento</mat-label>
             <input
@@ -17,18 +12,7 @@
               class="custom-mat-input"
               name="name"
               id="name"
-              required
-            />
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="custom-mat-form-field">
-            <mat-label for="username" class="custom-mat-label">Usuário</mat-label>
-            <input
-              matInput
-              type="text"
-              class="form-control"
-              class="custom-mat-input"
-              name="username"
-              id="username"
+              formControlName="name"
               required
             />
           </mat-form-field>
@@ -41,6 +25,7 @@
               class="custom-mat-input"
               name="email"
               id="email"
+              formControlName="email"
               required
             />
           </mat-form-field>
@@ -53,23 +38,19 @@
               class="custom-mat-input"
               name="password"
               id="password"
-              required
-            />
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="custom-mat-form-field">
-            <mat-label for="confirm_password" class="custom-mat-label">Confirme a Senha</mat-label>
-            <input
-              matInput
-              type="text"
-              class="form-control"
-              class="custom-mat-input"
-              name="confirm_password"
-              id="confirm_password"
+              formControlName="password"
               required
             />
           </mat-form-field>
 
-          <button mat-raised-button>Registrar</button>
+          <button
+            mat-raised-button
+            [disabled]="registerForm.invalid"
+            [class]="registerForm.invalid ? 'disabled' : ''"
+            type="submit"
+          >
+            Registrar
+          </button>
           
           <a routerLink="../user-login">
             Entrar na Conta

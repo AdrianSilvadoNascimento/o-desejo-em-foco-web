@@ -27,6 +27,15 @@ export class AccountService {
     }))
   }
 
+  createNewEmployerAccount(employerModel: EmployerModel): Observable<EmployerModel> {
+    const url = `${this.BASE_URL}/user/register-user`
+    const body = { ...employerModel, type: 1 }
+
+    return this.http.post<EmployerModel>(url, body).pipe(tap(res => {
+      this.router.navigate(['../user-login'])
+    }))
+  }
+
   setCache(data: any): void {
     localStorage.setItem('userId', data?.userId)
     localStorage.setItem('token', data?.token)
