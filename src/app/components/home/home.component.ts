@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core'
 import { ItemModel } from 'src/app/models/item-model'
 import { ItemsService } from 'src/app/services/items.service'
 import { faTrash, faPen, faCamera } from '@fortawesome/free-solid-svg-icons'
+import { UtilsService } from 'src/app/services/utils.service'
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomeComponent implements OnInit {
   faPen = faPen
   faCamera = faCamera
 
-  constructor(private itemsService: ItemsService) {}
+  constructor(private itemsService: ItemsService, private utilsService: UtilsService) {}
 
   ngOnInit(): void {
     this.fetchItems()
@@ -30,6 +31,8 @@ export class HomeComponent implements OnInit {
     this.itemsService.$itemList.subscribe(res => {
       this.items = [ ...res ]
     })
+
+    this.utilsService.hideMenuButton(false)
   }
 
   deleteItem(item_id: string) {

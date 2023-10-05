@@ -21,7 +21,8 @@ export class ItemsService {
   }
   
   registerItem(itemModel: ItemModel): Observable<ItemModel> {
-    return this.http.post<ItemModel>(`${this.URL}/register-item`, itemModel).pipe(tap(res => res))
+    const body = {...itemModel, userId: localStorage.getItem('userId') }
+    return this.http.post<ItemModel>(`${this.URL}/register-item`, body).pipe(tap(res => res))
   }
   
   updateItem(itemModel: ItemModel, item_id: string): Observable<ItemModel> {
@@ -33,7 +34,7 @@ export class ItemsService {
   }
   
   getItems(): Observable<ItemModel[]> {
-    return this.http.get<ItemModel[]>(this.URL)
+    return this.http.get<ItemModel[]>(`${this.URL}/${localStorage.getItem('userId')}`)
   }
 
   getItem(item_id: string): Observable<ItemModel> {

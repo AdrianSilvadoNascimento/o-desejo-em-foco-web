@@ -1,21 +1,30 @@
 #header {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   height: 100px;
   background-color: #000;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
 
+  .menu-toggle {
+    margin-right: 15px;
+  }
+  
   .title-header {
     color: #fff;
-    text-align: center;
-
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    margin-left: 15px;
+    
     h1 {
-      font-size: 32px;
+      font-size: 24px;
       font-weight: bold;
+      margin-right: 15px;
+    }
+    
+    h2 {
+      font-size: 18px;
+      font-weight: 500;
     }
   }
 }

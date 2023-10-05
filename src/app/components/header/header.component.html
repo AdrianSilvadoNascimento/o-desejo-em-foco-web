@@ -1,6 +1,12 @@
 <section id="header">
   <div class="title-header">
-    <h1>Desejo em Foco</h1>
+    <h1>e-Gest</h1>
     <h2>Estoque</h2>
   </div>
+
+  <nav *ngIf="!isHideButton">
+    <button mat-flat-button class="menu-toggle" (click)="toggleMenu()">
+      <fa-icon [icon]="faBars" size="xl"></fa-icon>
+    </button>
+  </nav>
 </section>

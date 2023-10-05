@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
   { path: 'index', component: HomeComponent },
   { path: 'info-item/:id', component: InfoItemComponent },
+  { path: 'account', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   { path: 'register-item', component: RegisterItemComponent },
   { path: 'edit-item/:id', component: RegisterItemComponent },
 ]

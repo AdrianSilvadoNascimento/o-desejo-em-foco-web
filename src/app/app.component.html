@@ -1,14 +1,14 @@
 <app-header></app-header>
 
 <mat-drawer-container>
-  <mat-drawer class="sidenav" mode="side" opened>
+  <mat-drawer class="sidenav" mode="side" [opened]="toggleSideNav">
     <nav>
       <a routerLink="/" routerLinkActive="active" class="nav-item">Home</a>
       <a routerLink="/movimentations" routerLinkActive="active" class="nav-item">Movimentações</a>
       <a routerLink="/clients" routerLinkActive="active" class="nav-item">Clientes</a>
+      <a class="exit" routerLink="/account/user-login" (click)="checkout()">Sair</a>
     </nav>
 
-    <a class="exit">Sair</a>    
   </mat-drawer>
   <mat-drawer-content class="main-content">
     <router-outlet></router-outlet>
