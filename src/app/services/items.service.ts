@@ -50,8 +50,10 @@ export class ItemsService {
       ...movementationModel,
     }
 
-    return this.http.post(url, body).pipe(tap(res => {
-      console.log('Res:', res)
-    }))
+    return this.http.post(url, body).pipe(tap(res => res))
+  }
+
+  getMovementations(): Observable<any> {
+    return this.http.get(`${this.URL}/${localStorage.getItem('userId')}`).pipe(tap((res: any) => res))
   }
 }
