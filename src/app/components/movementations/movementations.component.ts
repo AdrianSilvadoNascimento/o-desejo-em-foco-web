@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
-import { faCamera } from '@fortawesome/free-solid-svg-icons'
+import { ActivatedRoute, Router } from '@angular/router'
+import { faArrowLeft, faCamera, faTrash } from '@fortawesome/free-solid-svg-icons'
 
-import { ItemModel } from 'src/app/models/item-model'
 import { ItemsService } from 'src/app/services/items.service'
 
 @Component({
@@ -12,13 +11,17 @@ import { ItemsService } from 'src/app/services/items.service'
 })
 export class MovementationsComponent implements OnInit {
   itemId!: string
-  displayedColumns: string[] = ['image', 'name', 'category', 'quantity', 'unit_price', 'updated_at', 'action_buttons']
-  movementations: object[] = []
+  displayedColumns: string[] = ['image', 'name', 'category', 'quantity', 'unit_price', 'move_type', 'updated_at', 'responsible', 'action_buttons']
+  movementations: any
+  move_type: { type: string } = { type: 'Entrada' }
   faCamera = faCamera
+  faArrowLeft = faArrowLeft
+  faTrash = faTrash
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private itemService: ItemsService
+    private itemService: ItemsService,
+    private router: Router
   ) {}
   
   ngOnInit(): void {
@@ -26,10 +29,38 @@ export class MovementationsComponent implements OnInit {
       this.itemId = param['id']
     })
 
+    this.fetchMovementations()
+  }
+
+  fetchMovementations(): void {
     if (!this.itemId) {
       this.itemService.getMovementations().subscribe(res => {
-        // console.log('res:', res)
+        this.itemService.updateMovementationList(res)
+      })
+
+      this.itemService.$movementationList.subscribe(res => {
+        this.movementations = [ ...res ]
       })
     }
+  }
+
+  deleteMovementation(movementationId: string): void {
+    const confirm_delete = confirm('Deseja excluir essa movimentação?')
+
+    if (confirm_delete) {
+      this.itemService.deleteMovementation(movementationId).subscribe(() => {
+        alert('Movimentação deletada com sucesso!')
+
+        this.itemService.getMovementations().subscribe(res => {
+          this.itemService.updateMovementationList(res)
+        })
+      }, err => {
+        alert(err.error.message)
+      })
+    }
+  }
+
+  return(): void {
+    this.router.navigate(['/index'])
   }
 }

@@ -39,10 +39,6 @@ export class HomeComponent implements OnInit {
     this.utilsService.hideMenuButton(false)
   }
 
-  movementation(item_id: string): void {
-
-  }
-
   deleteItem(item_id: string): void {
     const confirm_delete = confirm('Deseja excluir este item?')
     if (confirm_delete) {

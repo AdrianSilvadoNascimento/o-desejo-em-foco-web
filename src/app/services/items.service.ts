@@ -15,10 +15,17 @@ export class ItemsService {
   private itemListSubject = new BehaviorSubject<ItemModel[]>([])
   $itemList = this.itemListSubject.asObservable()
 
+  private movementationListSubject = new BehaviorSubject<[]>([])
+  $movementationList = this.movementationListSubject.asObservable()
+
   constructor(private http: HttpClient, private router: Router) {}
 
   updateItemList(itemList: ItemModel[]) {
     this.itemListSubject.next(itemList)
+  }
+
+  updateMovementationList(movementationList: []) {
+    this.movementationListSubject.next(movementationList)
   }
   
   registerItem(itemModel: ItemModel): Observable<ItemModel> {
@@ -53,7 +60,12 @@ export class ItemsService {
     return this.http.post(url, body).pipe(tap(res => res))
   }
 
-  getMovementations(): Observable<any> {
-    return this.http.get(`${this.URL}/${localStorage.getItem('userId')}`).pipe(tap((res: any) => res))
+  getMovementations() {
+    return this.http.get(`${this.URL}/movementation/${localStorage.getItem('userId')}`).pipe(tap((res: any) => res))
+  }
+
+  deleteMovementation(movementationId: string) {
+    const url = `${this.URL}/movementation/${movementationId}`
+    return this.http.delete(url).pipe(tap(res => res))
   }
 }

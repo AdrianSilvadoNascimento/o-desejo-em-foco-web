@@ -12,48 +12,64 @@
       text-align: center;
     }
 
-    button {
+    .add-item {
       margin-bottom: 20px;
       box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+      background: #4d4d4d;
+      color: #fff;
+    }
+  }
+
+  table th:first-child {
+    border-top-left-radius: 8px;
+  }
+
+  table th:last-child {
+    border-top-right-radius: 8px;
+  }
+
+  table {
+    width: 100%;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+    max-height: 550px;
+
+    th {
+      background: #4d4d4d;
+      color: #fff;
+      padding: 15px;
     }
 
     .mat-row:nth-child(even) {
       background-color: #f9f9f9;
     }
 
-    table {
-      width: 100%;
-      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
-      max-height: 550px;
-
-      td {
-        .product_link {
-          text-decoration: none;
-        }
-
-        .product_image {
-          width: 50px;
-          padding: 10px;
-          cursor: pointer;
-        }
+    td {
+      .product_link {
+        text-decoration: none;
       }
 
-      th, td {
-        text-align: center;
+      .product_image {
+        width: 50px;
+        padding: 10px;
+        cursor: pointer;
+      }
+    }
+
+    th, td {
+      text-align: center;
+    }
+
+    .action_buttons {
+
+      :nth-child(2) {
+        color: #fe2424;
       }
 
-      .action_buttons {
+      fa-icon {
+        padding: 10px;
+        margin: 0 5px;
+        cursor: pointer;
 
-        :nth-child(2) {
-          color: #fe2424;
-        }
-
-        fa-icon {
-          padding: 10px;
-          margin: 0 5px;
-          cursor: pointer;
-
-        }
       }
     }
   }

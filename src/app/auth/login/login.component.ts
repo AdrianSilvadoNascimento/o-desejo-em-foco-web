@@ -39,8 +39,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.accountService.loginUser(this.loginForm.value).subscribe(res => {
-      console.log('Chegou ao component')
+    this.accountService.loginUser(this.loginForm.value).subscribe(() => {
+      this.utilService.toggle(true)
     }, err => {
       console.error('Error:', err.error.message)
       alert(err.error.message)

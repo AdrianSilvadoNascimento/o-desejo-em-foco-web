@@ -4,9 +4,12 @@
   align-items: center;
   height: 100px;
   background-color: #000;
-
+  
   .menu-toggle {
     margin-right: 15px;
+    background: none;
+    color: #fff;
+    border: 0.25px solid #ccc;
   }
   
   .title-header {
