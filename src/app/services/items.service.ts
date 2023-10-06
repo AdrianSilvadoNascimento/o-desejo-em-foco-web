@@ -5,6 +5,7 @@ import { Router } from '@angular/router'
 
 import { ItemModel } from '../models/item-model'
 import { environment } from 'src/environments/environment'
+import { MovementationModel } from '../models/movementation-model'
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class ItemsService {
   }
   
   registerItem(itemModel: ItemModel): Observable<ItemModel> {
-    const body = {...itemModel, userId: localStorage.getItem('userId') }
+    const body = { ...itemModel, userId: localStorage.getItem('userId') }
     return this.http.post<ItemModel>(`${this.URL}/register-item`, body).pipe(tap(res => res))
   }
   
@@ -38,6 +39,19 @@ export class ItemsService {
   }
 
   getItem(item_id: string): Observable<ItemModel> {
-    return this.http.get<ItemModel>(`${this.URL}/${item_id}`)
+    return this.http.get<ItemModel>(`${this.URL}/get-item/${item_id}`).pipe(tap(res => res))
+  }
+
+  registerMovementation(item_id: string, movementationModel: MovementationModel): Observable<any> {
+    const url = `${this.URL}/movementation/move`
+    const body = {
+      itemId: item_id,
+      userId: localStorage.getItem('userId'),
+      ...movementationModel,
+    }
+
+    return this.http.post(url, body).pipe(tap(res => {
+      console.log('Res:', res)
+    }))
   }
 }

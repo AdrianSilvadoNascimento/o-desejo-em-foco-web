@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 
 import { ItemModel } from 'src/app/models/item-model'
 import { ItemsService } from 'src/app/services/items.service'
-import { faTrash, faPen, faCamera } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faPen, faCamera, faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { UtilsService } from 'src/app/services/utils.service'
 
 @Component({
@@ -16,8 +16,12 @@ export class HomeComponent implements OnInit {
   faTrash = faTrash
   faPen = faPen
   faCamera = faCamera
+  faTransaction = faArrowRightArrowLeft
 
-  constructor(private itemsService: ItemsService, private utilsService: UtilsService) {}
+  constructor(
+    private itemsService: ItemsService,
+    private utilsService: UtilsService
+  ) {}
 
   ngOnInit(): void {
     this.fetchItems()
@@ -35,7 +39,11 @@ export class HomeComponent implements OnInit {
     this.utilsService.hideMenuButton(false)
   }
 
-  deleteItem(item_id: string) {
+  movementation(item_id: string): void {
+
+  }
+
+  deleteItem(item_id: string): void {
     const confirm_delete = confirm('Deseja excluir este item?')
     if (confirm_delete) {
       this.itemsService.deleteItem(item_id).subscribe(() => {

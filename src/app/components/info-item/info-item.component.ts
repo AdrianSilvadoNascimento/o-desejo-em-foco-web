@@ -25,18 +25,18 @@ export class InfoItemComponent implements OnInit {
     this.activateRoute.params.subscribe(param => {
       this.item_id = param['id']
       
-      if (this.item_id) {
-        this.fetchItem(this.item_id)
-      }
+      // if (this.item_id) {
+      //   this.fetchItem(this.item_id)
+      // }
     })
   }
 
   fetchItem(item_id: string): void {
-    this.itemService.getItem(item_id).subscribe(item => {
-      this.itemInfo = item
-    }, err => {
-      alert(err.error.message)
-    })
+    // this.itemService.getItem(item_id).subscribe(item => {
+    //   this.itemInfo = item
+    // }, err => {
+    //   alert(err.error.message)
+    // })
   }
 
   return(): void {

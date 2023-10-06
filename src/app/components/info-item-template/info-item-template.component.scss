@@ -1,0 +1,100 @@
+#info-item-template {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 50px;
+
+  .return-button {
+    background: #000;
+    color: #fff;
+    margin-bottom: 15px;
+  }
+
+  .background {
+    width: 890px;
+    height: 550px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 8px;
+    border: 0.25px solid rgba(0, 0, 0, 0.25);
+
+    h2 {
+      text-align: center;
+      font-weight: bold;
+      font-size: 22px;
+    }
+
+    .content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+
+      .no-movementation {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 25px;
+        margin-top: 70px;
+
+        .item-img {
+          width: 265px;
+          height: 335px;
+          border-radius: 8px;
+          border: 0.25px solid rgba(0, 0, 0, 0.25);
+          background-repeat: no-repeat;
+          background-size: contain;
+          background-position: center;
+          margin-right: 15px;
+        }
+
+        .item-info {
+          p {
+            font-weight: 500;
+            margin-bottom: 20px;
+
+            span.info {
+              font-weight: bold;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+
+      .movementation-form {
+        margin-top: 50px;
+        margin-right: 25px;
+        width: 250px;
+        height: 350px;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        
+        form {
+          display: flex;
+          flex-direction: column;
+
+          input: {
+            width: 80%;
+          }
+
+          button {
+            margin-top: 60%;
+            background: #000;
+            color: #fff;
+          }
+          .disabled {
+            background: #ccc !important;
+            color: #4d4d4d !important;
+          }
+        }
+      }
+    }
+  }
+}

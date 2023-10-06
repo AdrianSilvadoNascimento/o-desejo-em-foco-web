@@ -1,0 +1,64 @@
+<section id="info-item-template">
+  <button class="return-button" mat-raised-button (click)="return()">
+    <fa-icon [icon]="faArrowLeft" size="sm"></fa-icon>
+    Voltar
+  </button>
+
+  <article class="background">
+    <h2>{{ headerMessage }}</h2>
+
+    <div class="content">
+      <div class="item" [class]="!isMovementation ? 'no-movementation' : ''">
+        <div class="item-img" [ngStyle]="{ 'background-image': 'url(' + itemInfo.product_image + ')' }"></div>
+        <div class="item-info">
+          <p>Name do Produto: <span class="info">{{ itemInfo.name }}</span></p>
+          <p>Categoria: <span class="info">{{ itemInfo.category }}</span></p>
+          <p>Quantidade Em Estoque: <span class="info">{{ itemInfo.quantity }}</span></p>
+          <p>Preço Unitário: <span class="info">{{ itemInfo.unit_price }}</span></p>
+          <p>Adicionado Em: <span class="info">{{ itemInfo.created_at | date: 'dd/MM/yyyy HH:mm':'BRT' }}</span></p>
+          <p>Atualizado Em: <span class="info">{{ itemInfo.updated_at | date: 'dd/MM/yyyy HH:mm':'BRT' }}</span></p>
+        </div>
+      </div>
+      <div class="movementation-form" *ngIf="isMovementation">
+        <form [formGroup]="movementationForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline" class="custom-mat-form-field">
+            <mat-label for="move_type" class="custom-mat-label">Movimentação</mat-label>
+            <mat-select
+              matInput
+              name="move_type"
+              id="move_type"
+              formControlName="move_type"
+              required
+            >
+              <mat-option *ngFor="let type of types" [value]="type.value">
+                {{ type.html }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="custom-mat-form-field">
+            <mat-label for="quantity" class="custom-mat-label">Quantidade</mat-label>
+            <input
+              matInput
+              type="number"
+              step="1"
+              min="0"
+              name="quantity"
+              id="quantity"
+              formControlName="quantity"
+              required
+            />
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            type="submit"
+            [disabled]="movementationForm.invalid"
+            [class]="movementationForm.invalid ? 'disabled' : ''"
+          >
+            Cadastrar
+          </button>
+        </form>
+      </div>
+    </div>
+  </article>
+</section>

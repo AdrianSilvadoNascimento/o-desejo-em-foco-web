@@ -14,7 +14,9 @@ import { AppComponent } from './app.component'
 import { HomeComponent } from './components/home/home.component'
 import { RegisterItemComponent } from './components/register-item/register-item.component'
 import { InfoItemComponent } from './components/info-item/info-item.component'
-import { HeaderComponent } from './components/header/header.component'
+import { HeaderComponent } from './components/header/header.component';
+import { InfoItemTemplateComponent } from './components/info-item-template/info-item-template.component';
+import { MovementationsComponent } from './components/movementations/movementations.component'
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { HeaderComponent } from './components/header/header.component'
     RegisterItemComponent,
     InfoItemComponent,
     HeaderComponent,
+    InfoItemTemplateComponent,
+    MovementationsComponent,
   ],
   imports: [
     BrowserModule,

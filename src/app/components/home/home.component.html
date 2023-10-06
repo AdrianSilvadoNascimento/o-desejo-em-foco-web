@@ -33,17 +33,36 @@
         </ng-container>
         <ng-container matColumnDef="unit_price">
           <th mat-header-cell *matHeaderCellDef>Preço Unitário</th>
-          <td mat-cell *matCellDef="let element">{{element.unit_price}}</td>
+          <td mat-cell *matCellDef="let element">{{ element.unit_price }}</td>
         </ng-container>
         <ng-container matColumnDef="updated_at">
           <th mat-header-cell *matHeaderCellDef>Atualizado Em</th>
-          <td mat-cell *matCellDef="let element">{{element.updated_at | date: 'dd/MM/yyyy HH:mm':'BRT' }}</td>
+          <td mat-cell *matCellDef="let element">{{ element.updated_at | date: 'dd/MM/yyyy HH:mm':'BRT' }}</td>
         </ng-container>
         <ng-container matColumnDef="action_buttons">
           <th mat-header-cell *matHeaderCellDef></th>
           <td class="action_buttons" mat-cell *matCellDef="let element">
-            <fa-icon [icon]="faPen" [routerLink]="'/edit-item/' + element.id">Edit</fa-icon>
-            <fa-icon [icon]="faTrash" (click)="deleteItem(element.id)">Delete</fa-icon>
+            <fa-icon
+              [icon]="faPen"
+              [routerLink]="'/edit-item/' + element.id"
+              matTooltip="Editar Item"
+              matTooltipPosition="below"
+            >
+            </fa-icon>
+            <fa-icon
+              [icon]="faTrash"
+              (click)="deleteItem(element.id)"
+              matTooltip="Deletar Item"
+              matTooltipPosition="below"
+              >
+            </fa-icon>
+            <fa-icon
+              [icon]="faTransaction"
+              [routerLink]="'/movementation/' + element.id"
+              matTooltip="Realizar Movimentação Para o Item"
+              matTooltipPosition="below"
+            >
+            </fa-icon>
           </td>
         </ng-container>
   

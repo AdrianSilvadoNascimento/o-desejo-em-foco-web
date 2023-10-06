@@ -1,4 +1,10 @@
-<section id="item-info">
+<app-info-item-template
+  [isMovementation]="false"
+  [itemId]="item_id"
+  [headerMessage]="'Especificações do Produto'"
+>
+</app-info-item-template>
+<!-- <section id="item-info">
   <h3 *ngIf="!item_id; else hasItemId">O item não foi encontrado</h3>
   
   <ng-template #hasItemId>
@@ -37,4 +43,4 @@
       </article>
     </article>
   </ng-template>
-</section>
+</section> -->
