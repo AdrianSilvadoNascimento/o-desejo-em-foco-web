@@ -1,0 +1,134 @@
+<section id="client-template">
+  <button class="return-button" mat-raised-button (click)="return()">
+    <fa-icon [icon]="faArrowLeft" size="sm"></fa-icon>
+    Voltar
+  </button>
+  <article class="background">
+    <h2>{{ headerMessage }}</h2>
+    
+    <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="custom-mat-form-field">
+        <mat-label for="name" class="custom-mat-label">Nome</mat-label>
+        <input
+          matInput
+          type="text"
+          class="form-control"
+          class="custom-mat-input"
+          name="name"
+          id="name"
+          formControlName="name"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="custom-mat-form-field">
+        <mat-label for="lastname" class="custom-mat-label">Sobrenome</mat-label>
+        <input
+          matInput
+          type="text"
+          class="form-control"
+          class="custom-mat-input"
+          name="lastname"
+          id="lastname"
+          formControlName="lastname"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="custom-mat-form-field">
+        <mat-label for="age" class="custom-mat-label">Idade</mat-label>
+        <input
+          matInput
+          type="number"
+          class="form-control"
+          class="custom-mat-input"
+          min="0"
+          name="age"
+          id="age"
+          formControlName="age"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="custom-mat-form-field">
+        <mat-label for="email" class="custom-mat-label">Email</mat-label>
+        <input
+          matInput
+          type="email"
+          class="form-control"
+          class="custom-mat-input"
+          name="email"
+          id="email"
+          formControlName="email"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="custom-mat-form-field">
+        <mat-label for="street" class="custom-mat-label">Rua</mat-label>
+        <input
+          matInput
+          type="text"
+          class="form-control"
+          class="custom-mat-input"
+          name="street"
+          id="street"
+          formControlName="street"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="custom-mat-form-field">
+        <mat-label for="house_number" class="custom-mat-label">Número</mat-label>
+        <input
+          matInput
+          type="text"
+          class="form-control"
+          class="custom-mat-input"
+          name="house_number"
+          id="house_number"
+          formControlName="house_number"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="custom-mat-form-field">
+        <mat-label for="postal_code" class="custom-mat-label">CEP</mat-label>
+        <input
+          matInput
+          type="text"
+          class="form-control"
+          class="custom-mat-input"
+          name="postal_code"
+          id="postal_code"
+          formControlName="postal_code"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="custom-mat-form-field">
+        <mat-label for="neighbourhood" class="custom-mat-label">Bairro</mat-label>
+        <input
+          matInput
+          type="text"
+          class="form-control"
+          class="custom-mat-input"
+          name="neighbourhood"
+          id="neighbourhood"
+          formControlName="neighbourhood"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="custom-mat-form-field">
+        <mat-label for="country" class="custom-mat-label">Estado</mat-label>
+        <input
+          matInput
+          type="text"
+          class="form-control"
+          class="custom-mat-input"
+          name="country"
+          id="country"
+          formControlName="country"
+          required
+        />
+      </mat-form-field>
+
+      <article class="save-button-area">
+        <button mat-raised-button type="submit" class="save-button">{{ save_button }}</button>
+      </article>
+    </form>
+  </article>
+</section>

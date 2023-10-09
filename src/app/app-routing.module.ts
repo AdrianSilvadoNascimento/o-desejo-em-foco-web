@@ -5,6 +5,8 @@ import { HomeComponent } from './components/home/home.component'
 import { InfoItemComponent } from './components/info-item/info-item.component'
 import { RegisterItemComponent } from './components/register-item/register-item.component'
 import { MovementationsComponent } from './components/movementations/movementations.component'
+import { ClientComponent } from './components/client/client.component'
+import { ClientInfoTemplateComponent } from './components/client-info-template/client-info-template.component'
 
 const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
@@ -15,10 +17,14 @@ const routes: Routes = [
   { path: 'edit-item/:id', component: RegisterItemComponent },
   { path: 'movementations', component: MovementationsComponent },
   { path: 'movementation/:id', component: MovementationsComponent },
+  { path: 'clients', component: ClientComponent },
+  { path: 'client/:id', component: ClientComponent },
+  { path: 'edit-client/:id', component: ClientInfoTemplateComponent },
+  { path: 'register-client', component: ClientInfoTemplateComponent },
 ]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

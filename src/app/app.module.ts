@@ -16,7 +16,9 @@ import { RegisterItemComponent } from './components/register-item/register-item.
 import { InfoItemComponent } from './components/info-item/info-item.component'
 import { HeaderComponent } from './components/header/header.component';
 import { InfoItemTemplateComponent } from './components/info-item-template/info-item-template.component';
-import { MovementationsComponent } from './components/movementations/movementations.component'
+import { MovementationsComponent } from './components/movementations/movementations.component';
+import { ClientComponent } from './components/client/client.component';
+import { ClientInfoTemplateComponent } from './components/client-info-template/client-info-template.component'
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { MovementationsComponent } from './components/movementations/movementati
     HeaderComponent,
     InfoItemTemplateComponent,
     MovementationsComponent,
+    ClientComponent,
+    ClientInfoTemplateComponent,
   ],
   imports: [
     BrowserModule,
