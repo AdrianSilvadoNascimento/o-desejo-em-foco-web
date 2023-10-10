@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { BehaviorSubject, Observable, tap } from 'rxjs'
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Router } from '@angular/router'
 
 import { ItemModel } from '../models/item-model'
@@ -12,6 +12,7 @@ import { MovementationModel } from '../models/movementation-model'
 })
 export class ItemsService {
   private readonly URL = environment.BASE_URL
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' })
   private itemListSubject = new BehaviorSubject<ItemModel[]>([])
   $itemList = this.itemListSubject.asObservable()
 
@@ -29,24 +30,25 @@ export class ItemsService {
   }
   
   registerItem(itemModel: ItemModel): Observable<ItemModel> {
-    const body = { ...itemModel, userId: localStorage.getItem('userId') }
-    return this.http.post<ItemModel>(`${this.URL}/register-item`, body).pipe(tap(res => res))
+    return this.http.post<ItemModel>(
+      `${this.URL}/register-item/${localStorage.getItem('userId')}`, itemModel, { headers: this.headers }
+    ).pipe(tap(res => res))
   }
   
   updateItem(itemModel: ItemModel, item_id: string): Observable<ItemModel> {
-    return this.http.put<ItemModel>(`${this.URL}/update-item/${item_id}`, itemModel)
+    return this.http.put<ItemModel>(`${this.URL}/update-item/${item_id}`, itemModel, { headers: this.headers })
   }
 
   deleteItem(item_id: string): Observable<ItemModel> {
-    return this.http.delete<ItemModel>(`${this.URL}/delete-item/${item_id}`)
+    return this.http.delete<ItemModel>(`${this.URL}/delete-item/${item_id}`, { headers: this.headers })
   }
   
   getItems(): Observable<ItemModel[]> {
-    return this.http.get<ItemModel[]>(`${this.URL}/${localStorage.getItem('userId')}`)
+    return this.http.get<ItemModel[]>(`${this.URL}/${localStorage.getItem('userId')}`, { headers: this.headers })
   }
 
   getItem(item_id: string): Observable<ItemModel> {
-    return this.http.get<ItemModel>(`${this.URL}/get-item/${item_id}`).pipe(tap(res => res))
+    return this.http.get<ItemModel>(`${this.URL}/get-item/${item_id}`, { headers: this.headers }).pipe(tap(res => res))
   }
 
   registerMovementation(item_id: string, movementationModel: MovementationModel): Observable<any> {
@@ -57,15 +59,15 @@ export class ItemsService {
       ...movementationModel,
     }
 
-    return this.http.post(url, body).pipe(tap(res => res))
+    return this.http.post(url, body, { headers: this.headers }).pipe(tap(res => res))
   }
 
   getMovementations() {
-    return this.http.get(`${this.URL}/movementation/${localStorage.getItem('userId')}`).pipe(tap((res: any) => res))
+    return this.http.get(`${this.URL}/movementation/${localStorage.getItem('userId')}`, { headers: this.headers }).pipe(tap((res: any) => res))
   }
 
   deleteMovementation(movementationId: string) {
-    const url = `${this.URL}/movementation/${movementationId}`
-    return this.http.delete(url).pipe(tap(res => res))
+    const url = `${this.URL}/movementation/delete-move/${movementationId}`
+    return this.http.delete(url, { headers: this.headers }).pipe(tap(res => res))
   }
 }

@@ -12,9 +12,8 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
   styleUrls: ['./client-info-template.component.scss'],
 })
 export class ClientInfoTemplateComponent implements OnInit {
-  @Input() headerMessage: string = 'Lista de Clientes'
-  @Input() itemId!: string
-  @Input() isEditing: boolean = false
+  itemId!: string
+  headerMessage: string = 'Cadastro de Cliente'
   save_button: string = 'Cadastrar'
   faArrowLeft = faArrowLeft
   clientForm = new FormGroup({})
@@ -28,7 +27,8 @@ export class ClientInfoTemplateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.isEditing) {
+    if (this.itemId) {
+      this.headerMessage = 'Edição de Cliente'
       this.save_button = 'Salvar'
       this.clientService.getClient(this.itemId).subscribe(res => {
         this.clientInfos = res
@@ -36,25 +36,22 @@ export class ClientInfoTemplateComponent implements OnInit {
         this.populateForm(this.clientInfos)
       })
     } else {
-      console.log('chegou no else')
       this.createForm(new ClientModel())
     }
-
-    this.fetchClients()
   }
 
   onSubmit(): void {
-
-  }
-
-  fetchClients(): void {
-    if (!this.itemId) {
-      this.clientService.getClients().subscribe(res => {
-        this.clientService.updateClientList(res)
+    if (this.itemId) {
+      this.clientService.updateClient(this.itemId, this.clientForm.value).subscribe(() => {
+        alert('Cliente atualizado com sucesso!')
+      }, err => {
+        alert(err.error.message)
       })
-
-      this.clientService.$clientList.subscribe(res => {
-        this.clientList = [ ...res ]
+    } else {
+      this.clientService.registerClient(this.clientForm.value).subscribe(() => {
+        alert('Cliente registrado com sucesso!')
+      }, err => {
+        alert(err.error.message)
       })
     }
   }
@@ -93,23 +90,7 @@ export class ClientInfoTemplateComponent implements OnInit {
     })
   }
 
-  deleteClient(clientId: string): void {
-    const confirm_delete = confirm('Tem certeza que deseja excluir este cliente?')
-
-    if (confirm_delete) {
-      this.clientService.deleteClient(clientId).subscribe(() => {
-        alert('Cliente excluído com sucesso')
-
-        this.clientService.getClients().subscribe(res => {
-          this.clientService.updateClientList(res)
-        })
-      }, err => {
-        alert(err.error.message)
-      })
-    }
-  }
-
   return(): void {
-    this.router.navigate(['/index'])
+    this.router.navigate(['/clients'])
   }
 }

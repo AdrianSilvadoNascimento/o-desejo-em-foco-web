@@ -68,6 +68,6 @@ export class InfoItemTemplateComponent implements OnInit {
   }
 
   return(): void {
-    this.router.navigate(['/'])
+    this.router.navigate(['/index'])
   }
 }

@@ -11,7 +11,6 @@ import { ClientService } from 'src/app/services/client.service'
   styleUrls: ['./client.component.scss'],
 })
 export class ClientComponent implements OnInit {
-  itemId!: string
   headerMessage: string = 'Cadastro de Cliente'
   isEditing: boolean = false
   displayedColumns: string[] = ['name', 'age', 'email', 'buy_quantity', 'created_at', 'updated_at', 'action_buttons']
@@ -24,23 +23,17 @@ export class ClientComponent implements OnInit {
   constructor(private clientService: ClientService, private router: Router) {}
 
   ngOnInit(): void {
-    this.clientService.getClient(this.itemId).subscribe(res => {
-      this.isEditing = !!res
-    })
-
     this.fetchClients()
   }
 
   fetchClients(): void {
-    if (!this.itemId) {
-      this.clientService.getClients().subscribe(res => {
-        this.clientService.updateClientList(res)
-      })
+    this.clientService.getClients().subscribe(res => {
+      this.clientService.updateClientList(res)
+    })
 
-      this.clientService.$clientList.subscribe(res => {
-        this.clientList = [ ...res ]
-      })
-    }
+    this.clientService.$clientList.subscribe(res => {
+      this.clientList = [ ...res ]
+    })
   }
 
   deleteClient(clientId: string): void {
@@ -60,6 +53,6 @@ export class ClientComponent implements OnInit {
   }
 
   return(): void {
-    this.router.navigate(['/index'])
+    this.router.navigate(['/clients'])
   }
 }

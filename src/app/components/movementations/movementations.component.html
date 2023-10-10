@@ -63,14 +63,16 @@
           <ng-container matColumnDef="action_buttons">
             <th mat-header-cell *matHeaderCellDef></th>
             <td class="action_buttons" mat-cell *matCellDef="let element">
-              <fa-icon
-                class="delete_icon"
-                [icon]="faTrash"
-                (click)="deleteMovementation(element.id)"
-                matTooltip="Deletar Movimentação"
-                matTooltipPosition="below"
-                >
-              </fa-icon>
+              <span>
+                <fa-icon
+                  class="delete_icon"
+                  [icon]="faTrash"
+                  (click)="deleteMovementation(element.id)"
+                  matTooltip="Deletar Movimentação"
+                  matTooltipPosition="below"
+                  >
+                </fa-icon>
+              </span>
             </td>
           </ng-container>
     

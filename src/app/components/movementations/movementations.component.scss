@@ -25,6 +25,14 @@
   table th:last-child {
     border-top-right-radius: 8px;
   }
+
+  table td.action_buttons {
+    span {
+      margin: 0 100% !important;
+      text-align: center;
+      cursor: pointer;
+    }
+  }
   
   table {
     width: 100%;
