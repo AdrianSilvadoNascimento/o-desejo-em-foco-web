@@ -5,14 +5,14 @@
   </button>
 
   <article class="table">
-    <h3 class="no-movementations" *ngIf="!clientList?.length; else hasMovementations">Não há movimentações registradas</h3>
+    <h3 class="no-clients" *ngIf="!clientList?.length; else hasClients">Não há clientes registrados</h3>
     
-    <ng-template #hasMovementations>
+    <ng-template #hasClients>
       <table mat-table [dataSource]="clientList">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Nome</th>
           <td mat-cell *matCellDef="let element">
-            <a class="product_link" [routerLink]="'/client/' + element.id">{{ element.name + ' ' + element.lastname }}</a>
+            <a class="product_link" [routerLink]="'/info-client/' + element.id">{{ element.name + ' ' + element.lastname }}</a>
           </td>
         </ng-container>
         <ng-container matColumnDef="age">

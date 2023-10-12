@@ -8,8 +8,8 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-client-info-template',
-  templateUrl: './client-info-template.component.html',
-  styleUrls: ['./client-info-template.component.scss'],
+  templateUrl: './client-form.component.html',
+  styleUrls: ['./client-form.component.scss'],
 })
 export class ClientInfoTemplateComponent implements OnInit {
   itemId!: string
