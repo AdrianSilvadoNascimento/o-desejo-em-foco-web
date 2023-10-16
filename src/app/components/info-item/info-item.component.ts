@@ -16,27 +16,10 @@ export class InfoItemComponent implements OnInit {
   faArrowLeft = faArrowLeft
 
   constructor(
-    private itemService: ItemsService,
-    private activateRoute: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.activateRoute.params.subscribe(param => {
-      this.item_id = param['id']
-      
-      // if (this.item_id) {
-      //   this.fetchItem(this.item_id)
-      // }
-    })
-  }
-
-  fetchItem(item_id: string): void {
-    // this.itemService.getItem(item_id).subscribe(item => {
-    //   this.itemInfo = item
-    // }, err => {
-    //   alert(err.error.message)
-    // })
   }
 
   return(): void {

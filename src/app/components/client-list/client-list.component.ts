@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 
-import { faCamera, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faCamera, faPen, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { ClientModel } from 'src/app/models/client-model'
 import { ClientService } from 'src/app/services/client.service'
 
@@ -13,12 +13,13 @@ import { ClientService } from 'src/app/services/client.service'
 export class ClientComponent implements OnInit {
   headerMessage: string = 'Cadastro de Cliente'
   isEditing: boolean = false
-  displayedColumns: string[] = ['name', 'age', 'email', 'buy_quantity', 'created_at', 'updated_at', 'action_buttons']
+  displayedColumns: string[] = ['name', 'age', 'email', 'created_at', 'updated_at', 'action_buttons']
   clientInfos: ClientModel = new ClientModel()
   clientList: ClientModel[] = []
   faCamera = faCamera
   faTrash = faTrash
   faPlus = faPlus
+  faPen = faPen
   
   constructor(private clientService: ClientService, private router: Router) {}
 

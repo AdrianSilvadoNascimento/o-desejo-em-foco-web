@@ -25,6 +25,14 @@
   table th:last-child {
     border-top-right-radius: 8px;
   }
+
+  table td.action_buttons {
+    fa-icon {
+      margin: 0 5px;
+      padding: 10px;
+      cursor: pointer;
+    }
+  }
   
   table {
     width: 100%;

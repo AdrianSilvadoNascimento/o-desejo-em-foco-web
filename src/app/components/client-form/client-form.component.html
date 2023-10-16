@@ -5,7 +5,7 @@
   </button>
   <article class="background">
     <h2>{{ headerMessage }}</h2>
-    
+
     <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="outline" class="custom-mat-form-field">
         <mat-label for="name" class="custom-mat-label">Nome</mat-label>
@@ -32,6 +32,19 @@
           formControlName="lastname"
           required
         />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="custom-mat-form-field">
+        <mat-label for="sex" class="custom-mat-label">Sexo</mat-label>
+        <mat-select
+          class="custom-mat-input fomr-control"
+          name="sex"
+          id="sex"
+          formControlName="sex"
+        >
+          <mat-option *ngFor="let sex of listOfSex" [value]="sex.value">
+            {{ sex.html }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline" class="custom-mat-form-field">
         <mat-label for="age" class="custom-mat-label">Idade</mat-label>
@@ -100,15 +113,15 @@
         />
       </mat-form-field>
       <mat-form-field appearance="outline" class="custom-mat-form-field">
-        <mat-label for="neighbourhood" class="custom-mat-label">Bairro</mat-label>
+        <mat-label for="neighborhood" class="custom-mat-label">Bairro</mat-label>
         <input
           matInput
           type="text"
           class="form-control"
           class="custom-mat-input"
-          name="neighbourhood"
-          id="neighbourhood"
-          formControlName="neighbourhood"
+          name="neighborhood"
+          id="neighborhood"
+          formControlName="neighborhood"
           required
         />
       </mat-form-field>

@@ -9,7 +9,24 @@
         </span>
       </div>
       <div class="card">
+        <div class="main-content">
+          <button mat-button class="edit-button" [routerLink]="'/edit-client/' + clientInfo.id">
+            <fa-icon [icon]="faPen"></fa-icon>
+          </button>
+          <h2>{{ clientInfo.name }} {{ clientInfo.lastname }}</h2>
+          <h4>Sexo: {{ clientInfo.sex }}</h4>
+          <h4>Idade: {{ clientInfo.age }}</h4>
+        </div>
 
+        <div class="address-content">
+          <h3 class="address-header">Endereço</h3>
+
+          <h4>Nome da Rua: {{ clientInfo.street }}</h4>
+          <h4>Número: {{ clientInfo.house_number }}</h4>
+          <h4>Bairro: {{ clientInfo.neighborhood }}</h4>
+          <h4>Cidade: {{ clientInfo.country }}</h4>
+          <h4>CEP: {{ clientInfo.postal_code }}</h4>
+        </div>
       </div>
     </article>
   </article>

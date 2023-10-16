@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 
 import { ClientModel } from '../../models/client-model'
 import { ClientService } from '../../services/client.service'
@@ -12,37 +12,47 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
   styleUrls: ['./client-form.component.scss'],
 })
 export class ClientInfoTemplateComponent implements OnInit {
-  itemId!: string
-  headerMessage: string = 'Cadastro de Cliente'
-  save_button: string = 'Cadastrar'
+  clientId!: string
+  headerMessage: string = ''
+  save_button: string = ''
   faArrowLeft = faArrowLeft
-  clientForm = new FormGroup({})
+  clientForm: FormGroup = new FormGroup({})
   clientInfos: ClientModel = new ClientModel()
   clientList: ClientModel[] = []
+  listOfSex: { html: string, value: string }[] = [
+    { html: 'Masculino', value: 'Masculino' },
+    { html: 'Feminino', value: 'Feminino' },
+  ]
   
   constructor(
     private formBuilder: FormBuilder,
     private clientService: ClientService,
-    private router: Router
+    private router: Router,
+    private activateRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    if (this.itemId) {
+    this.headerMessage = 'Cadastro de Cliente'
+    this.save_button = 'Cadastrar'
+    
+    this.activateRoute.params.subscribe(param => {
+      this.clientId = param['id']
+    })
+    
+    this.createForm(new ClientModel())
+
+    if (this.clientId) {
       this.headerMessage = 'Edição de Cliente'
       this.save_button = 'Salvar'
-      this.clientService.getClient(this.itemId).subscribe(res => {
-        this.clientInfos = res
-
-        this.populateForm(this.clientInfos)
+      this.clientService.getClient(this.clientId).subscribe(res => {
+        this.populateForm(res)
       })
-    } else {
-      this.createForm(new ClientModel())
     }
   }
 
   onSubmit(): void {
-    if (this.itemId) {
-      this.clientService.updateClient(this.itemId, this.clientForm.value).subscribe(() => {
+    if (this.clientId) {
+      this.clientService.updateClient(this.clientId, this.clientForm.value).subscribe(() => {
         alert('Cliente atualizado com sucesso!')
       }, err => {
         alert(err.error.message)
@@ -57,14 +67,16 @@ export class ClientInfoTemplateComponent implements OnInit {
   }
 
   populateForm(clientModel: ClientModel): void {
+    console.log(clientModel)
     this.clientForm.patchValue({
       name: clientModel.name,
       lastname: clientModel.lastname,
+      sex: clientModel.sex,
       age: clientModel.age,
       email: clientModel.email,
       street: clientModel.street,
       house_number: clientModel.house_number,
-      neighbourhood: clientModel.neighbourhood,
+      neighborhood: clientModel.neighborhood,
       postal_code: clientModel.postal_code,
       country: clientModel.country,
     })
@@ -74,6 +86,7 @@ export class ClientInfoTemplateComponent implements OnInit {
     this.clientForm = this.formBuilder.group({
       name: [clientModel.name, Validators.required],
       lastname: [clientModel.lastname, Validators.required],
+      sex: [clientModel.sex, Validators.required],
       age: [clientModel.age, Validators.required],
       email: [clientModel.email,
         [
@@ -84,13 +97,13 @@ export class ClientInfoTemplateComponent implements OnInit {
       ],
       street: [clientModel.street, Validators.required],
       house_number: [clientModel.house_number, Validators.required],
-      neighbourhood: [clientModel.neighbourhood, Validators.required],
+      neighborhood: [clientModel.neighborhood, Validators.required],
       postal_code: [clientModel.postal_code, Validators.required],
       country: [clientModel.country, Validators.required],
     })
   }
 
   return(): void {
-    this.router.navigate(['/clients'])
+    this.router.navigate([this.clientId ? `/info-client/${this.clientId}` : '/clients'])
   }
 }

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 
 import { ClientModel } from '../models/client-model'
 import { environment } from 'src/environments/environment'
+import { Router } from '@angular/router'
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class ClientService {
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' })
   $clientList = this.updatedClientList.asObservable()
   
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   updateClientList(clientList: ClientModel[]) {
     this.updatedClientList.next(clientList)
@@ -27,13 +28,17 @@ export class ClientService {
   }
 
   updateClient(clientId: string, clientModel: ClientModel): Observable<ClientModel> {
-    const url = `${this.URL}/client/edit-client/${clientId}`
+    const url = `${this.URL}/client/update-client/${clientId}`
     
-    return this.http.put<ClientModel>(url, clientModel, { headers: this.headers }).pipe(tap(res => res))
+    return this.http.put<ClientModel>(url, clientModel, { headers: this.headers }).pipe(tap(res => {
+      this.router.navigate([`/info-client/${clientId}`])
+      
+      return res
+    }))
   }
   
   getClient(clientId: string): Observable<ClientModel> {
-    const url = `${this.URL}/client/${clientId}`
+    const url = `${this.URL}/client/get-client/${clientId}`
     
     return this.http.get<ClientModel>(url, { headers: this.headers }).pipe(tap(res => res))
   }
