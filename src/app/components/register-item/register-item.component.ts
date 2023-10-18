@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { FormGroup, FormBuilder } from '@angular/forms'
+
+import { ActivatedRoute } from '@angular/router'
 
 import { ItemModel } from 'src/app/models/item-model'
 import { faCamera } from '@fortawesome/free-solid-svg-icons'
 import { ConvertImageService } from 'src/app/services/convert-image.service'
 import { ItemsService } from 'src/app/services/items.service'
-import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-register-item',
   templateUrl: './register-item.component.html',
   styleUrls: ['./register-item.component.scss'],
+  standalone: false,
 })
-export class RegisterItemComponent implements OnInit {
+export class RegisterItemComponent {
   itemGroup: FormGroup = new FormGroup({})
   selectedImage!: any
   selectedFile!: File

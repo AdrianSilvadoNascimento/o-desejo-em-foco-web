@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 
 import { faCamera, faPen, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -9,8 +9,10 @@ import { ClientService } from 'src/app/services/client.service'
   selector: 'app-client',
   templateUrl: './client-list.component.html',
   styleUrls: ['./client-list.component.scss'],
+  standalone: false,
 })
-export class ClientComponent implements OnInit {
+
+export class ClientComponent {
   headerMessage: string = 'Cadastro de Cliente'
   isEditing: boolean = false
   displayedColumns: string[] = ['name', 'age', 'email', 'created_at', 'updated_at', 'action_buttons']

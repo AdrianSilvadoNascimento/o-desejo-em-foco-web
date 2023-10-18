@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 
@@ -11,8 +11,9 @@ import { ItemsService } from 'src/app/services/items.service'
   selector: 'app-info-item-template',
   templateUrl: './info-item-template.component.html',
   styleUrls: ['./info-item-template.component.scss'],
+  standalone: false,
 })
-export class InfoItemTemplateComponent implements OnInit {
+export class InfoItemTemplateComponent {
   @Input() itemId!: string
   @Input() isMovementation: boolean = false
   @Input() headerMessage!: string

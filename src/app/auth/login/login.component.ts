@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { Component } from '@angular/core'
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
 
 import { EmployeeModel } from 'src/app/models/employee-model'
 import { AccountService } from 'src/app/services/account.service'
@@ -10,12 +10,12 @@ import { UtilsService } from 'src/app/services/utils.service'
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
-  loginForm: FormGroup = new FormGroup({})
+export class LoginComponent {
+  loginForm: UntypedFormGroup = new UntypedFormGroup({})
 
   constructor(
     private utilService: UtilsService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private accountService: AccountService
   ) {}
 

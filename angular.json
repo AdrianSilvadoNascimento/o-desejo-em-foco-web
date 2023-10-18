@@ -109,5 +109,7 @@
       }
     }
   },
-  "defaultProject": "estoque_web"
+  "cli": {
+    "analytics": false
+  }
 }

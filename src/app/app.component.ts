@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 
 import { UtilsService } from './services/utils.service'
 import { AccountService } from './services/account.service'
@@ -7,8 +7,9 @@ import { AccountService } from './services/account.service'
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  standalone: false,
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   toggleSideNav!: boolean
   shouldShowButton!: boolean
 

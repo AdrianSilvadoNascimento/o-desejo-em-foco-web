@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 
 import { ItemModel } from 'src/app/models/item-model'
 import { ItemsService } from 'src/app/services/items.service'
@@ -9,8 +9,9 @@ import { UtilsService } from 'src/app/services/utils.service'
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  standalone: false,
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   displayedColumns: string[] = ['image', 'name', 'category', 'quantity', 'unit_price', 'updated_at', 'action_buttons']
   items: ItemModel[] = []
   faTrash = faTrash

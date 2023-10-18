@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { Component } from '@angular/core'
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { EmployerModel } from 'src/app/models/employer-model'
 import { AccountService } from 'src/app/services/account.service'
@@ -11,14 +11,14 @@ import { UtilsService } from 'src/app/services/utils.service'
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   faArrowLeft = faArrowLeft
-  registerForm = new FormGroup({})
+  registerForm = new UntypedFormGroup({})
 
   constructor(
     private utilService: UtilsService,
     private accountService: AccountService,
-    private formBuilder: FormBuilder
+    private formBuilder: UntypedFormBuilder
   ) {}
 
   ngOnInit(): void {

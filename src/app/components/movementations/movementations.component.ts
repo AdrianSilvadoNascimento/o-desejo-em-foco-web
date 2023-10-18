@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { faArrowLeft, faCamera, faTrash } from '@fortawesome/free-solid-svg-icons'
 
+import { faArrowLeft, faCamera, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { ItemsService } from 'src/app/services/items.service'
 
 @Component({
-  selector: 'app-movementations',
-  templateUrl: './movementations.component.html',
-  styleUrls: ['./movementations.component.scss'],
+    selector: 'app-movementations',
+    templateUrl: './movementations.component.html',
+    styleUrls: ['./movementations.component.scss'],
+    standalone: false,
 })
-export class MovementationsComponent implements OnInit {
+export class MovementationsComponent {
   itemId!: string
   displayedColumns: string[] = ['image', 'name', 'category', 'quantity', 'unit_price', 'move_type', 'updated_at', 'responsible', 'action_buttons']
   movementations: any

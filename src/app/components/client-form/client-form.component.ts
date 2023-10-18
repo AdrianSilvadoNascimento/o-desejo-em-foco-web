@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { Component } from '@angular/core'
+import { FormGroup, Validators, FormBuilder } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 
 import { ClientModel } from '../../models/client-model'
@@ -10,8 +10,9 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
   selector: 'app-client-info-template',
   templateUrl: './client-form.component.html',
   styleUrls: ['./client-form.component.scss'],
+  standalone: false,
 })
-export class ClientInfoTemplateComponent implements OnInit {
+export class ClientInfoTemplateComponent {
   clientId!: string
   headerMessage: string = ''
   save_button: string = ''
@@ -67,7 +68,6 @@ export class ClientInfoTemplateComponent implements OnInit {
   }
 
   populateForm(clientModel: ClientModel): void {
-    console.log(clientModel)
     this.clientForm.patchValue({
       name: clientModel.name,
       lastname: clientModel.lastname,
