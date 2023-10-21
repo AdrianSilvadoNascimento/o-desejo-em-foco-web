@@ -6,7 +6,7 @@
   
   article {
     margin-top: 50px;
-    width: 900px;
+    width: 90%;
 
     .no-products {
       text-align: center;
@@ -14,6 +14,7 @@
 
     .add-item {
       margin-bottom: 20px;
+      margin-right: 20px;
       box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
       background: #4d4d4d;
       color: #fff;
@@ -60,16 +61,20 @@
     }
 
     .action_buttons {
-
       :nth-child(2) {
         color: #fe2424;
       }
 
-      fa-icon {
-        padding: 10px;
-        margin: 0 5px;
-        cursor: pointer;
+      .icons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
+        fa-icon {
+          padding: 10px;
+          margin: 0 5px;
+          cursor: pointer;
+        }
       }
     }
   }

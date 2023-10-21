@@ -51,6 +51,12 @@ export class ItemsService {
     return this.http.get<ItemModel>(`${this.URL}/get-item/${item_id}`, { headers: this.headers }).pipe(tap(res => res))
   }
 
+  getItemByBarcode(barcode: string): Observable<ItemModel> {
+    const url = `${this.URL}/get-item-by-barcode/${barcode}`
+    
+    return this.http.get<ItemModel>(url, { headers: this.headers }).pipe(tap(res => res))
+  }
+
   registerMovementation(item_id: string, movementationModel: MovementationModel): Observable<any> {
     const url = `${this.URL}/movementation/move`
     const body = {

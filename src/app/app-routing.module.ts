@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'account', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   { path: 'register-item', component: RegisterItemComponent },
   { path: 'edit-item/:id', component: RegisterItemComponent },
+  { path: 'register-item/:barcode', component: RegisterItemComponent },
   { path: 'movementations', component: MovementationsComponent },
   { path: 'movementation/:id', component: MovementationsComponent },
   { path: 'clients', component: ClientComponent },

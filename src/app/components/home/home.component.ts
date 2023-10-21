@@ -1,9 +1,12 @@
 import { Component } from '@angular/core'
 
+import { BarcodeFormat } from '@zxing/library'
+
 import { ItemModel } from 'src/app/models/item-model'
 import { ItemsService } from 'src/app/services/items.service'
 import { faTrash, faPen, faCamera, faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { UtilsService } from 'src/app/services/utils.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-home',
@@ -12,7 +15,25 @@ import { UtilsService } from 'src/app/services/utils.service'
   standalone: false,
 })
 export class HomeComponent {
-  displayedColumns: string[] = ['image', 'name', 'category', 'quantity', 'unit_price', 'updated_at', 'action_buttons']
+  displayedColumns: string[] = [
+    'image',
+    'name',
+    'category',
+    'quantity',
+    'unit_price',
+    'sale_price',
+    'barcode',
+    'updated_at',
+    'action_buttons',
+  ]
+  formatsEnabled: BarcodeFormat[] = [
+    BarcodeFormat.CODE_128,
+    BarcodeFormat.EAN_13,
+    BarcodeFormat.UPC_A,
+    BarcodeFormat.UPC_EAN_EXTENSION,
+    BarcodeFormat.UPC_E,
+  ]
+  isScanning: boolean = false
   items: ItemModel[] = []
   faTrash = faTrash
   faPen = faPen
@@ -21,7 +42,8 @@ export class HomeComponent {
 
   constructor(
     private itemsService: ItemsService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +60,21 @@ export class HomeComponent {
     })
 
     this.utilsService.hideMenuButton(false)
+  }
+
+  onCodeResult(resultString: string): void {
+    this.itemsService.getItemByBarcode(resultString).subscribe(res => {
+      this.isScanning = false
+      this.router.navigate([`/info-item/${res.id}`])
+    }, err => {
+      alert(err.error.message)
+      const confirm_button = confirm('Gostaria de registrar um produto com esse código?')
+      this.isScanning = false
+
+      if (confirm_button) {
+        this.router.navigate([`/register-item/${resultString}`])
+      }
+    })
   }
 
   deleteItem(item_id: string): void {

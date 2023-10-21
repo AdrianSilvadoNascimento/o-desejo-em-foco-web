@@ -1,7 +1,8 @@
 import { Component } from '@angular/core'
 import { FormGroup, FormBuilder } from '@angular/forms'
-
 import { ActivatedRoute } from '@angular/router'
+
+import { BarcodeFormat } from '@zxing/library'
 
 import { ItemModel } from 'src/app/models/item-model'
 import { faCamera } from '@fortawesome/free-solid-svg-icons'
@@ -20,10 +21,19 @@ export class RegisterItemComponent {
   selectedFile!: File
   isChangingImage: boolean = false
   faCamera = faCamera
+  isScanning: boolean = false
   item_id!: string
+  item_barcode!: string
   itemInfo!: ItemModel
   save_button: string = 'Cadastrar'
   header: string = 'Novo Produto'
+  formatsEnabled: BarcodeFormat[] = [
+    BarcodeFormat.CODE_128,
+    BarcodeFormat.EAN_13,
+    BarcodeFormat.UPC_A,
+    BarcodeFormat.UPC_EAN_EXTENSION,
+    BarcodeFormat.UPC_E,
+  ]
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,6 +47,7 @@ export class RegisterItemComponent {
 
     this.activatedRoute.params.subscribe(param => {
       this.item_id = param['id']
+      this.item_barcode = param['barcode']
     })
 
     if (this.item_id) {
@@ -49,11 +60,17 @@ export class RegisterItemComponent {
           name: res.name,
           quantity: res.quantity,
           unit_price: res.unit_price,
+          sale_price: res.sale_price,
+          barcode: res.barcode,
           category: res.category,
         })
         this.selectedImage = res.product_image
-        const image = new File([res.product_image], 'ovo.jpg', { type: 'image/jpeg' })
+        const image = new File([res.product_image], `product_image.jpg`, { type: 'image/jpeg' })
         this.selectedFile = image
+      })
+    } else if (this.item_barcode) {
+      this.itemGroup.patchValue({
+        barcode: this.item_barcode,
       })
     }
   }
@@ -62,10 +79,19 @@ export class RegisterItemComponent {
     this.itemGroup = this.formBuilder.group({
       name: [itemModel.name],
       unit_price: [itemModel.unit_price],
+      sale_price: [itemModel.sale_price],
+      barcode: [itemModel.barcode],
       category: [itemModel.category],
-      quantity: [itemModel.quantity],
       product_image: [itemModel.product_image],
     })
+  }
+
+  onCodeResult(barcode: string): void {
+    this.itemGroup.patchValue({
+      barcode: barcode,
+    })
+
+    this.isScanning = false
   }
 
   async onSubmit() {

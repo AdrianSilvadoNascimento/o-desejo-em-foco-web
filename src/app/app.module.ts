@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module'
 import { AngularMaterialModule } from './angular-material.module'
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { ZXingScannerModule } from '@zxing/ngx-scanner'
 
 import { AppComponent } from './app.component'
 import { ClientInfoTemplateComponent } from './components/client-form/client-form.component'
@@ -42,6 +43,7 @@ import { RegisterItemComponent } from './components/register-item/register-item.
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ZXingScannerModule,
     FontAwesomeModule,
     AppRoutingModule,
   ],

@@ -1,7 +1,22 @@
 <section id="register-item">
   <article class="background">
-    <h2>{{ header }}</h2>
+    <div class="card-header">
+      <h2>{{ header }}</h2>
 
+      <div>
+        <button mat-raised-button (click)="isScanning = !isScanning">Escanear</button>
+
+        <div class="scanner" *ngIf="isScanning">
+          <zxing-scanner
+            [enable]="isScanning"
+            (scanSuccess)="onCodeResult($event)"
+            [formats]="formatsEnabled"
+            [tryHarder]="true"
+          ></zxing-scanner>
+        </div>
+      </div>
+    </div>
+    
     <form [formGroup]="itemGroup" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="outline" class="custom-mat-form-field">
         <mat-label for="name" class="custom-mat-label">Nome</mat-label>
@@ -16,9 +31,31 @@
           required
         />
       </mat-form-field>
-  
       <mat-form-field appearance="outline" class="custom-mat-form-field">
-        <mat-label for="unit_price" class="custom-mat-label">Quantidade</mat-label>
+        <mat-label for="barcode" class="custom-mat-label">Código de Barras</mat-label>
+        <input
+          matInput
+          type="text"
+          class="form-control"
+          class="custom-mat-input"
+          name="barcode"
+          id="barcode"
+          formControlName="barcode"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="custom-mat-form-field">
+        <mat-label for="barcode" class="custom-mat-label">É variante?</mat-label>
+        <input
+          matInput
+          type="text"
+          class="form-control"
+          class="custom-mat-input"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="custom-mat-form-field">
+        <mat-label for="unit_price" class="custom-mat-label">Preço de Compra Un.</mat-label>
         <input
           matInput
           type="number"
@@ -32,16 +69,15 @@
         />
       </mat-form-field>
       <mat-form-field appearance="outline" class="custom-mat-form-field">
-        <mat-label for="quantity" class="custom-mat-label">Preço Unitário</mat-label>
+        <mat-label for="sale_price" class="custom-mat-label">Preço de Revenda Un.</mat-label>
         <input
           matInput
           type="number"
-          class="form-control"
           class="custom-mat-input"
-          name="quantity"
-          id="quantity"
+          name="sale_price"
+          id="sale_price"
           min="0"
-          formControlName="quantity"
+          formControlName="sale_price"
           required
           step="any"
         />

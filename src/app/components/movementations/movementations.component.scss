@@ -3,6 +3,7 @@
   left: 50%;
   transform: translateX(-50%);
   margin-top: 50px;
+  width: 90%;
 
   .return-button {
     background: #4d4d4d;
@@ -11,8 +12,6 @@
   }
   
   article.table {
-    width: 900px;
-
     .no-movementations {
       text-align: center;
     }
