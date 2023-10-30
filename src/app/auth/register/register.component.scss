@@ -79,3 +79,22 @@
     }
   }
 }
+
+@media screen and (min-width: 360px) and (max-width: 480px) {
+  #register {
+    article {
+      .image {
+        display: none;
+      }
+
+      .form {
+        width: 100%;
+        .register-card {
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+  }
+}

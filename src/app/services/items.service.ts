@@ -12,10 +12,14 @@ import { MovementationModel } from '../models/movementation-model'
 })
 export class ItemsService {
   private readonly URL = environment.BASE_URL
-  private headers = new HttpHeaders({ 'Content-Type': 'application/json' })
+  private readonly token: string | null = localStorage.getItem('token')
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${this.token}`
+  })
   private itemListSubject = new BehaviorSubject<ItemModel[]>([])
   $itemList = this.itemListSubject.asObservable()
-
+  
   private movementationListSubject = new BehaviorSubject<[]>([])
   $movementationList = this.movementationListSubject.asObservable()
 

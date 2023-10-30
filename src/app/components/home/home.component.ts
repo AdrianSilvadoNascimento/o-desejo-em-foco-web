@@ -48,6 +48,7 @@ export class HomeComponent {
 
   ngOnInit(): void {
     this.fetchItems()
+    this.utilsService.toggle(false)
   }
 
   fetchItems(): void {

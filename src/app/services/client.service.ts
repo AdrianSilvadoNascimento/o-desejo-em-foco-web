@@ -12,13 +12,23 @@ import { Router } from '@angular/router'
 export class ClientService {
   private readonly URL = environment.BASE_URL
   private updatedClientList = new BehaviorSubject<ClientModel[]>([])
-  private headers = new HttpHeaders({ 'Content-Type': 'application/json' })
   $clientList = this.updatedClientList.asObservable()
+  
+  readonly token: string | null = localStorage.getItem('token')
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${this.token}`
+  })
+
   
   constructor(private http: HttpClient, private router: Router) {}
 
   updateClientList(clientList: ClientModel[]) {
     this.updatedClientList.next(clientList)
+  }
+
+  isLoggedIn(): boolean {
+    return localStorage.getItem('token')!.length > 0
   }
   
   registerClient(clientModel: ClientModel): Observable<ClientModel> {

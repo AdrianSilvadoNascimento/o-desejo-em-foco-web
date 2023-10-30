@@ -4,6 +4,7 @@ import { Router } from '@angular/router'
 import { faCamera, faPen, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { ClientModel } from 'src/app/models/client-model'
 import { ClientService } from 'src/app/services/client.service'
+import { UtilsService } from 'src/app/services/utils.service'
 
 @Component({
   selector: 'app-client',
@@ -23,9 +24,14 @@ export class ClientComponent {
   faPlus = faPlus
   faPen = faPen
   
-  constructor(private clientService: ClientService, private router: Router) {}
+  constructor(
+    private clientService: ClientService,
+    private router: Router,
+    private utilService: UtilsService
+  ) {}
 
   ngOnInit(): void {
+    this.utilService.toggle(false)
     this.fetchClients()
   }
 

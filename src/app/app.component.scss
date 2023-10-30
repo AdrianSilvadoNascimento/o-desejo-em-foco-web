@@ -37,3 +37,25 @@ mat-drawer-container {
     }
   }
 }
+
+@media screen and (min-width: 360px) and (max-width: 480px) {
+  mat-drawer-container {
+    .sidenav {
+      width: 100vw;
+      z-index: 10;
+
+      .exit, .nav-item {
+        font-size: 20px !important;
+      }
+
+      nav {
+        margin-top: 50%;
+      }
+
+      .exit {
+        bottom: 25px;
+        left: 25px;
+      }
+    }
+  }
+}

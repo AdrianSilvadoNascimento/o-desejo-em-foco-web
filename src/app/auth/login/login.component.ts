@@ -40,7 +40,7 @@ export class LoginComponent {
 
   onSubmit(): void {
     this.accountService.loginUser(this.loginForm.value).subscribe(() => {
-      this.utilService.toggle(true)
+      this.utilService.toggle(false)
     }, err => {
       console.error('Error:', err.error.message)
       alert(err.error.message)

@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { ItemModel } from 'src/app/models/item-model'
+import { UtilsService } from 'src/app/services/utils.service'
 
 @Component({
     selector: 'app-info-item',
@@ -16,10 +17,12 @@ export class InfoItemComponent {
   faArrowLeft = faArrowLeft
 
   constructor(
-    private router: Router
+    private router: Router,
+    private utilService: UtilsService
   ) {}
 
   ngOnInit(): void {
+    this.utilService.toggle(false)
   }
 
   return(): void {

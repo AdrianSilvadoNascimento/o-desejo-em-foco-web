@@ -8,6 +8,7 @@ import { ItemModel } from 'src/app/models/item-model'
 import { faCamera } from '@fortawesome/free-solid-svg-icons'
 import { ConvertImageService } from 'src/app/services/convert-image.service'
 import { ItemsService } from 'src/app/services/items.service'
+import { UtilsService } from 'src/app/services/utils.service'
 
 @Component({
   selector: 'app-register-item',
@@ -39,10 +40,12 @@ export class RegisterItemComponent {
     private formBuilder: FormBuilder,
     private itemsService: ItemsService,
     private activatedRoute: ActivatedRoute,
-    private imageConverter: ConvertImageService
+    private imageConverter: ConvertImageService,
+    private utilService: UtilsService
   ) {}
 
   ngOnInit(): void {
+    this.utilService.toggle(false)
     this.createForm(new ItemModel)
 
     this.activatedRoute.params.subscribe(param => {

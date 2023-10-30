@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 
 import { faArrowLeft, faCamera, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { ItemsService } from 'src/app/services/items.service'
+import { UtilsService } from 'src/app/services/utils.service'
 
 @Component({
     selector: 'app-movementations',
@@ -22,10 +23,12 @@ export class MovementationsComponent {
   constructor(
     private activatedRoute: ActivatedRoute,
     private itemService: ItemsService,
+    private utilService: UtilsService,
     private router: Router
   ) {}
   
   ngOnInit(): void {
+    this.utilService.toggle(false)
     this.activatedRoute.params.subscribe(param => {
       this.itemId = param['id']
     })

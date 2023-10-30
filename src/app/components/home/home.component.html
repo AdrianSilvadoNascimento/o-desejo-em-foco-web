@@ -2,15 +2,16 @@
   <article>
     <button class="add-item" mat-raised-button routerLink="/register-item">Adicionar Novo Item</button>
 
-    <button class="" (click)="isScanning = !isScanning" mat-raised-button>Escanear</button>
-
-    <zxing-scanner
-      *ngIf="isScanning"
-      [enable]="isScanning"
-      (scanSuccess)="onCodeResult($event)"
-      [formats]="formatsEnabled"
-      [tryHarder]="true"
-    ></zxing-scanner>
+    <button class="button-scanner" (click)="isScanning = !isScanning" mat-raised-button>Escanear</button>
+    <div class="scanner" *ngIf="isScanning">
+      <zxing-scanner
+        *ngIf="isScanning"
+        [enable]="isScanning"
+        (scanSuccess)="onCodeResult($event)"
+        [formats]="formatsEnabled"
+        [tryHarder]="true"
+      ></zxing-scanner>
+    </div>
 
     <h3 class="no-products" *ngIf="!items.length; else hasProducts">Não há produtos registrados</h3>
 

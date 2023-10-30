@@ -6,6 +6,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { ItemModel } from 'src/app/models/item-model'
 import { MovementationModel } from 'src/app/models/movementation-model'
 import { ItemsService } from 'src/app/services/items.service'
+import { UtilsService } from 'src/app/services/utils.service'
 
 @Component({
   selector: 'app-info-item-template',
@@ -30,11 +31,13 @@ export class InfoItemTemplateComponent {
     private formBuilder: FormBuilder,
     private itemService: ItemsService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private utilService: UtilsService
   ) {
   }
   
   ngOnInit(): void {
+    this.utilService.toggle(false)
     this.activatedRoute.params.subscribe(param => {
       this.itemId = param['id']
     })
