@@ -1,6 +1,13 @@
 <section id="login">
   <article>
-    <div class="image"></div>
+    <div class="image">
+      <img
+        ngSrc="../../../assets/images/login.jpg"
+        width="3000"
+        height="3000"
+        priority
+      />
+    </div>
     <div class="form">
       <div class="login-card">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -42,7 +49,7 @@
             [disabled]="loginForm.invalid"
             [class]="loginForm.invalid ? 'disabled' : ''"
           >
-            Cadastrar
+            Entrar
           </button>
         </form>
       </div>

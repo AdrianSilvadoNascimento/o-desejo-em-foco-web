@@ -4,10 +4,11 @@
       <h2>{{ header }}</h2>
 
       <div>
-        <button mat-raised-button (click)="isScanning = !isScanning">Escanear</button>
-
-        <div class="scanner" *ngIf="isScanning">
+        <button [class]="!isScanning ? 'button-scanner' : 'button-scanner-on'" (click)="isScanning = !isScanning" mat-raised-button>{{ !isScanning ? 'Escanear' : 'Fechar' }}</button>
+        <div class="scanner-container" *ngIf="isScanning">
           <zxing-scanner
+            class="camera-scanner"
+            *ngIf="isScanning"
             [enable]="isScanning"
             (scanSuccess)="onCodeResult($event)"
             [formats]="formatsEnabled"
@@ -17,7 +18,7 @@
       </div>
     </div>
     
-    <form [formGroup]="itemGroup" (ngSubmit)="onSubmit()">
+    <form *ngIf="!isScanning" [formGroup]="itemGroup" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="outline" class="custom-mat-form-field">
         <mat-label for="name" class="custom-mat-label">Nome</mat-label>
         <input

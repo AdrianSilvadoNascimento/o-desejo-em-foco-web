@@ -8,53 +8,55 @@
     <h3 class="no-clients" *ngIf="!clientList?.length; else hasClients">Não há clientes registrados</h3>
     
     <ng-template #hasClients>
-      <table mat-table [dataSource]="clientList">
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Nome</th>
-          <td mat-cell *matCellDef="let element">
-            <a class="product_link" [routerLink]="'/info-client/' + element.id">{{ element.name + ' ' + element.lastname }}</a>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="age">
-          <th mat-header-cell *matHeaderCellDef>Idade</th>
-          <td mat-cell *matCellDef="let element">{{ element.age }}</td>
-        </ng-container>
-        <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef>Email</th>
-          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
-        </ng-container>
-        <ng-container matColumnDef="created_at">
-          <th mat-header-cell *matHeaderCellDef>Registrado Em</th>
-          <td mat-cell *matCellDef="let element">{{ element.created_at | date: 'dd/MM/yyyy HH:mm':'BRT' }}</td>
-        </ng-container>
-        <ng-container matColumnDef="updated_at">
-          <th mat-header-cell *matHeaderCellDef>Atualizado Em</th>
-          <td mat-cell *matCellDef="let element">{{ element.updated_at | date: 'dd/MM/yyyy HH:mm':'BRT' }}</td>
-        </ng-container>
-        <ng-container matColumnDef="action_buttons">
-          <th mat-header-cell *matHeaderCellDef></th>
-          <td class="action_buttons" mat-cell *matCellDef="let element">
-            <fa-icon
-              [icon]="faPen"
-              [routerLink]="'/edit-client/' + element.id"
-              matTooltip="Editar Cliente"
-              matTooltipPosition="below"
-              >
-            </fa-icon>
-            <fa-icon
-              class="delete_icon"
-              [icon]="faTrash"
-              (click)="deleteClient(element.id)"
-              matTooltip="Deletar Cliente"
-              matTooltipPosition="below"
-              >
-            </fa-icon>
-          </td>
-        </ng-container>
-  
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
+      <div class="table-content">
+        <table mat-table [dataSource]="clientList">
+          <ng-container matColumnDef="name" sticky="true">
+            <th mat-header-cell *matHeaderCellDef>Nome</th>
+            <td mat-cell *matCellDef="let element">
+              <a class="product_link" [routerLink]="'/info-client/' + element.id">{{ element.name + ' ' + element.lastname }}</a>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="age">
+            <th mat-header-cell *matHeaderCellDef>Idade</th>
+            <td mat-cell *matCellDef="let element">{{ element.age }}</td>
+          </ng-container>
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+          </ng-container>
+          <ng-container matColumnDef="created_at">
+            <th mat-header-cell *matHeaderCellDef>Registrado Em</th>
+            <td mat-cell *matCellDef="let element">{{ element.created_at | date: 'dd/MM/yyyy HH:mm':'BRT' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="updated_at">
+            <th mat-header-cell *matHeaderCellDef>Atualizado Em</th>
+            <td mat-cell *matCellDef="let element">{{ element.updated_at | date: 'dd/MM/yyyy HH:mm':'BRT' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="action_buttons">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td class="action_buttons" mat-cell *matCellDef="let element">
+              <fa-icon
+                [icon]="faPen"
+                [routerLink]="'/edit-client/' + element.id"
+                matTooltip="Editar Cliente"
+                matTooltipPosition="below"
+                >
+              </fa-icon>
+              <fa-icon
+                class="delete_icon"
+                [icon]="faTrash"
+                (click)="deleteClient(element.id)"
+                matTooltip="Deletar Cliente"
+                matTooltipPosition="below"
+                >
+              </fa-icon>
+            </td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
     </ng-template>
   </article>
 </section>

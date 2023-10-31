@@ -10,3 +10,11 @@ body {
     color: red;
   }
 }
+
+@media screen and (min-width: 360px) and (max-width: 480px) {  
+  .table-content {
+    max-width: 480px;
+    min-width: 360px;
+    overflow-x: scroll;
+  }
+}
