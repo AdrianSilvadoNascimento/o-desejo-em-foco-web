@@ -26,14 +26,23 @@ mat-drawer-container {
       .active {
         border-bottom: 2px solid #fff;
       }
-    }
 
-    .exit {
-      color: #fff;
-      position: fixed;
-      bottom: 15px;
-      left: 15px;
-      cursor: pointer;
+      #menu-bottom {
+        position: fixed;
+        width: 190px;
+        height: 40px;
+        bottom: 0;
+        padding: 15px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between !important;
+        align-items: center;
+  
+        .exit, .admin {
+          color: #fff;
+          cursor: pointer;
+        }
+      }
     }
   }
 }
@@ -44,7 +53,7 @@ mat-drawer-container {
       width: 100vw;
       z-index: 10;
 
-      .exit, .nav-item {
+      .exit, .admin, .nav-item {
         font-size: 20px !important;
       }
 
@@ -52,9 +61,9 @@ mat-drawer-container {
         margin-top: 50%;
       }
 
-      .exit {
-        bottom: 25px;
-        left: 25px;
+      #menu-bottom {
+        max-width: 480px;
+        min-width: 360px;
       }
     }
   }

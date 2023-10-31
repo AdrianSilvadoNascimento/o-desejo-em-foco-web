@@ -9,12 +9,14 @@ import { ClientComponent } from './components/client-list/client-list.component'
 import { ClientInfoTemplateComponent } from './components/client-form/client-form.component'
 import { InfoClientComponent } from './components/info-client/info-client.component'
 import { AuthGuard } from './auth/auth.guard'
+import { AdminGuard } from './components/admin-area/admin.guard'
 
 const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
   { path: 'index', component: HomeComponent, canActivate: [ AuthGuard ] },
   { path: 'info-item/:id', component: InfoItemComponent, canActivate: [ AuthGuard ] },
   { path: 'account', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+  { path: 'admin', loadChildren: () => import('./components/admin-area/admin-area.module').then(m => m.AdminAreaModule), canActivate: [AuthGuard, AdminGuard] },
   { path: 'register-item', component: RegisterItemComponent, canActivate: [ AuthGuard ] },
   { path: 'edit-item/:id', component: RegisterItemComponent, canActivate: [ AuthGuard ] },
   { path: 'register-item/:barcode', component: RegisterItemComponent, canActivate: [ AuthGuard ] },

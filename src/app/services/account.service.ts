@@ -21,11 +21,16 @@ export class AccountService {
     return localStorage.getItem('token') !== null
   }
 
+  isMaster(): boolean {
+    const masterAccount = localStorage.getItem('accountType')!
+    return parseInt(masterAccount) === 1
+  }
+
   loginUser(userModel: { email: string, password: string }) {
     const url = `${this.BASE_URL}/user/login-user`
 
     return this.http.post(url, userModel).pipe(tap(res => {
-      this.setCache(res)    
+      this.setCache(res)
       this.router.navigate(['/'])
     }))
   }
@@ -45,8 +50,9 @@ export class AccountService {
     localStorage.setItem('token', data?.token)
     localStorage.setItem('name', data?.user)
     localStorage.setItem('expiresIn', data?.expiresIn)
+    localStorage.setItem('accountType', data?.type)
   }
-
+  
   checkout(): void {
     setTimeout(() => {
       localStorage.removeItem('userId')
@@ -54,6 +60,7 @@ export class AccountService {
       localStorage.removeItem('token')
       localStorage.removeItem('name')
       localStorage.removeItem('expiresIn')
+      localStorage.removeItem('accountType')
     }, 2000)
   }
 }

@@ -6,7 +6,11 @@
       <a routerLink="/index" routerLinkActive="active" class="nav-item">Home</a>
       <a routerLink="/movementations" routerLinkActive="active" class="nav-item">Movimentações</a>
       <a routerLink="/clients" routerLinkActive="active" class="nav-item">Clientes</a>
-      <a class="exit" routerLink="/account/user-login" (click)="checkout()">Sair</a>
+
+      <div id="menu-bottom">
+        <a class="exit" routerLink="/account/user-login" (click)="checkout()">Sair</a>
+        <a *ngIf="isMaster" class="admin" routerLink="/admin/index">Admin</a>
+      </div>
     </nav>
 
   </mat-drawer>

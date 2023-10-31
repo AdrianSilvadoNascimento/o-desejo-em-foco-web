@@ -12,6 +12,7 @@ import { AccountService } from './services/account.service'
 export class AppComponent {
   toggleSideNav!: boolean
   shouldShowButton!: boolean
+  isMaster: boolean = false
 
   constructor(
     private utilService: UtilsService,
@@ -19,6 +20,7 @@ export class AppComponent {
   ) {}
 
   ngOnInit(): void {
+    this.isMaster = this.accountService.isMaster()
     this.utilService.$toggleMenu.subscribe(res => {
       setTimeout(() => {
         this.toggleSideNav = res

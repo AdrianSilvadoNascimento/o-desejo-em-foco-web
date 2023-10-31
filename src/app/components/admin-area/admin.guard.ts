@@ -1,20 +1,21 @@
 import { Injectable } from "@angular/core"
 import { CanActivate, Router } from "@angular/router"
 
-import { AccountService } from "../services/account.service"
+import { AccountService } from "../../services/account.service"
+
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   constructor(
     private accountService: AccountService,
     private router: Router
   ) {}
 
   canActivate(): boolean {
-    if (this.accountService.isLoggedIn()) {
+    if (this.accountService.isMaster()) {
       return true
     } else {
-      this.router.navigate(['/user-login'])
+      this.router.navigate(['/../index'])
       return false
     }
   }

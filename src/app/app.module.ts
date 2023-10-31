@@ -13,6 +13,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner'
 
 import { AppComponent } from './app.component'
 import { AuthGuard } from './auth/auth.guard'
+import { AdminGuard } from './components/admin-area/admin.guard'
 import { ClientInfoTemplateComponent } from './components/client-form/client-form.component'
 import { ClientComponent } from './components/client-list/client-list.component'
 import { InfoItemComponent } from './components/info-item/info-item.component'
@@ -34,7 +35,7 @@ import { RegisterItemComponent } from './components/register-item/register-item.
     HeaderComponent,
     HomeComponent,
     MovementationsComponent,
-    RegisterItemComponent
+    RegisterItemComponent,
   ],
   imports: [
     AngularMaterialModule,
@@ -48,7 +49,7 @@ import { RegisterItemComponent } from './components/register-item/register-item.
     FontAwesomeModule,
     AppRoutingModule,
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, AdminGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
