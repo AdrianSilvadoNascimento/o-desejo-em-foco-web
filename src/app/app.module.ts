@@ -12,6 +12,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { ZXingScannerModule } from '@zxing/ngx-scanner'
 
 import { AppComponent } from './app.component'
+import { AuthGuard } from './auth/auth.guard'
 import { ClientInfoTemplateComponent } from './components/client-form/client-form.component'
 import { ClientComponent } from './components/client-list/client-list.component'
 import { InfoItemComponent } from './components/info-item/info-item.component'
@@ -47,6 +48,7 @@ import { RegisterItemComponent } from './components/register-item/register-item.
     FontAwesomeModule,
     AppRoutingModule,
   ],
+  providers: [AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -8,22 +8,23 @@ import { MovementationsComponent } from './components/movementations/movementati
 import { ClientComponent } from './components/client-list/client-list.component'
 import { ClientInfoTemplateComponent } from './components/client-form/client-form.component'
 import { InfoClientComponent } from './components/info-client/info-client.component'
+import { AuthGuard } from './auth/auth.guard'
 
 const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
-  { path: 'index', component: HomeComponent },
-  { path: 'info-item/:id', component: InfoItemComponent },
+  { path: 'index', component: HomeComponent, canActivate: [ AuthGuard ] },
+  { path: 'info-item/:id', component: InfoItemComponent, canActivate: [ AuthGuard ] },
   { path: 'account', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
-  { path: 'register-item', component: RegisterItemComponent },
-  { path: 'edit-item/:id', component: RegisterItemComponent },
-  { path: 'register-item/:barcode', component: RegisterItemComponent },
-  { path: 'movementations', component: MovementationsComponent },
-  { path: 'movementation/:id', component: MovementationsComponent },
-  { path: 'clients', component: ClientComponent },
-  { path: 'client/:id', component: ClientComponent },
-  { path: 'info-client/:id', component: InfoClientComponent },
-  { path: 'edit-client/:id', component: ClientInfoTemplateComponent },
-  { path: 'register-client', component: ClientInfoTemplateComponent },
+  { path: 'register-item', component: RegisterItemComponent, canActivate: [ AuthGuard ] },
+  { path: 'edit-item/:id', component: RegisterItemComponent, canActivate: [ AuthGuard ] },
+  { path: 'register-item/:barcode', component: RegisterItemComponent, canActivate: [ AuthGuard ] },
+  { path: 'movementations', component: MovementationsComponent, canActivate: [ AuthGuard ] },
+  { path: 'movementation/:id', component: MovementationsComponent, canActivate: [ AuthGuard ] },
+  { path: 'clients', component: ClientComponent, canActivate: [ AuthGuard ] },
+  { path: 'client/:id', component: ClientComponent, canActivate: [ AuthGuard ] },
+  { path: 'info-client/:id', component: InfoClientComponent, canActivate: [ AuthGuard ] },
+  { path: 'edit-client/:id', component: ClientInfoTemplateComponent, canActivate: [ AuthGuard ] },
+  { path: 'register-client', component: ClientInfoTemplateComponent, canActivate: [ AuthGuard ] },
 ]
 
 @NgModule({

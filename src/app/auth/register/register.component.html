@@ -1,6 +1,7 @@
 <section id="register">
   <article>
     <div class="form">
+      <h2 class="auth-header">Registrar Conta</h2>
       <div class="register-card">
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <mat-form-field appearance="outline" class="custom-mat-form-field">
@@ -59,13 +60,11 @@
       </div>
     </div>
 
-    <div class="image">
-      <img
-        ngSrc="../../../assets/images/registro.jpg"
-        width="3000"
-        height="3000"
-        priority
-      />
-    </div>
+    <img
+      ngSrc="../../../assets/images/registro.jpg"
+      width="3000"
+      height="3000"
+      priority
+    />
   </article>
 </section>

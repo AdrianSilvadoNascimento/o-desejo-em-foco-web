@@ -17,6 +17,10 @@ export class AccountService {
     private router: Router
   ) {}
 
+  isLoggedIn(): boolean {
+    return localStorage.getItem('token') !== null
+  }
+
   loginUser(userModel: { email: string, password: string }) {
     const url = `${this.BASE_URL}/user/login-user`
 

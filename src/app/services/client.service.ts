@@ -26,10 +26,6 @@ export class ClientService {
   updateClientList(clientList: ClientModel[]) {
     this.updatedClientList.next(clientList)
   }
-
-  isLoggedIn(): boolean {
-    return localStorage.getItem('token')!.length > 0
-  }
   
   registerClient(clientModel: ClientModel): Observable<ClientModel> {
     const url = `${this.URL}/client/register-client/${localStorage.getItem('userId')}`

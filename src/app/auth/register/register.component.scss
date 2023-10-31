@@ -6,30 +6,19 @@
     justify-content: space-between;
     align-items: center;
 
-    .image {
+    img {
       width: 50%;
       height: calc(100vh - 100px);
-      
-      img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: cover;
-      }
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
     }
 
     .form {
       width: 50%;
       height: calc(100vh - 100px);
       overflow-y: auto;
-      
-      .return-button {
-        left: 27%;
-        transform: translateX(-27%);
-        background: #000;
-        color: #fff;
-        margin-top: 15px;
-      }
-      
+
       .register-card {
         margin-top: 50px;
         height: 450px;
@@ -86,7 +75,7 @@
 @media screen and (min-width: 360px) and (max-width: 480px) {
   #register {
     article {
-      .image {
+      img {
         display: none;
       }
 
@@ -94,7 +83,7 @@
         width: 100%;
         .register-card {
           left: 50%;
-          top: 50%;
+          top: calc(50% - 100px);
           transform: translate(-50%, -50%);
         }
       }

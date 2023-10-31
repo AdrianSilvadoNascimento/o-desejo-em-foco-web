@@ -1,14 +1,13 @@
 <section id="login">
   <article>
-    <div class="image">
-      <img
-        ngSrc="../../../assets/images/login.jpg"
-        width="3000"
-        height="3000"
-        priority
-      />
-    </div>
+    <img
+      ngSrc="../../../assets/images/login.jpg"
+      width="3000"
+      height="3000"
+      priority
+    />
     <div class="form">
+      <h2 class="auth-header">Fazer Login</h2>
       <div class="login-card">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <mat-form-field appearance="outline" class="custom-mat-form-field">
