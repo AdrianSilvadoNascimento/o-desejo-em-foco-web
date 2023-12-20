@@ -28,12 +28,16 @@ export class ClientService {
   }
   
   registerClient(clientModel: ClientModel): Observable<ClientModel> {
-    const url = `${this.URL}/client/register-client/${localStorage.getItem('userId')}`
+    const userId = localStorage.getItem('userId')!!
+    clientModel.user_id = userId
+    const url = `${this.URL}/client/register-client/${userId}`
 
     return this.http.post<ClientModel>(url, clientModel, { headers: this.headers }).pipe(tap(res => res))
   }
 
   updateClient(clientId: string, clientModel: ClientModel): Observable<ClientModel> {
+    clientModel.user_id = localStorage.getItem('userId')!!
+
     const url = `${this.URL}/client/update-client/${clientId}`
     
     return this.http.put<ClientModel>(url, clientModel, { headers: this.headers }).pipe(tap(res => {

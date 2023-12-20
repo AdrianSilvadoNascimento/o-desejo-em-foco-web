@@ -7,16 +7,25 @@ import { BehaviorSubject } from 'rxjs'
 export class UtilsService {
   private toggleMenu = new BehaviorSubject<boolean>(true)
   $toggleMenu = this.toggleMenu.asObservable()
+
   private hideToggleMenu = new BehaviorSubject<boolean>(true)
   $hideToggleMenu = this.hideToggleMenu.asObservable()
 
-  constructor() {}
+  private toggleAdminArea = new BehaviorSubject<boolean>(true)
+  $hideToggleAdminArea = this.toggleAdminArea.asObservable()
 
-  toggle(toggle: boolean) {
+  constructor() { }
+
+  toggle(toggle: boolean): void {
     this.toggleMenu.next(toggle)
   }
 
-  hideMenuButton(hide: boolean) {
+  hideMenuButton(hide: boolean): void {
     this.hideToggleMenu.next(hide)
+  }
+
+  toggleArea(toggle: boolean): void {
+    this.toggleAdminArea.next(toggle)
+    localStorage.setItem('toggleArea', JSON.stringify(toggle))
   }
 }

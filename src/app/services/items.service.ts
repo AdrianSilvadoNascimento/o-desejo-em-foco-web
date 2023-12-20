@@ -23,7 +23,7 @@ export class ItemsService {
   private movementationListSubject = new BehaviorSubject<[]>([])
   $movementationList = this.movementationListSubject.asObservable()
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
   updateItemList(itemList: ItemModel[]) {
     this.itemListSubject.next(itemList)
@@ -34,6 +34,7 @@ export class ItemsService {
   }
   
   registerItem(itemModel: ItemModel): Observable<ItemModel> {
+    itemModel.user_id = localStorage.getItem('userId')!!
     return this.http.post<ItemModel>(
       `${this.URL}/register-item/${localStorage.getItem('userId')}`, itemModel, { headers: this.headers }
     ).pipe(tap(res => res))

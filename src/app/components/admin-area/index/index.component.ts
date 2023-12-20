@@ -11,6 +11,6 @@ export class IndexComponent implements OnInit {
   constructor(private utilsService: UtilsService) {}
 
   ngOnInit(): void {
-    this.utilsService.toggle(false)
+    this.utilsService.hideMenuButton(false)
   }
 }

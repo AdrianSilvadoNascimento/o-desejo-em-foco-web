@@ -13,6 +13,7 @@ export class AppComponent {
   toggleSideNav!: boolean
   shouldShowButton!: boolean
   isMaster: boolean = false
+  isAdminArea!: boolean
 
   constructor(
     private utilService: UtilsService,
@@ -26,8 +27,20 @@ export class AppComponent {
         this.toggleSideNav = res
       })
     })
-  }
 
+    this.utilService.toggleArea(JSON.parse(localStorage.getItem('toggleArea')!!))
+    this.utilService.$hideToggleAdminArea.subscribe(res => {
+      setTimeout(() => {
+        this.isAdminArea = res
+      })
+    })
+  }
+  
+  toggleAdmin(): void {
+    this.isAdminArea = !this.isAdminArea
+    this.utilService.toggleArea(this.isAdminArea)
+  }
+  
   checkout(): void {
     this.accountService.checkout()
   }

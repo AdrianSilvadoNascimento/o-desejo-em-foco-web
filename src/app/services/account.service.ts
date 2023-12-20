@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 
 import { EmployerModel } from '../models/employer-model'
-import { Observable, tap } from 'rxjs'
+import { BehaviorSubject, Observable, tap } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import { environment } from 'src/environments/environment'
 import { Router } from '@angular/router'
@@ -11,11 +11,18 @@ import { Router } from '@angular/router'
 })
 export class AccountService {
   private readonly BASE_URL = environment.BASE_URL
+
+  private employeeName = new BehaviorSubject<string>('')
+  $employeeName = this.employeeName.asObservable()
   
   constructor(
     private http: HttpClient,
     private router: Router
   ) {}
+    
+  updateEmployeeName(name: string) {
+    this.employeeName.next(name)
+  }
 
   isLoggedIn(): boolean {
     return localStorage.getItem('token') !== null
@@ -51,6 +58,8 @@ export class AccountService {
     localStorage.setItem('name', data?.user)
     localStorage.setItem('expiresIn', data?.expiresIn)
     localStorage.setItem('accountType', data?.type)
+
+    this.updateEmployeeName(data.user)
   }
   
   checkout(): void {
