@@ -28,4 +28,21 @@ export class UtilsService {
     this.toggleAdminArea.next(toggle)
     localStorage.setItem('toggleArea', JSON.stringify(toggle))
   }
+
+  locateEmployeePosition(type: number): string {
+    let position!: string
+    switch (type) {
+      case 1:
+        position = 'Master'
+        break
+      case 2:
+        position = 'Operário'
+        break
+      default:
+        position = 'Analista'
+        break
+    }
+
+    return position
+  }
 }

@@ -1,6 +1,6 @@
 <section id="info-client-view">
   <article class="background">
-    <h3>Informações do Cliente</h3>
+    <h3>Informações do {{ clientOrEmployee }}</h3>
 
     <article class="content">
       <div class="perfil-icon">
@@ -10,15 +10,21 @@
       </div>
       <div class="card">
         <div class="main-content">
-          <button mat-button class="edit-button" [routerLink]="'/edit-client/' + clientInfo.id">
+          <button mat-button class="edit-button" [routerLink]="editRoute">
             <fa-icon [icon]="faPen"></fa-icon>
           </button>
-          <h2>{{ clientInfo.name }} {{ clientInfo.lastname }}</h2>
-          <h4>Sexo: {{ clientInfo.sex }}</h4>
-          <h4>Idade: {{ clientInfo.age }}</h4>
+          <h2>{{ clientInfo ? clientInfo.name : employeeInfo?.name }} {{ clientInfo ? clientInfo.lastname : employeeInfo?.lastname }}</h2>
+          <ng-container *ngIf="employeeInfo">
+            <h4>Email: {{ employeeInfo.email }}</h4>
+            <h4>Função: {{ employeePosition }}</h4>
+          </ng-container>
+          <ng-container *ngIf="clientInfo">
+            <h4>Sexo: {{ clientInfo.sex }}</h4>
+            <h4>Idade: {{ clientInfo.age }}</h4>
+          </ng-container>
         </div>
 
-        <div class="address-content">
+        <div class="address-content" *ngIf="clientInfo">
           <h3 class="address-header">Endereço</h3>
 
           <h4>Nome da Rua: {{ clientInfo.street }}</h4>
