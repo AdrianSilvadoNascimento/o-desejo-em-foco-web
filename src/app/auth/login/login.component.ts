@@ -42,8 +42,8 @@ export class LoginComponent {
     this.accountService.loginUser(this.loginForm.value).subscribe(() => {
       this.utilService.toggle(false)
     }, err => {
-      console.error('Error:', err.error.message)
-      alert(err.error.message)
+      console.error('Error:', err)
+      alert(err)
     })
   }
 }

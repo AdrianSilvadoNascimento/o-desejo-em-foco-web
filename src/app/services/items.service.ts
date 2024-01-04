@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
 import { BehaviorSubject, Observable, tap } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { Router } from '@angular/router'
 
 import { ItemModel } from '../models/item-model'
 import { environment } from 'src/environments/environment'
@@ -11,7 +10,7 @@ import { MovementationModel } from '../models/movementation-model'
   providedIn: 'root'
 })
 export class ItemsService {
-  private readonly URL = environment.BASE_URL
+  private readonly URL = `${environment.BASE_URL}/item`
   private readonly token: string | null = localStorage.getItem('token')
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',

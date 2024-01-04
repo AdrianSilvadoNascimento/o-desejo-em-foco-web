@@ -13,7 +13,8 @@ body {
   .auth-header {
     text-align: center;
     position: relative;
-    top: 10%;
+    top: calc(50% - 200px);
+    transform: translateY(-50%);
     font-weight: bold;
     margin-bottom: 20px;
   }
@@ -27,6 +28,6 @@ body {
   }
 
   .auth-header {
-    top: 10%;
+    top: calc(50% - 280px) !important;
   }
 }
