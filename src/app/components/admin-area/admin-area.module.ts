@@ -10,12 +10,16 @@ import { IndexComponent } from './index/index.component'
 import { EmployeeComponent } from './employee/employee.component'
 import { EmployeeFormComponent } from './employee-form/employee-form.component'
 import { InfoClientComponent } from '../info-client/info-client.component';
+import { CategoryFormComponent } from './category-form/category-form.component';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
   declarations: [
     IndexComponent,
     EmployeeComponent,
     EmployeeFormComponent,
+    CategoryFormComponent,
+    CategoryComponent,
   ],
   imports: [
     AngularMaterialModule,
@@ -29,6 +33,9 @@ import { InfoClientComponent } from '../info-client/info-client.component';
       { path: 'register-employee', component: EmployeeFormComponent },
       { path: 'employee-info/:id', component: InfoClientComponent },
       { path: 'update-employee/:id', component: EmployeeFormComponent },
+      { path: 'register-category', component: CategoryFormComponent },
+      { path: 'update-category/:id', component: CategoryFormComponent },
+      { path: 'categories', component: CategoryComponent },
     ]),
   ]
 })

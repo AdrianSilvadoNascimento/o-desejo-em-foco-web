@@ -13,7 +13,11 @@
           <button mat-button class="edit-button" [routerLink]="editRoute">
             <fa-icon [icon]="faPen"></fa-icon>
           </button>
-          <h2>{{ clientInfo ? clientInfo.name : employeeInfo?.name }} {{ clientInfo ? clientInfo.lastname : employeeInfo?.lastname }}</h2>
+          <h2 *ngIf="!employeeInfo; else employee">{{ clientInfo.name }} {{ clientInfo.lastname }}</h2>
+          
+          <ng-template #employee>
+            <h2>{{ employeeInfo.name }} {{ employeeInfo.lastname }}</h2>
+          </ng-template>
           <ng-container *ngIf="employeeInfo">
             <h4>Email: {{ employeeInfo.email }}</h4>
             <h4>Função: {{ employeePosition }}</h4>

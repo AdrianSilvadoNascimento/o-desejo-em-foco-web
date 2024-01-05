@@ -4,32 +4,75 @@
   <mat-drawer class="sidenav" mode="side" [opened]="toggleSideNav">
     <nav>
       <ng-container *ngIf="isAdminArea; else is_in_admin">
-        <a routerLink="/index" routerLinkActive="active" class="nav-item">Home</a>
-        <a routerLink="/movementations" routerLinkActive="active" class="nav-item">Movimentações</a>
-        <a routerLink="/clients" routerLinkActive="active" class="nav-item">Clientes</a>
+        <a routerLink="/index" routerLinkActive="active" class="nav-item">
+          Home
+        </a>
+        <a
+          routerLink="/movementations"
+          routerLinkActive="active"
+          class="nav-item">
+          Movimentações
+        </a>
+        <a routerLink="/clients" routerLinkActive="active" class="nav-item">
+          Clientes
+        </a>
       </ng-container>
 
       <ng-template #is_in_admin>
-        <a routerLink="/admin/employees" routerLinkActive="active" class="nav-item">Funcionários</a>
-        <a routerLink="/admin/register-employee" routerLinkActive="active" class="nav-item">Adicionar Funcionário</a>
-        <a routerLink="/movementations" routerLinkActive="active" class="nav-item">Categorias</a>
-        <a routerLink="/clients" routerLinkActive="active" class="nav-item">Cadastrar Categoria</a>
-        <a routerLink="/clients" routerLinkActive="active" class="nav-item">Cadastrar Funções</a>
+        <a
+          routerLink="/admin/employees"
+          routerLinkActive="active"
+          class="nav-item">
+          Funcionários
+        </a>
+        <a
+          routerLink="/admin/register-employee"
+          routerLinkActive="active"
+          class="nav-item">
+          Adicionar Funcionário
+        </a>
+        <a
+          routerLink="/admin/categories"
+          routerLinkActive="active"
+          class="nav-item">
+          Categorias
+        </a>
+        <a
+          routerLink="/admin/register-category"
+          routerLinkActive="active"
+          class="nav-item">
+          Cadastrar Categoria
+        </a>
+        <a routerLink="/clients" routerLinkActive="active" class="nav-item">
+          Cadastrar Funções
+        </a>
       </ng-template>
 
-
       <div id="menu-bottom">
-        <a class="exit" routerLink="/account/user-login" (click)="checkout()">Sair</a>
-        <ng-container  *ngIf="isAdminArea; else return_home">
-          <a *ngIf="isMaster" (click)="toggleAdmin()" class="admin" routerLink="/admin/index">Admin</a>
+        <a class="exit" routerLink="/account/user-login" (click)="checkout()">
+          Sair
+        </a>
+        <ng-container *ngIf="isAdminArea; else return_home">
+          <a
+            *ngIf="isMaster"
+            (click)="toggleAdmin()"
+            class="admin"
+            routerLink="/admin/index">
+            Admin
+          </a>
         </ng-container>
 
         <ng-template #return_home>
-          <a *ngIf="isMaster" (click)="toggleAdmin()" class="admin" routerLink="../index">Retornar</a>
+          <a
+            *ngIf="isMaster"
+            (click)="toggleAdmin()"
+            class="admin"
+            routerLink="../index">
+            Retornar
+          </a>
         </ng-template>
       </div>
     </nav>
-
   </mat-drawer>
   <mat-drawer-content class="main-content">
     <router-outlet></router-outlet>

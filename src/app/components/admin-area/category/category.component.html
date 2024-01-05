@@ -1,44 +1,40 @@
-<section id="client-view">
+<section id="category-view">
   <!-- <button class="return-button" mat-raised-button routerLink="/register-client">
     <fa-icon [icon]="faPlus" size="sm"></fa-icon>
     Registrar Novo Cliente
   </button> -->
 
   <article class="table">
-    <h3 class="no-clients" *ngIf="!employeeList?.length; else hasClients">Não há clientes registrados</h3>
+    <h3 class="no-categories" *ngIf="!categoryList?.length; else hasCategories">Não há categorias registradas</h3>
     
-    <ng-template #hasClients>
+    <ng-template #hasCategories>
       <div class="table-content">
-        <table mat-table [dataSource]="employeeList">
+        <table mat-table [dataSource]="categoryList">
           <ng-container matColumnDef="name" sticky="true">
             <th mat-header-cell *matHeaderCellDef>Nome</th>
-            <td mat-cell *matCellDef="let element">
-              <a class="product_link" [routerLink]="'/admin/employee-info/' + element.id">
-                {{ element.name + ' ' + element.lastname }}
+            <td mat-cell *matCellDef="let category">
+              <a class="product_link" [routerLink]="'/admin/employee-info/' + category.id">
+                {{ category.name + ' ' + category.lastname }}
               </a>
             </td>
           </ng-container>
-          <ng-container matColumnDef="email">
-            <th mat-header-cell *matHeaderCellDef>Email</th>
-            <td mat-cell *matCellDef="let element">{{ element.email }}</td>
-          </ng-container>
-          <ng-container matColumnDef="type">
-            <th mat-header-cell *matHeaderCellDef>Função</th>
-            <td mat-cell *matCellDef="let element">{{ utilsService.locateEmployeePosition(element.type) }}</td>
+          <ng-container matColumnDef="created_at">
+            <th mat-header-cell *matHeaderCellDef>Registrado Em</th>
+            <td mat-cell *matCellDef="let category">{{ category.created_at | date: 'dd/MM/yyyy HH:mm':'BRT' }}</td>
           </ng-container>
           <ng-container matColumnDef="updated_at">
             <th mat-header-cell *matHeaderCellDef>Atualizado Em</th>
-            <td mat-cell *matCellDef="let element">{{ element.updated_at | date: 'dd/MM/yyyy HH:mm':'BRT' }}</td>
+            <td mat-cell *matCellDef="let category">{{ category.updated_at | date: 'dd/MM/yyyy HH:mm':'BRT' }}</td>
           </ng-container>
           <ng-container matColumnDef="action_buttons">
             <th mat-header-cell *matHeaderCellDef></th>
-            <td class="action_buttons" mat-cell *matCellDef="let element">
+            <td class="action_buttons" mat-cell *matCellDef="let category">
               <fa-icon
                 class="delete_icon"
                 [icon]="faTrash"
                 matTooltip="Deletar Funcionário"
                 matTooltipPosition="below"
-                (click)="deleteEmployee(element.id)"
+                (click)="deleteCategory(category.id)"
               >
               </fa-icon>
             </td>

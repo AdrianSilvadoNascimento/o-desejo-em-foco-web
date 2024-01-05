@@ -19,7 +19,6 @@ export class ClientService {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${this.token}`
   })
-
   
   constructor(private http: HttpClient, private router: Router) {}
 
