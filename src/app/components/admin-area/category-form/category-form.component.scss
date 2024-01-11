@@ -1,0 +1,68 @@
+#client-template {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 50px;
+
+  .return-button {
+    background: #4d4d4d;
+    color: #fff;
+    margin-bottom: 15px;
+  }
+
+  .background {
+    width: 890px;
+    height: 350px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 8px;
+    border: 0.25px solid rgba(0, 0, 0, 0.25);
+
+    h2 {
+      text-align: center;
+      font-weight: bold;
+      font-size: 22px;
+    }
+
+    form {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+
+      mat-form-field.mat-form-field {
+        cursor: pointer;
+      }
+
+      .save-button-area {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        .save-button {
+          margin-right: 15px;
+          background: #000;
+          color: #fff;
+          box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+
+          :hover {
+            background: #d9d9d9;
+          }
+        }
+
+        .disabled {
+          background: #ccc !important;
+          color: #4d4d4d !important;
+        }
+      }
+
+      .custom-mat-form-field {
+        width: 45%;
+      }
+    }
+  }
+}

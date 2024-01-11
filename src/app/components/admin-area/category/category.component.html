@@ -13,9 +13,7 @@
           <ng-container matColumnDef="name" sticky="true">
             <th mat-header-cell *matHeaderCellDef>Nome</th>
             <td mat-cell *matCellDef="let category">
-              <a class="product_link" [routerLink]="'/admin/employee-info/' + category.id">
-                {{ category.name + ' ' + category.lastname }}
-              </a>
+              {{ category.name }}
             </td>
           </ng-container>
           <ng-container matColumnDef="created_at">
@@ -29,14 +27,23 @@
           <ng-container matColumnDef="action_buttons">
             <th mat-header-cell *matHeaderCellDef></th>
             <td class="action_buttons" mat-cell *matCellDef="let category">
-              <fa-icon
-                class="delete_icon"
-                [icon]="faTrash"
-                matTooltip="Deletar Funcionário"
-                matTooltipPosition="below"
-                (click)="deleteCategory(category.id)"
-              >
-              </fa-icon>
+              <div class="icons">
+                <fa-icon
+                  class="delete_icon"
+                  [icon]="faTrash"
+                  matTooltip="Deletar Funcionário"
+                  matTooltipPosition="below"
+                  (click)="deleteCategory(category.id)"
+                >
+                </fa-icon>
+                <fa-icon
+                  [icon]="faPen"
+                  [routerLink]="'/admin/update-category/' + category.id"
+                  matTooltip="Editar Item"
+                  matTooltipPosition="below"
+                >
+                </fa-icon>
+              </div>
             </td>
           </ng-container>
     

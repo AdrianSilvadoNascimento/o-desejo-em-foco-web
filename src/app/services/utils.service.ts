@@ -62,16 +62,40 @@ export class UtilsService {
   fetchCategories(): Observable<CategoryModel[]> {
     const userId = localStorage.getItem('userId')!!
     if (!this.categoryList$) {
-      this.categoryList$ = this.http.get<CategoryModel[]>(`${this.BASE_URL}/get-categories/${userId}`, { headers: this.headers }).pipe(tap(res => res))
+      this.categoryList$ = this.http.get<CategoryModel[]>(
+        `${this.BASE_URL}/get-categories/${userId}`, { headers: this.headers }
+      ).pipe(tap(res => res))
       shareReplay(1)
     }
 
     return this.categoryList$
   }
 
+  getCategory(categoryId: string): Observable<CategoryModel> {
+    return this.http.get<CategoryModel>(
+      `${this.BASE_URL}/get-category/${categoryId}`, { headers: this.headers }
+    ).pipe(tap(res => res))
+  }
+
+  registerCategory(categoryModel: CategoryModel): Observable<CategoryModel> {
+    return this.http.post<CategoryModel>(
+      `${this.BASE_URL}/register-category/${localStorage.getItem('userId')}`,
+      categoryModel,
+      { headers: this.headers}
+    ).pipe(tap(res => res))
+  }
+
+  updateCategory(categoryModel: CategoryModel, categoryId: string): Observable<CategoryModel> {
+    return this.http.put<CategoryModel>(
+      `${this.BASE_URL}/update-category/${categoryId}`, categoryModel, { headers: this.headers }
+    ).pipe(tap(res => res))
+  }
+
   deleteCategory(categoryId: string): Observable<CategoryModel> {
     this.categoryList$ = null
 
-    return this.http.delete<CategoryModel>(`${this.BASE_URL}/delete-category/${categoryId}`, { headers: this.headers }).pipe(tap(res => res))
+    return this.http.delete<CategoryModel>(
+      `${this.BASE_URL}/delete-category/${categoryId}`, { headers: this.headers }
+    ).pipe(tap(res => res))
   }
 }
