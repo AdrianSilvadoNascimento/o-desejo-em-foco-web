@@ -42,6 +42,7 @@ export class ItemsService {
   }
   
   updateItem(itemModel: ItemModel, item_id: string): Observable<ItemModel> {
+    itemModel.user_id = localStorage.getItem('userId')!!
     return this.http.put<ItemModel>(`${this.ITEM_URL}/update-item/${item_id}`, itemModel, { headers: this.headers })
   }
 

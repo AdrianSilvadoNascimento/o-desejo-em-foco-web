@@ -19,6 +19,30 @@
     </div>
     
     <form *ngIf="!isScanning" [formGroup]="itemGroup" (ngSubmit)="onSubmit()">
+      <div class="photo">
+        <label class="custom-file-input">
+          <div class="profile-image">
+            <img
+              [src]="selectedImage"
+              *ngIf="selectedImage"
+              alt="Imagem Selecionada"
+            />
+            <span>
+              <fa-icon [icon]="faCamera" size="2xl"></fa-icon>
+            </span>
+            <input
+              type="file"
+              (change)="onFileSelected($event)"
+              name="product_image"
+              id="product_image"
+              formControlName="product_image"
+              accept="image/*"
+              required
+            />
+          </div>
+        </label>
+      </div>
+      
       <mat-form-field appearance="outline" class="custom-mat-form-field">
         <mat-label for="name" class="custom-mat-label">Nome</mat-label>
         <input
@@ -85,6 +109,19 @@
       </mat-form-field>
       <mat-form-field appearance="outline" class="custom-mat-form-field">
         <mat-label for="category" class="custom-mat-label">Categoria</mat-label>
+        <mat-select
+          class="custom-mat-input fomr-control"
+          name="category"
+          id="category"
+          formControlName="category"
+        >
+          <mat-option *ngFor="let category of itemCategories" [value]="category.value">
+            {{ category.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- <mat-form-field appearance="outline" class="custom-mat-form-field">
+        <mat-label for="category" class="custom-mat-label">Categoria</mat-label>
         <input
           matInput
           type="text"
@@ -95,31 +132,7 @@
           formControlName="category"
           required
         />
-      </mat-form-field>
-
-      <div class="photo">
-        <label class="custom-file-input">
-          <div class="profile-image">
-            <img
-              [src]="selectedImage"
-              *ngIf="selectedImage"
-              alt="Imagem Selecionada"
-            />
-            <span>
-              <fa-icon [icon]="faCamera" size="2xl"></fa-icon>
-            </span>
-            <input
-              type="file"
-              (change)="onFileSelected($event)"
-              name="product_image"
-              id="product_image"
-              formControlName="product_image"
-              accept="image/*"
-              required
-            />
-          </div>
-        </label>
-      </div>
+      </mat-form-field> -->
 
       <article class="save-button-area">
         <button mat-raised-button type="submit" class="save-button">{{ save_button }}</button>

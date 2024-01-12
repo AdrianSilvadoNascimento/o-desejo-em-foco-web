@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { FormGroup, FormBuilder } from '@angular/forms'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 
 import { BarcodeFormat } from '@zxing/library'
 
@@ -9,6 +9,7 @@ import { faCamera } from '@fortawesome/free-solid-svg-icons'
 import { ConvertImageService } from 'src/app/services/convert-image.service'
 import { ItemsService } from 'src/app/services/items.service'
 import { UtilsService } from 'src/app/services/utils.service'
+import { CategoryModel } from 'src/app/models/category-model'
 
 @Component({
   selector: 'app-register-item',
@@ -18,6 +19,8 @@ import { UtilsService } from 'src/app/services/utils.service'
 })
 export class RegisterItemComponent {
   itemGroup: FormGroup = new FormGroup({})
+  itemCategories: CategoryModel[] = []
+  returnRoute!: string
   selectedImage!: any
   selectedFile!: File
   isChangingImage: boolean = false
@@ -47,6 +50,7 @@ export class RegisterItemComponent {
   ngOnInit(): void {
     this.utilService.toggle(false)
     this.createForm(new ItemModel)
+    this.fetchCategories()
 
     this.activatedRoute.params.subscribe(param => {
       this.item_id = param['id']
@@ -98,30 +102,43 @@ export class RegisterItemComponent {
   }
 
   async onSubmit() {
-    const ITEM: ItemModel = {...this.itemGroup.value}
-    
+    const ITEM: ItemModel = { ...this.itemGroup.value }
+
     ITEM.product_image = this.isChangingImage
       ? await this.imageConverter.convertToBase64(this.selectedFile)
       : this.itemInfo.product_image
-    
+
     if (this.item_id) {
-      console.log(ITEM)
-      this.itemsService.updateItem(ITEM, this.item_id).subscribe(() => {
-        this.excludeImage()
-        this.createForm(new ItemModel())
-        alert('Produto atualizado com sucesso!')
-      }, err => {
-        alert(err.error.message)
-      })
+      this.updateItem(ITEM)
     } else {
-      this.itemsService.registerItem(ITEM).subscribe(() => {
-        this.excludeImage()
-        this.createForm(new ItemModel())
-        alert('Produto registrado com sucesso!')
-      }, err => {
-        alert(err.error.message)
-      })
+      this.registerItem(ITEM)
     }
+  }
+  
+  registerItem(itemModel: ItemModel): void {
+    this.itemsService.registerItem(itemModel).subscribe(() => {
+      this.excludeImage()
+      this.createForm(new ItemModel())
+      alert('Produto registrado com sucesso!')
+    }, err => {
+      alert(err.error.message)
+    })
+  }
+  
+  updateItem(itemModel: ItemModel): void {
+    this.itemsService.updateItem(itemModel, this.item_id).subscribe(() => {
+      alert('Produto atualizado com sucesso!')
+    }, err => {
+      alert(err.error.message)
+    })
+  }
+
+  fetchCategories(): void {
+    this.utilService.fetchCategories().subscribe(categories => {
+      this.itemCategories = categories
+    }, err => {
+      console.error(err)
+    })
   }
 
   excludeImage(): void {
@@ -130,7 +147,7 @@ export class RegisterItemComponent {
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0]
-    
+
     if (file) {
       const reader = new FileReader()
       reader.readAsDataURL(file)

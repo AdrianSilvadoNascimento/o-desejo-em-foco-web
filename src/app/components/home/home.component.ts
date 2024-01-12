@@ -7,6 +7,7 @@ import { ItemsService } from 'src/app/services/items.service'
 import { faTrash, faPen, faCamera, faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { UtilsService } from 'src/app/services/utils.service'
 import { Router } from '@angular/router'
+import { CategoryModel } from 'src/app/models/category-model'
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,7 @@ import { Router } from '@angular/router'
   standalone: false,
 })
 export class HomeComponent {
+  categoryList: CategoryModel[] = []
   displayedColumns: string[] = [
     'image',
     'name',
@@ -47,6 +49,7 @@ export class HomeComponent {
   ) {}
 
   ngOnInit(): void {
+    this.fetchCategories()
     this.fetchItems()
     this.utilsService.toggle(false)
   }
@@ -61,6 +64,12 @@ export class HomeComponent {
     })
 
     this.utilsService.hideMenuButton(false)
+  }
+
+  fetchCategories(): void {
+    this.utilsService.fetchCategories().subscribe(categories => {
+      this.categoryList = categories
+    })
   }
 
   onCodeResult(resultString: string): void {
@@ -91,5 +100,17 @@ export class HomeComponent {
         alert(err.error.message)
       })
     }
+  }
+
+  getCategoryName(category: string): string {
+    let categoryName!: string
+    
+    this.categoryList.map(cat => cat).filter(cat => {
+      if (cat.value === category) {
+        categoryName = cat.name
+      }
+    })
+
+    return categoryName
   }
 }
