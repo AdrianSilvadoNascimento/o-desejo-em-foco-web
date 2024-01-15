@@ -2,7 +2,9 @@ import { Component } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 
 import { faArrowLeft, faCamera, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { CategoryModel } from 'src/app/models/category-model'
 import { ItemsService } from 'src/app/services/items.service'
+import { NavigationService } from 'src/app/services/navigation.service'
 import { UtilsService } from 'src/app/services/utils.service'
 
 @Component({
@@ -14,6 +16,7 @@ import { UtilsService } from 'src/app/services/utils.service'
 export class MovementationsComponent {
   itemId!: string
   displayedColumns: string[] = ['image', 'name', 'category', 'quantity', 'unit_price', 'move_type', 'updated_at', 'responsible', 'action_buttons']
+  categoryList: CategoryModel[] = []
   movementations: any
   move_type: { type: string } = { type: 'Entrada' }
   faCamera = faCamera
@@ -24,16 +27,26 @@ export class MovementationsComponent {
     private activatedRoute: ActivatedRoute,
     private itemService: ItemsService,
     private utilService: UtilsService,
-    private router: Router
-  ) {}
-  
-  ngOnInit(): void {
-    this.utilService.toggle(false)
+    private router: Router,
+    private navigationService: NavigationService
+  ) {
     this.activatedRoute.params.subscribe(param => {
       this.itemId = param['id']
     })
+  }
+  
+  ngOnInit(): void {
+    this.utilService.toggle(false)
+
+    this.fetchCategories()
 
     this.fetchMovementations()
+  }
+
+  fetchCategories(): void {
+    this.utilService.fetchCategories().subscribe(categories => {
+      this.categoryList = categories
+    })
   }
 
   fetchMovementations(): void {
@@ -64,7 +77,19 @@ export class MovementationsComponent {
     }
   }
 
+  getCategoryName(category: string): string {
+    let categoryName!: string
+    
+    this.categoryList.map(cat => cat).filter(cat => {
+      if (cat.value === category) {
+        categoryName = cat.name
+      }
+    })
+
+    return categoryName
+  }
+
   return(): void {
-    this.router.navigate(['/index'])
+    this.router.navigate([this.navigationService.getPreviousRoute()])
   }
 }

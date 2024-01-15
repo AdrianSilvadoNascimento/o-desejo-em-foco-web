@@ -1,14 +1,28 @@
 #register-item {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 890px;
+  margin: 20px 0;
+
+  .return-button {
+    background: #4d4d4d;
+    color: #fff;
+    margin-bottom: 15px;
+    position: relative;
+    left: -50%;
+    transform: translateX(50%);
+  }
 
   .background {
     max-width: 890px;
-    margin: 20px 0;
     padding: 15px;
     border-radius: 8px;
+    border: 0.5px solid rgba(0, 0, 0, 0.25);
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
 
     .card-header {
@@ -92,6 +106,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        width: 100%;
       }
   
       .custom-file-input {

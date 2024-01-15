@@ -39,7 +39,7 @@
             </ng-container>
             <ng-container matColumnDef="category">
               <th mat-header-cell *matHeaderCellDef>Categoria</th>
-              <td mat-cell *matCellDef="let element">{{ element.item.category }}</td>
+              <td mat-cell *matCellDef="let element">{{ getCategoryName(element.item.category) }}</td>
             </ng-container>
             <ng-container matColumnDef="quantity">
               <th mat-header-cell *matHeaderCellDef>Quantidade</th>

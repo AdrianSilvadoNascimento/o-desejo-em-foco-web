@@ -5,11 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { BarcodeFormat } from '@zxing/library'
 
 import { ItemModel } from 'src/app/models/item-model'
-import { faCamera } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faCamera } from '@fortawesome/free-solid-svg-icons'
 import { ConvertImageService } from 'src/app/services/convert-image.service'
 import { ItemsService } from 'src/app/services/items.service'
 import { UtilsService } from 'src/app/services/utils.service'
 import { CategoryModel } from 'src/app/models/category-model'
+import { NavigationService } from 'src/app/services/navigation.service'
 
 @Component({
   selector: 'app-register-item',
@@ -24,7 +25,6 @@ export class RegisterItemComponent {
   selectedImage!: any
   selectedFile!: File
   isChangingImage: boolean = false
-  faCamera = faCamera
   isScanning: boolean = false
   item_id!: string
   item_barcode!: string
@@ -38,16 +38,21 @@ export class RegisterItemComponent {
     BarcodeFormat.UPC_EAN_EXTENSION,
     BarcodeFormat.UPC_E,
   ]
+  faCamera = faCamera
+  faArrowLeft = faArrowLeft
 
   constructor(
     private formBuilder: FormBuilder,
     private itemsService: ItemsService,
     private activatedRoute: ActivatedRoute,
     private imageConverter: ConvertImageService,
-    private utilService: UtilsService
+    private utilService: UtilsService,
+    private router: Router,
+    private navigationService: NavigationService
   ) {}
-
+  
   ngOnInit(): void {
+    this.returnRoute = this.navigationService.getPreviousRoute()
     this.utilService.toggle(false)
     this.createForm(new ItemModel)
     this.fetchCategories()
@@ -61,20 +66,7 @@ export class RegisterItemComponent {
       this.save_button = 'Salvar'
       this.header = 'Editar Produto'
 
-      this.itemsService.getItem(this.item_id).subscribe(res => {
-        this.itemInfo = res
-        this.itemGroup.patchValue({
-          name: res.name,
-          quantity: res.quantity,
-          unit_price: res.unit_price,
-          sale_price: res.sale_price,
-          barcode: res.barcode,
-          category: res.category,
-        })
-        this.selectedImage = res.product_image
-        const image = new File([res.product_image], `product_image.jpg`, { type: 'image/jpeg' })
-        this.selectedFile = image
-      })
+      this.populateForm()
     } else if (this.item_barcode) {
       this.itemGroup.patchValue({
         barcode: this.item_barcode,
@@ -90,6 +82,23 @@ export class RegisterItemComponent {
       barcode: [itemModel.barcode],
       category: [itemModel.category],
       product_image: [itemModel.product_image],
+    })
+  }
+  
+  populateForm(): void {
+    this.itemsService.getItem(this.item_id).subscribe(res => {
+      this.itemInfo = res
+      this.itemGroup.patchValue({
+        name: res.name,
+        quantity: res.quantity,
+        unit_price: res.unit_price,
+        sale_price: res.sale_price,
+        barcode: res.barcode,
+        category: res.category,
+      })
+      this.selectedImage = res.product_image
+      const image = new File([res.product_image], `product_image.jpg`, { type: 'image/jpeg' })
+      this.selectedFile = image
     })
   }
 
@@ -157,5 +166,9 @@ export class RegisterItemComponent {
         this.isChangingImage = true
       }
     }
+  }
+
+  return(): void {
+    this.router.navigate([this.returnRoute])
   }
 }

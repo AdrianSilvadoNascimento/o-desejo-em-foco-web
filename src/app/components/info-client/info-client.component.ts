@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 
 import { faPen, faUser } from '@fortawesome/free-solid-svg-icons'
 
@@ -8,6 +8,7 @@ import { ClientService } from '../../../app/services/client.service'
 import { UtilsService } from '../../../app/services/utils.service'
 import { EmployeeService } from '../../../app/services/employee.service'
 import { EmployeeModel } from '../../../app/models/employee-model'
+import { NavigationService } from 'src/app/services/navigation.service'
 
 @Component({
   selector: 'app-info-client',
@@ -30,15 +31,17 @@ export class InfoClientComponent {
     private clientService: ClientService,
     private employeeService: EmployeeService,
     private activatedRoute: ActivatedRoute,
-    private utilService: UtilsService
-  ) {}
-
-  ngOnInit(): void {
-    this.utilService.toggle(false)
-
+    private utilService: UtilsService,
+    private router: Router,
+    private navigationService: NavigationService
+  ) {
     this.activatedRoute.params.subscribe(param => {
       this.id = param['id']
     })
+  }
+
+  ngOnInit(): void {
+    this.utilService.toggle(false)
 
     if (this.id) {
       this.fetchClient(this.id)
@@ -46,11 +49,19 @@ export class InfoClientComponent {
   }
   
   fetchClient(id: string): void {
-    this.clientService.getClient(id).subscribe(res => {
-      this.clientInfo = res
+    this.clientService.getClient(id).subscribe((res: any) => {
+      this.clientInfo = {
+        ...res,
+        country: res.address[0].country,
+        street: res.address[0].street,
+        house_number: res.address[0].house_number,
+        neighborhood: res.address[0].neighborhood,
+        postal_code: res.address[0].postal_code,
+      }
+      
       this.editRoute = `/edit-client/${res.id}`
     }, err => {
-      this.fetchEmployee(this.id)
+      this.fetchEmployee(id)
       console.error(err)
     })
   }
@@ -64,5 +75,9 @@ export class InfoClientComponent {
     }, err => {
       console.error(err)
     })
+  }
+
+  return(): void {
+    this.router.navigate([this.navigationService.getPreviousRoute()])
   }
 }

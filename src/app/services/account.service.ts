@@ -59,21 +59,23 @@ export class AccountService {
   setCache(data: any): void {
     const userId = data?.userId
     const employeeId = data?.employeeId
-    const user_name = data?.user
+    let user_name = data?.user
     localStorage.setItem('userId', userId)
     localStorage.setItem('employeeId', employeeId)
     localStorage.setItem('token', data?.token)
-    localStorage.setItem('name', user_name)
     localStorage.setItem('expiresIn', data?.expiresIn)
     localStorage.setItem('accountType', data?.type)
-
+    
     if (employeeId?.length) {
       this.getUserInfo(userId).subscribe(user => {
+        user_name = user.name
         this.updateEmployeeName(user.name)
       })
     } else {
       this.updateEmployeeName(user_name)
     }
+
+    localStorage.setItem('name', user_name)
   }
   
   checkout(): void {

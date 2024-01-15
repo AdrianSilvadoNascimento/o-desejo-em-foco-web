@@ -6,6 +6,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { ItemModel } from 'src/app/models/item-model'
 import { MovementationModel } from 'src/app/models/movementation-model'
 import { ItemsService } from 'src/app/services/items.service'
+import { NavigationService } from 'src/app/services/navigation.service'
 import { UtilsService } from 'src/app/services/utils.service'
 
 @Component({
@@ -32,7 +33,8 @@ export class InfoItemTemplateComponent {
     private itemService: ItemsService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private utilService: UtilsService
+    private utilService: UtilsService,
+    private navigationService: NavigationService
   ) {
   }
   
@@ -72,6 +74,6 @@ export class InfoItemTemplateComponent {
   }
 
   return(): void {
-    this.router.navigate(['/index'])
+    this.router.navigate([this.navigationService.getPreviousRoute()])
   }
 }

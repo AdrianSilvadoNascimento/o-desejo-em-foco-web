@@ -1,5 +1,4 @@
 import { Component } from '@angular/core'
-import { Router } from '@angular/router'
 
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { ItemModel } from 'src/app/models/item-model'
@@ -16,16 +15,9 @@ export class InfoItemComponent {
   item_id!: string
   faArrowLeft = faArrowLeft
 
-  constructor(
-    private router: Router,
-    private utilService: UtilsService
-  ) {}
+  constructor(private utilService: UtilsService) {}
 
   ngOnInit(): void {
     this.utilService.toggle(false)
-  }
-
-  return(): void {
-    this.router.navigate(['/index'])
   }
 }
