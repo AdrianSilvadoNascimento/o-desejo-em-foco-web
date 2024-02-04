@@ -1,3 +1,4 @@
+<h3 *ngIf="remainingDays > 0">Conta está em período de teste de 7 dias. Restam {{ remainingDays }}</h3>
 <app-header></app-header>
 
 <mat-drawer-container>
@@ -10,7 +11,8 @@
         <a
           routerLink="/movementations"
           routerLinkActive="active"
-          class="nav-item">
+          class="nav-item"
+        >
           Movimentações
         </a>
         <a routerLink="/clients" routerLinkActive="active" class="nav-item">
@@ -22,25 +24,29 @@
         <a
           routerLink="/admin/employees"
           routerLinkActive="active"
-          class="nav-item">
+          class="nav-item"
+        >
           Funcionários
         </a>
         <a
           routerLink="/admin/register-employee"
           routerLinkActive="active"
-          class="nav-item">
+          class="nav-item"
+        >
           Adicionar Funcionário
         </a>
         <a
           routerLink="/admin/categories"
           routerLinkActive="active"
-          class="nav-item">
+          class="nav-item"
+        >
           Categorias
         </a>
         <a
           routerLink="/admin/register-category"
           routerLinkActive="active"
-          class="nav-item">
+          class="nav-item"
+        >
           Cadastrar Categoria
         </a>
         <a routerLink="/clients" routerLinkActive="active" class="nav-item">
@@ -57,7 +63,8 @@
             *ngIf="isMaster"
             (click)="toggleAdmin()"
             class="admin"
-            routerLink="/admin/index">
+            routerLink="/admin/index"
+          >
             Admin
           </a>
         </ng-container>
@@ -67,7 +74,8 @@
             *ngIf="isMaster"
             (click)="toggleAdmin()"
             class="admin"
-            routerLink="../index">
+            routerLink="../index"
+          >
             Retornar
           </a>
         </ng-template>

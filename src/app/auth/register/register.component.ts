@@ -1,9 +1,9 @@
 import { Component } from '@angular/core'
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
+
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { EmployerModel } from 'src/app/models/employer-model'
 import { AccountService } from 'src/app/services/account.service'
-
 import { UtilsService } from 'src/app/services/utils.service'
 
 @Component({
@@ -44,7 +44,7 @@ export class RegisterComponent {
 
   onSubmit(): void {
     this.accountService.createNewEmployerAccount(this.registerForm.value).subscribe(res => {
-      alert('Parabéns! Você acaba de registrar sua loja! Aproveite o período de 7 dias grátis.')
+      alert('Parabéns! Você acaba de registrar seu estabelecimento! Aproveite o período de 7 dias grátis.')
     }, err => {
       alert(err.error.message)
     })

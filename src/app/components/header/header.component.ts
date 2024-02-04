@@ -14,7 +14,7 @@ export class HeaderComponent {
   @Input() showButton!: boolean
   isToggleMenu: boolean = true
   isHideButton: boolean = false
-  employeeName?: string
+  accountName?: string
   faBars = faBars
 
   constructor(private utilService: UtilsService, private readonly accountService: AccountService) {}
@@ -28,11 +28,11 @@ export class HeaderComponent {
       this.isHideButton = res
     })
 
-    this.employeeName = localStorage.getItem('name')!!
-    this.accountService.updateEmployeeName(this.employeeName)
+    this.accountName = localStorage.getItem('account_name')!!
+    this.accountService.updateHeaderAccountName(this.accountName)
 
-    this.accountService.$employeeName.subscribe(res => {
-      this.employeeName = res
+    this.accountService.$accountName.subscribe(res => {
+      this.accountName = res
     })    
   }
 

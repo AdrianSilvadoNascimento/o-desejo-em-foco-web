@@ -6,7 +6,6 @@ import { EmployerModel } from '../models/employer-model'
 import { BehaviorSubject, Observable, tap } from 'rxjs'
 import { environment } from '../../environments/environment'
 import { UtilsService } from './utils.service'
-import { EmployeeModel } from '../models/employee-model'
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +13,11 @@ import { EmployeeModel } from '../models/employee-model'
 export class AccountService {
   private readonly BASE_URL = environment.BASE_URL + '/user'
 
-  private employeeName = new BehaviorSubject<string>('')
-  $employeeName = this.employeeName.asObservable()
+  private accountName = new BehaviorSubject<string>('')
+  $accountName = this.accountName.asObservable()
+
+  private remainingTrialDays = new BehaviorSubject<Date>(new Date())
+  $remainingTrialDays = this.remainingTrialDays.asObservable()
   
   constructor(
     private http: HttpClient,
@@ -23,8 +25,12 @@ export class AccountService {
     private readonly utilsServivce: UtilsService
   ) {}
     
-  updateEmployeeName(name: string) {
-    this.employeeName.next(name)
+  updateRemainingTrialDays(remainingTrialDays: Date) {
+    this.remainingTrialDays.next(remainingTrialDays)
+  }
+  
+  updateHeaderAccountName(name: string) {
+    this.accountName.next(name)
   }
 
   isLoggedIn(): boolean {
@@ -39,19 +45,23 @@ export class AccountService {
   loginUser(userModel: { email: string, password: string }) {
     const url = `${this.BASE_URL}/login-user`
 
-    return this.http.post(url, userModel).pipe(tap(res => {
+    return this.http.post(url, userModel).pipe(tap((res: any) => {
+      this.updateRemainingTrialDays(new Date(res?.expiration_trial))
       this.setCache(res)
       this.router.navigate(['/'])
     }))
   }
 
-  getUserInfo(userId: string): Observable<EmployeeModel> {
-    return this.http.get<EmployeeModel>(`${this.BASE_URL}/${userId}/account-info`).pipe(tap(res => res))
+  getUserInfo(userId: string): Observable<EmployerModel> {
+    return this.http.get<EmployerModel>(`${this.BASE_URL}/${userId}/account-info`).pipe(tap(res => res))
   }
 
   createNewEmployerAccount(employerModel: EmployerModel): Observable<EmployerModel> {
     const url = `${this.BASE_URL}/register-user`
-    const body = { ...employerModel, type: 1 }
+    const expiration_trial = new Date()
+    expiration_trial.setDate(expiration_trial.getDate() + 7)
+
+    const body = { ...employerModel, type: 1, expiration_trial }
 
     return this.http.post<EmployerModel>(url, body).pipe(tap(() => this.router.navigate(['../user-login'])))
   }
@@ -68,14 +78,16 @@ export class AccountService {
     
     if (employeeId?.length) {
       this.getUserInfo(userId).subscribe(user => {
+        localStorage.setItem('employee_name', user_name)
+
         user_name = user.name
-        this.updateEmployeeName(user.name)
+        this.updateHeaderAccountName(user.name)
+        localStorage.setItem('account_name', user_name)
       })
     } else {
-      this.updateEmployeeName(user_name)
+      this.updateHeaderAccountName(user_name)
+      localStorage.setItem('account_name', user_name)
     }
-
-    localStorage.setItem('name', user_name)
   }
   
   checkout(): void {
@@ -83,7 +95,8 @@ export class AccountService {
       localStorage.removeItem('userId')
       localStorage.removeItem('employeeId')
       localStorage.removeItem('token')
-      localStorage.removeItem('name')
+      localStorage.removeItem('account_name')
+      localStorage.removeItem('employee_name')
       localStorage.removeItem('expiresIn')
       localStorage.removeItem('accountType')
       this.utilsServivce.toggleArea(true)

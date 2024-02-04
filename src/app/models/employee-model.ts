@@ -5,4 +5,6 @@ export class EmployeeModel {
   email!: string
   password!: string
   type!: number
+  created_at!: Date
+  updated_at!: Date
 }

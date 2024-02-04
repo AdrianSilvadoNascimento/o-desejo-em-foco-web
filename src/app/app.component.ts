@@ -1,9 +1,9 @@
-import { Component, HostListener } from '@angular/core'
+import { Component, HostListener } from '@angular/core';
 
-import { UtilsService } from './services/utils.service'
-import { AccountService } from './services/account.service'
-import { NavigationEnd, Router } from '@angular/router'
-import { filter } from 'rxjs/operators'
+import { UtilsService } from './services/utils.service';
+import { AccountService } from './services/account.service';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +12,13 @@ import { filter } from 'rxjs/operators'
   standalone: false,
 })
 export class AppComponent {
-  toggleSideNav!: boolean
-  shouldShowButton!: boolean
-  isMaster: boolean = false
-  isAdminArea!: boolean
-  isInLoginOrRegisterArea: boolean = false
-  private readonly allowedRoutes: string[] = ['user-login', 'user-register']
+  toggleSideNav!: boolean;
+  shouldShowButton!: boolean;
+  isMaster: boolean = false;
+  isAdminArea!: boolean;
+  isInLoginOrRegisterArea: boolean = false;
+  remainingDays!: number;
+  private readonly allowedRoutes: string[] = ['user-login', 'user-register'];
 
   constructor(
     private utilService: UtilsService,
@@ -25,66 +26,84 @@ export class AppComponent {
     private router: Router
   ) {
     this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
-        const currentRoute = event['url'].split('/').pop()!!
+        const currentRoute = event['url'].split('/').pop()!!;
         if (this.allowedRoutes.includes(currentRoute)) {
-          this.isInLoginOrRegisterArea = true
+          this.isInLoginOrRegisterArea = true;
         }
-      })
+      });
   }
 
   ngOnInit(): void {
-    this.isMaster = this.accountService.isMaster()
-    this.utilService.$toggleMenu.subscribe(res => {
+    this.isMaster = this.accountService.isMaster();
+    this.utilService.$toggleMenu.subscribe((res) => {
       setTimeout(() => {
-        this.toggleSideNav = res
-      })
+        this.toggleSideNav = res;
+      });
+    });
+
+    this.accountService.$remainingTrialDays.subscribe(expiration_trial_date => {
+      console.log(expiration_trial_date)
+      this.remainingDays = this.calculateRemainingDays(expiration_trial_date)
     })
 
-    this.utilService.toggleArea(JSON.parse(localStorage.getItem('toggleArea')!!))
-    this.utilService.$hideToggleAdminArea.subscribe(res => {
+    this.utilService.toggleArea(
+      JSON.parse(localStorage.getItem('toggleArea')!!)
+    );
+    this.utilService.$hideToggleAdminArea.subscribe((res) => {
       setTimeout(() => {
-        this.isAdminArea = res
-      })
-    })
+        this.isAdminArea = res;
+      });
+    });
+  }
+
+  calculateRemainingDays(endDate: Date): number {
+    const today = new Date()
+
+    const remainingDays = Math.ceil((endDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    return remainingDays;
   }
 
   @HostListener('document:click', ['$event'])
   handleDocumentClick(event: Event): void {
-    const targetElement = event.target as HTMLElement
+    const targetElement = event.target as HTMLElement;
     if (!targetElement.classList.contains('sidenav') && this.toggleSideNav) {
-      this.toggleMenu()
+      this.toggleMenu();
     }
   }
 
   @HostListener('document:mousemove', ['$event'])
   handleDocumentMouseMove(event: MouseEvent): void {
-    if (!this.isInLoginOrRegisterArea && event.clientX <= 50 && !this.toggleSideNav) {
-      this.toggleMenu()
+    if (
+      !this.isInLoginOrRegisterArea &&
+      event.clientX <= 50 &&
+      !this.toggleSideNav
+    ) {
+      this.toggleMenu();
     }
   }
 
   @HostListener('document:keydown', ['$event'])
   handleDocumentKeyDown(event: KeyboardEvent): void {
     if (event.key === 'Escape' && this.toggleSideNav) {
-      this.toggleMenu()
+      this.toggleMenu();
     }
   }
 
   toggleMenu(): void {
-    this.toggleSideNav = !this.toggleSideNav
+    this.toggleSideNav = !this.toggleSideNav;
 
-    this.utilService.toggle(this.toggleSideNav)
+    this.utilService.toggle(this.toggleSideNav);
   }
-  
+
   toggleAdmin(): void {
-    this.isAdminArea = !this.isAdminArea
-    this.utilService.toggleArea(this.isAdminArea)
+    this.isAdminArea = !this.isAdminArea;
+    this.utilService.toggleArea(this.isAdminArea);
   }
-  
+
   checkout(): void {
-    this.accountService.checkout()
-    this.accountService.updateEmployeeName('e-Gest')
+    this.accountService.checkout();
+    this.accountService.updateHeaderAccountName('e-Gest');
   }
 }
