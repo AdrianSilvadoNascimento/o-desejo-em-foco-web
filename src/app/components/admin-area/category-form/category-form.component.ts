@@ -24,7 +24,6 @@ export class CategoryFormComponent implements OnInit {
     private utilService: UtilsService
   ) {
     this.activatedRoute.params.subscribe(param => {
-      console.log('param:', param)
       this.categoryId = param['id']
     })
   }

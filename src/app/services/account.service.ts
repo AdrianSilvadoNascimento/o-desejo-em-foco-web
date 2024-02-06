@@ -3,7 +3,7 @@ import { Router } from '@angular/router'
 import { HttpClient } from '@angular/common/http'
 
 import { EmployerModel } from '../models/employer-model'
-import { BehaviorSubject, Observable, tap } from 'rxjs'
+import { BehaviorSubject, Observable, race, tap } from 'rxjs'
 import { environment } from '../../environments/environment'
 import { UtilsService } from './utils.service'
 
@@ -16,7 +16,7 @@ export class AccountService {
   private accountName = new BehaviorSubject<string>('')
   $accountName = this.accountName.asObservable()
 
-  private remainingTrialDays = new BehaviorSubject<Date>(new Date())
+  private remainingTrialDays = new BehaviorSubject<number>(0)
   $remainingTrialDays = this.remainingTrialDays.asObservable()
   
   constructor(
@@ -24,9 +24,10 @@ export class AccountService {
     private router: Router,
     private readonly utilsServivce: UtilsService
   ) {}
-    
-  updateRemainingTrialDays(remainingTrialDays: Date) {
+
+  updateRemainingTrialDays(remainingTrialDays: number) {
     this.remainingTrialDays.next(remainingTrialDays)
+    localStorage.setItem('trialDays', remainingTrialDays.toString())
   }
   
   updateHeaderAccountName(name: string) {
@@ -46,7 +47,8 @@ export class AccountService {
     const url = `${this.BASE_URL}/login-user`
 
     return this.http.post(url, userModel).pipe(tap((res: any) => {
-      this.updateRemainingTrialDays(new Date(res?.expiration_trial))
+      const trialDays = this.calculateRemainingDays(new Date(res?.expiration_trial))
+      this.updateRemainingTrialDays(trialDays)
       this.setCache(res)
       this.router.navigate(['/'])
     }))
@@ -69,12 +71,14 @@ export class AccountService {
   setCache(data: any): void {
     const userId = data?.userId
     const employeeId = data?.employeeId
+    const trialDays = this.calculateRemainingDays(new Date(data.expiration_trial))
     let user_name = data?.user
     localStorage.setItem('userId', userId)
     localStorage.setItem('employeeId', employeeId)
     localStorage.setItem('token', data?.token)
     localStorage.setItem('expiresIn', data?.expiresIn)
     localStorage.setItem('accountType', data?.type)
+    localStorage.setItem('trialDays', trialDays.toString())
     
     if (employeeId?.length) {
       this.getUserInfo(userId).subscribe(user => {
@@ -91,15 +95,24 @@ export class AccountService {
   }
   
   checkout(): void {
-    setTimeout(() => {
-      localStorage.removeItem('userId')
-      localStorage.removeItem('employeeId')
-      localStorage.removeItem('token')
-      localStorage.removeItem('account_name')
-      localStorage.removeItem('employee_name')
-      localStorage.removeItem('expiresIn')
-      localStorage.removeItem('accountType')
-      this.utilsServivce.toggleArea(true)
-    }, 2000)
+    localStorage.removeItem('userId')
+    localStorage.removeItem('employeeId')
+    localStorage.removeItem('token')
+    localStorage.removeItem('account_name')
+    localStorage.removeItem('employee_name')
+    localStorage.removeItem('expiresIn')
+    localStorage.removeItem('accountType')
+    localStorage.removeItem('trialDays')
+    this.updateRemainingTrialDays(0)
+    this.utilsServivce.toggleArea(true)
+  }
+
+  private calculateRemainingDays(endDate: Date): number {
+    const today = new Date();
+
+    const remainingDays = Math.ceil(
+      (endDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+    );
+    return remainingDays;
   }
 }

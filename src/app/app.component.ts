@@ -42,27 +42,22 @@ export class AppComponent {
         this.toggleSideNav = res;
       });
     });
-
-    this.accountService.$remainingTrialDays.subscribe(expiration_trial_date => {
-      console.log(expiration_trial_date)
-      this.remainingDays = this.calculateRemainingDays(expiration_trial_date)
+    
+    this.accountService.$remainingTrialDays.subscribe(trialDays => {
+      this.remainingDays = trialDays
     })
+
+    this.remainingDays = parseInt(localStorage.getItem('trialDays')!!)
 
     this.utilService.toggleArea(
       JSON.parse(localStorage.getItem('toggleArea')!!)
     );
+
     this.utilService.$hideToggleAdminArea.subscribe((res) => {
       setTimeout(() => {
         this.isAdminArea = res;
       });
     });
-  }
-
-  calculateRemainingDays(endDate: Date): number {
-    const today = new Date()
-
-    const remainingDays = Math.ceil((endDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-    return remainingDays;
   }
 
   @HostListener('document:click', ['$event'])
