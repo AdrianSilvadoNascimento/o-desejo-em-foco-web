@@ -1,4 +1,6 @@
-<h3 *ngIf="remainingDays > 0">Conta está em período de teste de 7 dias. Restam {{ remainingDays }}</h3>
+<h3 *ngIf="remainingDays > 0">
+  Conta está em período de teste de 7 dias. Restam {{ remainingDays }}
+</h3>
 <app-header></app-header>
 
 <mat-drawer-container>
@@ -51,6 +53,9 @@
         </a>
         <a routerLink="/clients" routerLinkActive="active" class="nav-item">
           Cadastrar Funções
+        </a>
+        <a routerLink="/admin/pix-payment" routerLinkActive="active" class="nav-item">
+          Financeiro
         </a>
       </ng-template>
 

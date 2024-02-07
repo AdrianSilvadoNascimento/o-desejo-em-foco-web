@@ -12,6 +12,7 @@ import { EmployeeFormComponent } from './employee-form/employee-form.component'
 import { InfoClientComponent } from '../info-client/info-client.component';
 import { CategoryFormComponent } from './category-form/category-form.component';
 import { CategoryComponent } from './category/category.component';
+import { PixViewComponent } from './pix-view/pix-view.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { CategoryComponent } from './category/category.component';
     EmployeeFormComponent,
     CategoryFormComponent,
     CategoryComponent,
+    PixViewComponent,
   ],
   imports: [
     AngularMaterialModule,
@@ -36,6 +38,7 @@ import { CategoryComponent } from './category/category.component';
       { path: 'register-category', component: CategoryFormComponent },
       { path: 'update-category/:id', component: CategoryFormComponent },
       { path: 'categories', component: CategoryComponent },
+      { path: 'pix-payment', component: PixViewComponent },
     ]),
   ]
 })
