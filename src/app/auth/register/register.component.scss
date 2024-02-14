@@ -20,12 +20,12 @@
       overflow-y: auto;
 
       .register-card {
-        margin-top: 50px;
-        height: 450px;
+        margin-top: 150px;
         width: 350px;
         position: relative;
         left: 50%;
         top: 50%;
+        padding: 25px 0 25px 0;
         transform: translate(-50%, -50%);
         box-shadow: 0 8px 4px rgba(0, 0, 0, 0.5);
         border-radius: 8px;

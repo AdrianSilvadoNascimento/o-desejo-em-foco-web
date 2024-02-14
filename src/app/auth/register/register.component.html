@@ -14,8 +14,34 @@
               name="name"
               id="name"
               formControlName="name"
+              autocomplete="on"
               required
             />
+            <mat-error *ngIf="registerForm.get('name')?.hasError('required')">
+              O nome é obrigatório
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="custom-mat-form-field">
+            <mat-label for="cnpj" class="custom-mat-label">CNPJ</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              class="custom-mat-input"
+              name="cnpj"
+              id="cnpj"
+              formControlName="cnpj"
+              autocomplete="on"
+              #cnpj
+              (blur)="cnpjValidator(cnpj)"
+              required
+            />
+            <mat-error *ngIf="registerForm.get('cnpj')?.hasError('required')">
+              O CNPJ é obrigatório
+            </mat-error>
+            <mat-error *ngIf="registerForm.get('cnpj')?.hasError('minLength')">
+              O CNPJ deve conter 14 números
+            </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="custom-mat-form-field">
             <mat-label for="email" class="custom-mat-label">Email</mat-label>
@@ -26,9 +52,37 @@
               class="custom-mat-input"
               name="email"
               id="email"
+              autocomplete="on"
+              #email
+              (blur)="emailMatchValidator(email, confirm_email)"
               formControlName="email"
               required
             />
+            <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
+              Email é obrigatório
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="custom-mat-form-field">
+            <mat-label for="confirm_email" class="custom-mat-label">Confirme o Email</mat-label>
+            <input
+              matInput
+              type="email"
+              class="form-control"
+              class="custom-mat-input"
+              name="confirm_email"
+              id="confirm_email"
+              autocomplete="on"
+              #confirm_email
+              (blur)="emailMatchValidator(email, confirm_email)"
+              formControlName="confirm_email"
+              required
+            />
+            <mat-error *ngIf="registerForm.get('confirm_email')?.hasError('required')">
+              Confirmar o Email é obrigatório
+            </mat-error>
+            <mat-error *ngIf="registerForm.get('confirm_email')?.hasError('emailMismatch')">
+              Os emails devem ser indênticos
+            </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="custom-mat-form-field">
             <mat-label for="password" class="custom-mat-label">Senha</mat-label>
@@ -39,11 +93,58 @@
               class="custom-mat-input"
               name="password"
               id="password"
+              #password
+              (blur)="passwordMatchValidator(password, confirm_password)"
               formControlName="password"
               required
             />
+            <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
+              A senha é obrigatória
+            </mat-error>
+            <mat-error *ngIf="registerForm.get('password')?.hasError('missingSpecialChar')">
+              A senha precisa conter um caractere especial
+            </mat-error>
+            <mat-error *ngIf="registerForm.get('password')?.hasError('minLength')">
+              A senha deve ter pelo menos 6 caracteres
+            </mat-error>
           </mat-form-field>
-
+          <mat-form-field appearance="outline" class="custom-mat-form-field">
+            <mat-label for="confirm_password" class="custom-mat-label">Confirme a Senha</mat-label>
+            <input
+              matInput
+              type="password"
+              class="form-control"
+              class="custom-mat-input"
+              name="confirm_password"
+              id="confirm_password"
+              #confirm_password
+              (blur)="passwordMatchValidator(password, confirm_password)"
+              formControlName="confirm_password"
+              required
+            />
+            <mat-error *ngIf="registerForm.get('confirm_password')?.hasError('required')">
+              É preciso confirmar a senha
+            </mat-error>
+            <mat-error *ngIf="registerForm.get('confirm_password')?.hasError('passwordMismatch')">
+              As senhas devem ser idênticas
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="custom-mat-form-field">
+            <mat-label for="phone_number" class="custom-mat-label">Número de Telefone</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              class="custom-mat-input"
+              name="phone_number"
+              id="phone_number"
+              formControlName="phone_number"
+              required
+            />
+            <mat-error *ngIf="registerForm.get('phone_number')?.hasError('required')">
+              É preciso adicionar número de telefone
+            </mat-error>
+          </mat-form-field>
           <button
             mat-raised-button
             [disabled]="registerForm.invalid"
