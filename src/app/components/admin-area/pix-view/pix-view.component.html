@@ -2,10 +2,11 @@
   <article class="card">
     <h2>Pagamento Via Pix</h2>
     
-    <article class="pix-area">
-      <img [src]=pixDetails?.imagemQrcode alt="pixDetails?.linkVisualizacao">
+    <article *ngIf="pixDetails" class="pix-area">
+      <h2>Valor: {{ pixDetails?.cob.valor.original | currency }}</h2>
+      <img [src]=pixDetails?.code?.imagemQrcode alt="pixDetails?.code?.linkVisualizacao">
       <div>
-        <h3>{{ pixDetails?.qrcode }}</h3>
+        <h3>{{ pixDetails?.code?.qrcode }}</h3>
       </div>
     </article>
   </article>

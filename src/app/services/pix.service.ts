@@ -13,7 +13,7 @@ export class PixService {
   constructor(private readonly http: HttpClient) {}
 
   getPixPayment(): Observable<any> {
-    const url = `${this.BASE_URl}/pix/loc`
+    const url = `${this.BASE_URl}/pix/cob`
     return this.http.get(url).pipe((res) => res);
   }
 }

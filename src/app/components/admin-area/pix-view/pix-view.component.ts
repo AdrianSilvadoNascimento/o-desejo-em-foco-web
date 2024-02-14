@@ -18,6 +18,7 @@ export class PixViewComponent implements OnInit {
 
   getPixDetail(): void {
     this.pixService.getPixPayment().subscribe((pixDetail) => {
+      console.log(pixDetail)
       this.pixDetails = pixDetail;
     });
   }
