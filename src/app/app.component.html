@@ -3,22 +3,110 @@
 </h3>
 <app-header></app-header>
 
+<div *ngIf="!toggleSideNav" class="fake-sidenav">
+  <nav>
+    <ng-container *ngIf="isAdminArea; else is_in_admin">
+      <a routerLink="/index" routerLinkActive="active" class="nav-item">
+        <div class="separate-nav-icons">
+          <fa-icon [icon]="homeIcon" size="lg"></fa-icon>
+        </div>
+      </a>
+      <a
+        routerLink="/movementations"
+        routerLinkActive="active"
+        class="nav-item"
+      >
+        <div class="separate-nav-icons">
+          <fa-icon [icon]="moveIcon" size="lg"></fa-icon>
+        </div>
+      </a>
+      <a routerLink="/clients" routerLinkActive="active" class="nav-item">
+        <div class="separate-nav-icons">
+          <fa-icon [icon]="clientIcon" size="lg"></fa-icon>
+        </div>
+      </a>
+    </ng-container>
+
+    <ng-template #is_in_admin>
+      <a
+        routerLink="/admin/employees"
+        routerLinkActive="active"
+        class="nav-item"
+      >
+        <div class="separate-nav-icons">
+          <fa-icon [icon]="employeesIcon" size="lg"></fa-icon>
+        </div>
+      </a>
+      <a
+        routerLink="/admin/register-employee"
+        routerLinkActive="active"
+        class="nav-item"
+      >
+        <div class="separate-nav-icons">
+          <fa-icon [icon]="addEmployeeIcon" size="lg"></fa-icon>
+        </div>
+      </a>
+      <a
+        routerLink="/admin/categories"
+        routerLinkActive="active"
+        class="nav-item"
+      >
+        <div class="separate-nav-icons">
+          <fa-icon [icon]="categoriesIcon" size="lg"></fa-icon>
+        </div>
+      </a>
+      <a
+        routerLink="/admin/register-category"
+        routerLinkActive="active"
+        class="nav-item"
+      >
+        <div class="separate-nav-icons">
+          <fa-icon [icon]="addCategoryIcon" size="lg"></fa-icon>
+        </div>
+      </a>
+      <a routerLink="/clients" routerLinkActive="active" class="nav-item">
+        <div class="separate-nav-icons">
+          <fa-icon [icon]="addRolesIcon" size="lg"></fa-icon>
+        </div>
+      </a>
+      <a
+        routerLink="/admin/pix-payment"
+        routerLinkActive="active"
+        class="nav-item"
+      >
+        <div class="separate-nav-icons">
+          <fa-icon [icon]="financeIcon" size="lg"></fa-icon>
+        </div>
+      </a>
+    </ng-template>
+  </nav>
+</div>
+
 <mat-drawer-container>
   <mat-drawer class="sidenav" mode="side" [opened]="toggleSideNav">
     <nav>
       <ng-container *ngIf="isAdminArea; else is_in_admin">
         <a routerLink="/index" routerLinkActive="active" class="nav-item">
-          Home
+          <div class="separate-nav-icons">
+            <fa-icon [icon]="homeIcon" size="lg"></fa-icon>
+            <p>Home</p>
+          </div>
         </a>
         <a
           routerLink="/movementations"
           routerLinkActive="active"
           class="nav-item"
         >
-          Movimentações
+          <div class="separate-nav-icons">
+            <fa-icon [icon]="moveIcon" size="lg"></fa-icon>
+            <p>Movimentações</p>
+          </div>
         </a>
         <a routerLink="/clients" routerLinkActive="active" class="nav-item">
-          Clientes
+          <div class="separate-nav-icons">
+            <fa-icon [icon]="clientIcon" size="lg"></fa-icon>
+            <p>Clientes</p>
+          </div>
         </a>
       </ng-container>
 
@@ -28,39 +116,62 @@
           routerLinkActive="active"
           class="nav-item"
         >
-          Funcionários
+          <div class="separate-nav-icons">
+            <fa-icon [icon]="employeesIcon" size="lg"></fa-icon>
+            <p>Funcionários</p>
+          </div>
         </a>
         <a
           routerLink="/admin/register-employee"
           routerLinkActive="active"
           class="nav-item"
         >
-          Adicionar Funcionário
+          <div class="separate-nav-icons">
+            <fa-icon [icon]="addEmployeeIcon" size="lg"></fa-icon>
+            <p>Adicionar Funcionário</p>
+          </div>
         </a>
         <a
           routerLink="/admin/categories"
           routerLinkActive="active"
           class="nav-item"
         >
-          Categorias
+          <div class="separate-nav-icons">
+            <fa-icon [icon]="categoriesIcon" size="lg"></fa-icon>
+            <p>Categorias</p>
+          </div>
         </a>
         <a
           routerLink="/admin/register-category"
           routerLinkActive="active"
           class="nav-item"
         >
-          Cadastrar Categoria
+          <div class="separate-nav-icons">
+            <fa-icon [icon]="addCategoryIcon" size="lg"></fa-icon>
+            <p>Cadastrar Categoria</p>
+          </div>
         </a>
         <a routerLink="/clients" routerLinkActive="active" class="nav-item">
-          Cadastrar Funções
+          <div class="separate-nav-icons">
+            <fa-icon [icon]="addRolesIcon" size="lg"></fa-icon>
+            <p>Cadastrar Funções</p>
+          </div>
         </a>
-        <a routerLink="/admin/pix-payment" routerLinkActive="active" class="nav-item">
-          Financeiro
+        <a
+          routerLink="/admin/pix-payment"
+          routerLinkActive="active"
+          class="nav-item"
+        >
+          <div class="separate-nav-icons">
+            <fa-icon [icon]="financeIcon" size="lg"></fa-icon>
+            <p>Financeiro</p>
+          </div>
         </a>
       </ng-template>
 
       <div id="menu-bottom">
         <a class="exit" routerLink="/account/user-login" (click)="checkout()">
+          <fa-icon [icon]="gearIcon" size="lg"></fa-icon>
           Sair
         </a>
         <ng-container *ngIf="isAdminArea; else return_home">
@@ -70,6 +181,7 @@
             class="admin"
             routerLink="/admin/index"
           >
+            <fa-icon [icon]="adminAreaIcon" size="lg"></fa-icon>
             Admin
           </a>
         </ng-container>
@@ -81,6 +193,7 @@
             class="admin"
             routerLink="../index"
           >
+            <fa-icon [icon]="arrowLeft" size="lg"></fa-icon>
             Retornar
           </a>
         </ng-template>

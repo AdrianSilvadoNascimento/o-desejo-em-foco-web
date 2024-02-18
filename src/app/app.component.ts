@@ -4,6 +4,20 @@ import { UtilsService } from './services/utils.service';
 import { AccountService } from './services/account.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import {
+  faHome,
+  faUserFriends,
+  faGear,
+  faGears,
+  faRightLeft,
+  faArrowLeft,
+  faUserPlus,
+  faUsersGear,
+  faListUl,
+  faRectangleList,
+  faUsersRays,
+  faHandHoldingDollar,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +33,23 @@ export class AppComponent {
   isInLoginOrRegisterArea: boolean = false;
   remainingDays!: number;
   private readonly allowedRoutes: string[] = ['user-login', 'user-register'];
+
+  // Nav icons
+  homeIcon = faHome;
+  moveIcon = faRightLeft;
+  clientIcon = faUserFriends;
+  gearIcon = faGear;
+  adminAreaIcon = faGears;
+  arrowLeft = faArrowLeft
+
+  // Admin icons
+  employeesIcon = faUsersGear
+  addEmployeeIcon = faUserPlus
+  categoriesIcon = faListUl
+  addCategoryIcon = faRectangleList
+  addRolesIcon = faUsersRays
+  financeIcon = faHandHoldingDollar
+
 
   constructor(
     private utilService: UtilsService,
@@ -42,12 +73,12 @@ export class AppComponent {
         this.toggleSideNav = res;
       });
     });
-    
-    this.accountService.$remainingTrialDays.subscribe(trialDays => {
-      this.remainingDays = trialDays
-    })
 
-    this.remainingDays = parseInt(localStorage.getItem('trialDays')!!)
+    this.accountService.$remainingTrialDays.subscribe((trialDays) => {
+      this.remainingDays = trialDays;
+    });
+
+    this.remainingDays = parseInt(localStorage.getItem('trialDays')!!);
 
     this.utilService.toggleArea(
       JSON.parse(localStorage.getItem('toggleArea')!!)
