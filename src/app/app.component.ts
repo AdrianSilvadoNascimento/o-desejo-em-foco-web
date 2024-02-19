@@ -31,7 +31,6 @@ export class AppComponent {
   isMaster: boolean = false;
   isAdminArea!: boolean;
   isInLoginOrRegisterArea: boolean = false;
-  remainingDays!: number;
   private readonly allowedRoutes: string[] = ['user-login', 'user-register'];
 
   // Nav icons
@@ -73,12 +72,6 @@ export class AppComponent {
         this.toggleSideNav = res;
       });
     });
-
-    this.accountService.$remainingTrialDays.subscribe((trialDays) => {
-      this.remainingDays = trialDays;
-    });
-
-    this.remainingDays = parseInt(localStorage.getItem('trialDays')!!);
 
     this.utilService.toggleArea(
       JSON.parse(localStorage.getItem('toggleArea')!!)

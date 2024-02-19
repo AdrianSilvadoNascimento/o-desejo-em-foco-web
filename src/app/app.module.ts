@@ -22,7 +22,8 @@ import { HeaderComponent } from './components/header/header.component'
 import { MovementationsComponent } from './components/movementations/movementations.component'
 import { InfoClientComponent } from './components/info-client/info-client.component'
 import { HomeComponent } from './components/home/home.component'
-import { RegisterItemComponent } from './components/register-item/register-item.component'
+import { RegisterItemComponent } from './components/register-item/register-item.component';
+import { ContractPaymentMethodComponent } from './components/contract-payment-method/contract-payment-method.component'
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { RegisterItemComponent } from './components/register-item/register-item.
     HomeComponent,
     MovementationsComponent,
     RegisterItemComponent,
+    ContractPaymentMethodComponent,
   ],
   imports: [
     AngularMaterialModule,

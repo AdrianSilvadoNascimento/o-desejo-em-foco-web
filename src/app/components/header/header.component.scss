@@ -1,38 +1,87 @@
-#header {
+#real-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100px;
-  background-color: #000;
-  
-  .menu-toggle {
-    margin-right: 15px;
-    background: none;
-    color: #fff;
-    border: 0.25px solid #ccc;
-  }
-  
-  .title-header {
-    color: #fff;
+  flex-direction: column;
+
+  #remaining-days-info {
     display: flex;
-    justify-content: center;
-    align-items: baseline;
-    margin-left: 15px;
-    
-    .brand {
-      text-decoration: none;
-      color: #fff;
-      
-      h1 {
-        font-size: 24px;
-        font-weight: bold;
-        margin-right: 15px;
+    justify-content: space-between;
+    align-items: center !important;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 9999;
+
+    button {
+      background: none;
+      border: none;
+      font-weight: bold;
+      padding-right: 20px;
+      cursor: pointer;
+    }
+
+    h3 {
+      padding-left: 20px;
+      font-size: 12px;
+      color: black;
+      font-weight: bold;
+
+      a {
+        text-decoration: none;
+        color: blue;
+        padding: 3px;
+        border: 0.5px solid blue;
+        background-color: white;
+        border-radius: 4px;
       }
     }
-    
-    h2 {
-      font-size: 18px;
-      font-weight: 500;
+  }
+
+  #header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    background-color: #000;
+
+    .menu-toggle {
+      margin-right: 15px;
+      background: none;
+      color: #fff;
+      padding: 5px 8px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+
+      &:hover {
+        border: 0.25px solid #ccc;
+        font-weight: bold;
+      }
+    }
+
+    .title-header {
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      margin-left: 15px;
+
+      .brand {
+        text-decoration: none;
+        color: #fff;
+
+        h1 {
+          font-size: 24px;
+          font-weight: bold;
+          margin-right: 15px;
+        }
+      }
+
+      h2 {
+        font-size: 18px;
+        font-weight: 500;
+      }
     }
   }
 }

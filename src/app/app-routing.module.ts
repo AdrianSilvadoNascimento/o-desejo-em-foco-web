@@ -10,6 +10,7 @@ import { ClientInfoTemplateComponent } from './components/client-form/client-for
 import { InfoClientComponent } from './components/info-client/info-client.component'
 import { AuthGuard } from './auth/auth.guard'
 import { AdminGuard } from './components/admin-area/admin.guard'
+import { ContractPaymentMethodComponent } from './components/contract-payment-method/contract-payment-method.component'
 
 const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'info-client/:id', component: InfoClientComponent, canActivate: [ AuthGuard ] },
   { path: 'edit-client/:id', component: ClientInfoTemplateComponent, canActivate: [ AuthGuard ] },
   { path: 'register-client', component: ClientInfoTemplateComponent, canActivate: [ AuthGuard ] },
+  { path: 'contract-subscription', component: ContractPaymentMethodComponent, canActivate: [ AuthGuard ] },
 ]
 
 @NgModule({
