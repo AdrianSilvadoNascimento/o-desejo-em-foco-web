@@ -16,7 +16,7 @@ export class HeaderComponent {
   isHideButton: boolean = false;
   accountName?: string;
   remainingDays!: number;
-  isRemainingInfoHide: boolean = false;
+  isRemainingInfoHide!: boolean;
   faBars = faBars;
   faMinus = faMinus;
 
@@ -39,13 +39,24 @@ export class HeaderComponent {
     });
 
     this.remainingDays = parseInt(localStorage.getItem('trialDays')!!);
+    
+    this.utilService.$toggleRemainingInfoDays.subscribe((remainingDays) => {
+      this.isRemainingInfoHide = remainingDays;
+    })
 
+    this.isRemainingInfoHide = !!localStorage.getItem('isHideRemainingInfo')!!
+    
     this.accountName = localStorage.getItem('account_name')!!;
     this.accountService.updateHeaderAccountName(this.accountName);
 
     this.accountService.$accountName.subscribe((res) => {
       this.accountName = res;
     });
+  }
+
+  toggleRemainingDays(): void {
+    this.isRemainingInfoHide = !this.isRemainingInfoHide
+    this.utilService.toggleRemainingDays(this.isRemainingInfoHide);
   }
 
   toggleMenu(): void {

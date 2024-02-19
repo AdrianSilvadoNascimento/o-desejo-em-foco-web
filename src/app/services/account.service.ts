@@ -22,7 +22,7 @@ export class AccountService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private readonly utilsServivce: UtilsService
+    private readonly utilsService: UtilsService
   ) {}
 
   updateRemainingTrialDays(remainingTrialDays: number) {
@@ -114,7 +114,12 @@ export class AccountService {
     localStorage.removeItem('accountType');
     localStorage.removeItem('trialDays');
     this.updateRemainingTrialDays(0);
-    this.utilsServivce.toggleArea(true);
+    this.utilsService.toggleArea(true);
+    this.utilsService.hideFakeSidenav(false)
+    this.utilsService.toggleRemainingDays(false)
+
+    localStorage.removeItem('isHideRemainingInfo')
+    localStorage.removeItem('isHideFakeSidenav')
   }
 
   private calculateRemainingDays(endDate: Date): number {

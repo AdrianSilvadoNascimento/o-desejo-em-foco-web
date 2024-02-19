@@ -19,6 +19,12 @@ export class UtilsService {
   private toggleMenu = new BehaviorSubject<boolean>(true)
   $toggleMenu = this.toggleMenu.asObservable()
 
+  private toggleRemainingInfoDays = new BehaviorSubject<boolean>(false)
+  $toggleRemainingInfoDays = this.toggleRemainingInfoDays.asObservable()
+
+  private hideFakeSidenavBar = new BehaviorSubject<boolean>(true)
+  $hideFakeSidenavBar = this.hideFakeSidenavBar.asObservable()
+
   private hideToggleMenu = new BehaviorSubject<boolean>(true)
   $hideToggleMenu = this.hideToggleMenu.asObservable()
 
@@ -31,6 +37,16 @@ export class UtilsService {
 
   toggle(toggle: boolean): void {
     this.toggleMenu.next(toggle)
+  }
+
+  toggleRemainingDays(isHide: boolean): void {
+    this.toggleRemainingInfoDays.next(isHide)
+    localStorage.setItem('isHideRemainingInfo', isHide.toString())
+  }
+
+  hideFakeSidenav(isHide: boolean): void {
+    this.hideFakeSidenavBar.next(isHide)
+    localStorage.setItem('isHideFakeSidenav', isHide.toString())
   }
 
   hideMenuButton(hide: boolean): void {

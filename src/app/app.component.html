@@ -1,7 +1,7 @@
 <app-header></app-header>
 
-<div *ngIf="!toggleSideNav" class="fake-sidenav">
-  <nav>
+<div *ngIf="isLoggedOut" class="fake-sidenav" [ngStyle]="{display: toggleSideNav ? 'none' : 'block'}">
+  <nav *ngIf="!toggleSideNav">
     <ng-container *ngIf="isAdminArea; else is_in_admin">
       <a routerLink="/index" routerLinkActive="active" class="nav-item">
         <div class="separate-nav-icons">

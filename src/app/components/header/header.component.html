@@ -1,5 +1,5 @@
 <section id="real-header">
-  <div id="remaining-days-info" *ngIf="!isRemainingInfoHide">
+  <div id="remaining-days-info" *ngIf="isRemainingInfoHide">
     <h3 *ngIf="remainingDays > 0">
       A conta está em período de teste de 7 dias.
       {{ remainingDays > 1 ? "Restam" : "Resta" }} {{ remainingDays }}
@@ -7,7 +7,7 @@
       <a href="/contract-subscription">Contratar plano</a>
     </h3>
 
-    <button (click)="isRemainingInfoHide = !isRemainingInfoHide">X</button>
+    <button (click)="toggleRemainingDays()">X</button>
   </div>
 
   <section id="header">

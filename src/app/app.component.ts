@@ -29,8 +29,9 @@ export class AppComponent {
   toggleSideNav!: boolean;
   shouldShowButton!: boolean;
   isMaster: boolean = false;
-  isAdminArea!: boolean;
   isInLoginOrRegisterArea: boolean = false;
+  isLoggedOut!: boolean;
+  isAdminArea!: boolean;
   private readonly allowedRoutes: string[] = ['user-login', 'user-register'];
 
   // Nav icons
@@ -39,16 +40,15 @@ export class AppComponent {
   clientIcon = faUserFriends;
   gearIcon = faGear;
   adminAreaIcon = faGears;
-  arrowLeft = faArrowLeft
+  arrowLeft = faArrowLeft;
 
   // Admin icons
-  employeesIcon = faUsersGear
-  addEmployeeIcon = faUserPlus
-  categoriesIcon = faListUl
-  addCategoryIcon = faRectangleList
-  addRolesIcon = faUsersRays
-  financeIcon = faHandHoldingDollar
-
+  employeesIcon = faUsersGear;
+  addEmployeeIcon = faUserPlus;
+  categoriesIcon = faListUl;
+  addCategoryIcon = faRectangleList;
+  addRolesIcon = faUsersRays;
+  financeIcon = faHandHoldingDollar;
 
   constructor(
     private utilService: UtilsService,
@@ -76,6 +76,12 @@ export class AppComponent {
     this.utilService.toggleArea(
       JSON.parse(localStorage.getItem('toggleArea')!!)
     );
+
+    this.utilService.$hideFakeSidenavBar.subscribe((isHide) => {
+      this.isLoggedOut = isHide;
+    });
+
+    this.isLoggedOut = !!localStorage.getItem('isHideFakeSidenav')!!
 
     this.utilService.$hideToggleAdminArea.subscribe((res) => {
       setTimeout(() => {
@@ -112,7 +118,6 @@ export class AppComponent {
 
   toggleMenu(): void {
     this.toggleSideNav = !this.toggleSideNav;
-
     this.utilService.toggle(this.toggleSideNav);
   }
 
