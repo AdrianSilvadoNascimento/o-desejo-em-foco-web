@@ -19,6 +19,9 @@ export class AccountService {
   private remainingTrialDays = new BehaviorSubject<number>(0);
   $remainingTrialDays = this.remainingTrialDays.asObservable();
 
+  private userHaveToPayObs = new BehaviorSubject<boolean>(false);
+  $userHaveToPayObs = this.userHaveToPayObs.asObservable();
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -43,6 +46,23 @@ export class AccountService {
     return parseInt(masterAccount) === 1;
   }
 
+  userHaveToPay(userId: string, trialDays: number): void {
+    this.getUserInfo(userId).subscribe((userInfo) => {
+      if (
+        this.isLoggedIn() &&
+        !userInfo.is_trial &&
+        !userInfo.is_assinant &&
+        trialDays <= 0
+      ) {
+        this.userHaveToPayObs.next(true);
+        this.router.navigate(['/contract-subscription']);
+      } else {
+        this.userHaveToPayObs.next(false);
+        this.router.navigate(['/index']);
+      }
+    });
+  }
+
   loginUser(EmployeeModel: { email: string; password: string }) {
     const url = `${this.BASE_URL}/login-user`;
 
@@ -53,7 +73,7 @@ export class AccountService {
         );
         this.updateRemainingTrialDays(trialDays);
         this.setCache(res);
-        this.router.navigate(['/']);
+        this.userHaveToPay(res['userId'], trialDays);
       })
     );
   }
@@ -115,11 +135,11 @@ export class AccountService {
     localStorage.removeItem('trialDays');
     this.updateRemainingTrialDays(0);
     this.utilsService.toggleArea(true);
-    this.utilsService.hideFakeSidenav(false)
-    this.utilsService.toggleRemainingDays(false)
+    this.utilsService.hideFakeSidenav(false);
+    this.utilsService.toggleRemainingDays(false);
 
-    localStorage.removeItem('isHideRemainingInfo')
-    localStorage.removeItem('isHideFakeSidenav')
+    localStorage.removeItem('isHideRemainingInfo');
+    localStorage.removeItem('isHideFakeSidenav');
   }
 
   private calculateRemainingDays(endDate: Date): number {

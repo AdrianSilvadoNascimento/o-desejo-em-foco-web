@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { AuthModule } from './auth/auth.module'
 import { AngularMaterialModule } from './angular-material.module'
+import { CreditCardModule } from './components/contract-payment-method/credit-card/credit-card.module'
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { ZXingScannerModule } from '@zxing/ngx-scanner'
@@ -24,6 +25,8 @@ import { InfoClientComponent } from './components/info-client/info-client.compon
 import { HomeComponent } from './components/home/home.component'
 import { RegisterItemComponent } from './components/register-item/register-item.component';
 import { ContractPaymentMethodComponent } from './components/contract-payment-method/contract-payment-method.component'
+import { SubscriptionGuard } from './subscriptions.guard';
+import { CreditCardComponent } from './components/contract-payment-method/credit-card/credit-card.component'
 
 @NgModule({
   declarations: [
@@ -44,6 +47,7 @@ import { ContractPaymentMethodComponent } from './components/contract-payment-me
     BrowserAnimationsModule,
     BrowserModule,
     AuthModule,
+    CreditCardModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -51,7 +55,7 @@ import { ContractPaymentMethodComponent } from './components/contract-payment-me
     FontAwesomeModule,
     AppRoutingModule,
   ],
-  providers: [AuthGuard, AdminGuard],
+  providers: [AuthGuard, AdminGuard, SubscriptionGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
