@@ -145,7 +145,7 @@ mat-drawer-container {
 
 @media screen and (min-width: 360px) and (max-width: 480px) {
   .fake-sidenav {
-    display: none;
+    display: none !important;
   }
 
   mat-drawer-container {

@@ -1,1 +1,107 @@
-<p>credit-card works!</p>
+<section id="subscription-template">
+  <article id="description">
+    <p>Com um plano na e-Gest você está 10 passos a frente da concorrência.</p>
+    <p>Assine hoje mesmo e faça uso dos seus benefícios.</p>
+    <p>Com o pagamento aprovado, você já pode sair gerindo seu estoque de forma inteligente, prática e fácil.</p>
+  </article>
+  
+  <article id="subscription">
+    <article id="card-info">
+      <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="custom-mat-form-field">
+          <mat-label for="card_name" class="custom-mat-label"
+            >Nome Que Está no Cartão</mat-label
+          >
+          <input
+            matInput
+            type="text"
+            class="form-control"
+            class="custom-mat-input"
+            name="card_name"
+            id="card_name"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="custom-mat-form-field">
+          <mat-label for="card_number" class="custom-mat-label"
+            >Número do Cartão</mat-label
+          >
+          <input
+            matInput
+            type="text"
+            class="form-control"
+            class="custom-mat-input"
+            name="card_number"
+            id="card_number"
+            required
+          />
+        </mat-form-field>
+        <div class="separator">
+          <mat-form-field appearance="outline" class="custom-mat-form-field">
+            <mat-label for="month" class="custom-mat-label"
+              >Mês</mat-label
+            >
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              class="custom-mat-input"
+              name="month"
+              id="month"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="custom-mat-form-field">
+            <mat-label for="year" class="custom-mat-label"
+              >Ano</mat-label
+            >
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              class="custom-mat-input"
+              name="year"
+              id="year"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="custom-mat-form-field">
+            <mat-label for="cvv" class="custom-mat-label">CVV</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              class="custom-mat-input"
+              name="cvv"
+              id="cvv"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <article class="save-button-area">
+          <button mat-raised-button type="submit" class="save-button">
+            ASSINAR
+          </button>
+        </article>
+      </form>
+    </article>
+    <article id="subscription-resume">
+      <div class="card">
+        <div class="card-header">
+          <h2>{{ subscriptionPlan.planName }}</h2>
+        </div>
+
+        <div class="card-body">
+          <div class="plan-value">
+            <span div="parcels">12x de </span>
+            <h3>
+              {{ subscriptionPlan.price / 12 | currency : "BRL" }}
+              <span>/ mês</span>
+            </h3>
+            <h4>Anual: {{ subscriptionPlan.price | currency : "BRL" }}</h4>
+          </div>
+        </div>
+      </div>
+    </article>
+  </article>
+</section>

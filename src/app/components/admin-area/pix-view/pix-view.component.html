@@ -3,7 +3,7 @@
     <h2>Pagamento Via Pix</h2>
     
     <article *ngIf="pixDetails" class="pix-area">
-      <h2>Valor: {{ pixDetails?.cob.valor.original | currency }}</h2>
+      <h2>Valor: {{ pixDetails?.cob.valor.original | currency: 'BRL' }}</h2>
       <img [src]=pixDetails?.code?.imagemQrcode alt="pixDetails?.code?.linkVisualizacao">
       <div>
         <h3>{{ pixDetails?.code?.qrcode }}</h3>
