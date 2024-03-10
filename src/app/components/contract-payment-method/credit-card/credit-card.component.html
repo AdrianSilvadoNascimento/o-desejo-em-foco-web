@@ -19,23 +19,44 @@
             class="custom-mat-input"
             name="card_name"
             id="card_name"
+            formControlName="card_name"
             required
           />
         </mat-form-field>
-        <mat-form-field appearance="outline" class="custom-mat-form-field">
-          <mat-label for="card_number" class="custom-mat-label"
+        <article class="card_number">
+          <mat-form-field appearance="outline" class="custom-mat-form-field">
+            <mat-label for="card_number" class="custom-mat-label"
             >Número do Cartão</mat-label
-          >
-          <input
+            >
+            <input
             matInput
             type="text"
             class="form-control"
             class="custom-mat-input"
             name="card_number"
             id="card_number"
+            formControlName="number"
+            maxlength="16"
             required
-          />
-        </mat-form-field>
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" disable class="custom-mat-form-field">
+            <mat-label for="brand" disable class="custom-mat-label"
+              >Bandeira</mat-label
+            >
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              class="custom-mat-input"
+              name="brand"
+              id="brand"
+              formControlName="brand"
+              [disabled]="true"
+              readonly
+            />
+          </mat-form-field>
+        </article>
         <div class="separator">
           <mat-form-field appearance="outline" class="custom-mat-form-field">
             <mat-label for="month" class="custom-mat-label"
@@ -48,6 +69,8 @@
               class="custom-mat-input"
               name="month"
               id="month"
+              formControlName="expiration_month"
+              maxlength="2"
               required
             />
           </mat-form-field>
@@ -62,6 +85,8 @@
               class="custom-mat-input"
               name="year"
               id="year"
+              formControlName="expiration_year"
+              maxlength="4"
               required
             />
           </mat-form-field>
@@ -74,6 +99,8 @@
               class="custom-mat-input"
               name="cvv"
               id="cvv"
+              formControlName="cvv"
+              maxlength="3"
               required
             />
           </mat-form-field>

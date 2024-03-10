@@ -86,6 +86,28 @@
         }
       }
     }
+
+    .gold-plan {
+      ul {
+        list-style: disc;
+        color: #f8be28;
+      }
+    }
+
+    .silver-plan {
+      ul {
+        list-style: disc;
+        color: #9d9d9d;
+      }
+    }
+
+    .bronze-plan {
+      ul {
+        list-style: disc;
+        color: #ef9103;
+      }
+    }
+
     .card-footer {
       position: relative;
       display: flex;
