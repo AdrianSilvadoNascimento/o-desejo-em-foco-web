@@ -1,0 +1,128 @@
+<section id="register">
+  <article>
+    <div class="form">
+      <h2 class="auth-header">Registrar Endereço</h2>
+      <div class="register-card">
+        <form [formGroup]="registerAddressForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline" class="custom-mat-form-field">
+            <mat-label for="postal_code" class="custom-mat-label"
+              >CEP</mat-label
+            >
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              class="custom-mat-input"
+              name="postal_code"
+              id="postal_code"
+              formControlName="postal_code"
+              autocomplete="on"
+              required
+            />
+            <mat-error
+              *ngIf="
+                registerAddressForm.get('postal_code')?.hasError('required')
+              "
+            >
+              O nome é obrigatório
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="custom-mat-form-field">
+            <mat-label for="street" class="custom-mat-label">Rua</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              class="custom-mat-input"
+              name="street"
+              id="street"
+              formControlName="street"
+              autocomplete="on"
+              required
+            />
+            <mat-error
+              *ngIf="registerAddressForm.get('street')?.hasError('required')"
+            >
+              O nome é obrigatório
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="custom-mat-form-field">
+            <mat-label for="house_number" class="custom-mat-label"
+              >Número</mat-label
+            >
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              class="custom-mat-input"
+              name="house_number"
+              id="house_number"
+              formControlName="house_number"
+              autocomplete="on"
+              required
+            />
+            <mat-error
+              *ngIf="
+                registerAddressForm.get('house_number')?.hasError('required')
+              "
+            >
+              O nome é obrigatório
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="custom-mat-form-field">
+            <mat-label for="neighborhood" class="custom-mat-label"
+              >Bairro</mat-label
+            >
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              class="custom-mat-input"
+              name="neighborhood"
+              id="neighborhood"
+              formControlName="neighborhood"
+              autocomplete="on"
+              required
+            />
+            <mat-error
+              *ngIf="
+                registerAddressForm.get('neighborhood')?.hasError('required')
+              "
+            >
+              O nome é obrigatório
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="custom-mat-form-field">
+            <mat-label for="country" class="custom-mat-label">Cidade</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              class="custom-mat-input"
+              name="country"
+              id="country"
+              formControlName="country"
+              autocomplete="on"
+              required
+            />
+            <mat-error
+              *ngIf="registerAddressForm.get('country')?.hasError('required')"
+            >
+              O nome é obrigatório
+            </mat-error>
+          </mat-form-field>
+          <button
+            mat-raised-button
+            [disabled]="registerAddressForm.invalid"
+            [class]="registerAddressForm.invalid ? 'disabled' : ''"
+            type="submit"
+          >
+            Cadastrar
+          </button>
+
+          <a routerLink="../user-login"> Entrar na Conta </a>
+        </form>
+      </div>
+    </div>
+  </article>
+</section>

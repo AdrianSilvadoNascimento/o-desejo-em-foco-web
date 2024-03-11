@@ -22,6 +22,9 @@ export class AccountService {
   private userHaveToPayObs = new BehaviorSubject<boolean>(false);
   $userHaveToPayObs = this.userHaveToPayObs.asObservable();
 
+  private userAccountInfo = new BehaviorSubject<UserModel>(new UserModel());
+  $userAccountInfo = this.userAccountInfo.asObservable();
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -37,6 +40,10 @@ export class AccountService {
     this.accountName.next(name);
   }
 
+  updateUserAccountInfo(userInfoModel: UserModel): void {
+    this.userAccountInfo.next(userInfoModel);
+  }
+
   isLoggedIn(): boolean {
     return localStorage.getItem('token') !== null;
   }
@@ -48,7 +55,9 @@ export class AccountService {
 
   userHaveToPay(userId: string, trialDays: number): void {
     this.getUserInfo(userId).subscribe((userInfo) => {
-      if (
+      if (!userInfo.user_address.created_at) {
+        this.router.navigate(['/register-address'])
+      } else if (
         this.isLoggedIn() &&
         !userInfo.is_trial &&
         !userInfo.is_assinant &&
@@ -71,9 +80,11 @@ export class AccountService {
         const trialDays = this.calculateRemainingDays(
           new Date(res?.expiration_trial)
         );
+
+        const userId = res['userId'];
         this.updateRemainingTrialDays(trialDays);
         this.setCache(res);
-        this.userHaveToPay(res['userId'], trialDays);
+        this.userHaveToPay(userId, trialDays);
       })
     );
   }
@@ -81,7 +92,12 @@ export class AccountService {
   getUserInfo(userId: string): Observable<UserModel> {
     return this.http
       .get<UserModel>(`${this.BASE_URL}/${userId}/account-info`)
-      .pipe(tap((res) => res));
+      .pipe(
+        tap((res) => {
+          this.updateUserAccountInfo(res);
+          return res;
+        })
+      );
   }
 
   createUserAccount(userModel: UserModel): Observable<UserModel> {
