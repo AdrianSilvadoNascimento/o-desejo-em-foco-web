@@ -4,29 +4,35 @@
       <h2 class="auth-header">Registrar Endereço</h2>
       <div class="register-card">
         <form [formGroup]="registerAddressForm" (ngSubmit)="onSubmit()">
-          <mat-form-field appearance="outline" class="custom-mat-form-field">
-            <mat-label for="postal_code" class="custom-mat-label"
-              >CEP</mat-label
-            >
-            <input
-              matInput
-              type="text"
-              class="form-control"
-              class="custom-mat-input"
-              name="postal_code"
-              id="postal_code"
-              formControlName="postal_code"
-              autocomplete="on"
-              required
-            />
-            <mat-error
-              *ngIf="
-                registerAddressForm.get('postal_code')?.hasError('required')
-              "
-            >
-              O nome é obrigatório
-            </mat-error>
-          </mat-form-field>
+          <article class="postal_code_field">
+            <mat-form-field appearance="outline" class="custom-mat-form-field">
+              <mat-label for="postal_code" class="custom-mat-label"
+                >CEP</mat-label
+              >
+              <input
+                matInput
+                type="text"
+                class="form-control"
+                class="custom-mat-input"
+                name="postal_code"
+                id="postal_code"
+                formControlName="postal_code"
+                autocomplete="on"
+                (blur)="completeAddressInfo()"
+                required
+              />
+              <mat-error
+                *ngIf="
+                  registerAddressForm.get('postal_code')?.hasError('required')
+                "
+              >
+                O CEP é obrigatório
+              </mat-error>
+            </mat-form-field>
+            <button type="button" (click)="completeAddressInfo()">
+              <fa-icon [icon]="magnifyingGlassLocation" size="2xl"></fa-icon>
+            </button>
+          </article>
           <mat-form-field appearance="outline" class="custom-mat-form-field">
             <mat-label for="street" class="custom-mat-label">Rua</mat-label>
             <input
@@ -40,11 +46,6 @@
               autocomplete="on"
               required
             />
-            <mat-error
-              *ngIf="registerAddressForm.get('street')?.hasError('required')"
-            >
-              O nome é obrigatório
-            </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="custom-mat-form-field">
             <mat-label for="house_number" class="custom-mat-label"
@@ -66,7 +67,53 @@
                 registerAddressForm.get('house_number')?.hasError('required')
               "
             >
-              O nome é obrigatório
+              O número é obrigatório
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="custom-mat-form-field">
+            <mat-label for="complement" class="custom-mat-label"
+              >Complemento</mat-label
+            >
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              class="custom-mat-input"
+              name="complement"
+              id="complement"
+              formControlName="complement"
+              autocomplete="on"
+              required
+            />
+            <mat-error
+              *ngIf="
+                registerAddressForm.get('complement')?.hasError('required')
+              "
+            >
+              O complemento é obrigatório
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="custom-mat-form-field">
+            <mat-label for="state" class="custom-mat-label"
+              >Estado</mat-label
+            >
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              class="custom-mat-input"
+              name="state"
+              id="state"
+              formControlName="state"
+              autocomplete="on"
+              required
+            />
+            <mat-error
+              *ngIf="
+                registerAddressForm.get('state')?.hasError('required')
+              "
+            >
+              O estado é obrigatório
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="custom-mat-form-field">
@@ -84,13 +131,6 @@
               autocomplete="on"
               required
             />
-            <mat-error
-              *ngIf="
-                registerAddressForm.get('neighborhood')?.hasError('required')
-              "
-            >
-              O nome é obrigatório
-            </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="custom-mat-form-field">
             <mat-label for="country" class="custom-mat-label">Cidade</mat-label>
@@ -105,11 +145,6 @@
               autocomplete="on"
               required
             />
-            <mat-error
-              *ngIf="registerAddressForm.get('country')?.hasError('required')"
-            >
-              O nome é obrigatório
-            </mat-error>
           </mat-form-field>
           <button
             mat-raised-button
@@ -119,8 +154,6 @@
           >
             Cadastrar
           </button>
-
-          <a routerLink="../user-login"> Entrar na Conta </a>
         </form>
       </div>
     </div>

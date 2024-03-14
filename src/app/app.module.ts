@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 
 import { AuthModule } from './auth/auth.module';
 import { AngularMaterialModule } from './angular-material.module';
@@ -53,6 +53,7 @@ import { RegisterAddressGuard } from './components/user-address/register-address
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    HttpClientJsonpModule,
     ZXingScannerModule,
     FontAwesomeModule,
     AppRoutingModule,

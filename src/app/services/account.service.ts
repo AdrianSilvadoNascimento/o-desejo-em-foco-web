@@ -1,17 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { UserModel } from '../models/user-model';
 import { BehaviorSubject, Observable, race, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { UtilsService } from './utils.service';
+import { UserAddressModel } from '../models/user-address-model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
   private readonly BASE_URL = environment.BASE_URL + '/user';
+
+  // readonly token: string | null = localStorage.getItem('token');
+  // private headers = new HttpHeaders({
+  //   'Content-Type': 'application/json',
+  //   Authorization: `Bearer ${this.token}`,
+  // });
 
   private accountName = new BehaviorSubject<string>('');
   $accountName = this.accountName.asObservable();
@@ -55,8 +62,10 @@ export class AccountService {
 
   userHaveToPay(userId: string, trialDays: number): void {
     this.getUserInfo(userId).subscribe((userInfo) => {
-      if (!userInfo.user_address.created_at) {
-        this.router.navigate(['/register-address'])
+      console.log(userInfo)
+      if (userInfo.user_address?.street?.length <= 1) {
+        console.log('chegou nesse')
+        this.router.navigate(['/register-address']);
       } else if (
         this.isLoggedIn() &&
         !userInfo.is_trial &&
@@ -110,6 +119,13 @@ export class AccountService {
     return this.http
       .post<UserModel>(url, body)
       .pipe(tap(() => this.router.navigate(['../user-login'])));
+  }
+
+  registerAddress(userAddressModel: UserAddressModel): Observable<any> {
+    const userId = localStorage.getItem('userId')!!;
+    return this.http
+      .post(`${this.BASE_URL}/register-address/${userId}`, userAddressModel)
+      .pipe(tap((res) => res));
   }
 
   setCache(data: any): void {
