@@ -60,27 +60,6 @@ export class AccountService {
     return parseInt(masterAccount) === 1;
   }
 
-  userHaveToPay(userId: string, trialDays: number): void {
-    this.getUserInfo(userId).subscribe((userInfo) => {
-      console.log(userInfo)
-      if (userInfo.user_address?.street?.length <= 1) {
-        console.log('chegou nesse')
-        this.router.navigate(['/register-address']);
-      } else if (
-        this.isLoggedIn() &&
-        !userInfo.is_trial &&
-        !userInfo.is_assinant &&
-        trialDays <= 0
-      ) {
-        this.userHaveToPayObs.next(true);
-        this.router.navigate(['/contract-subscription']);
-      } else {
-        this.userHaveToPayObs.next(false);
-        this.router.navigate(['/index']);
-      }
-    });
-  }
-
   loginUser(EmployeeModel: { email: string; password: string }) {
     const url = `${this.BASE_URL}/login-user`;
 
@@ -93,7 +72,7 @@ export class AccountService {
         const userId = res['userId'];
         this.updateRemainingTrialDays(trialDays);
         this.setCache(res);
-        this.userHaveToPay(userId, trialDays);
+        this.router.navigate(['/index']);
       })
     );
   }
@@ -125,7 +104,10 @@ export class AccountService {
     const userId = localStorage.getItem('userId')!!;
     return this.http
       .post(`${this.BASE_URL}/register-address/${userId}`, userAddressModel)
-      .pipe(tap((res) => res));
+      .pipe(tap((res) => {
+        this.router.navigate(['/index'])
+        return res
+      }));
   }
 
   setCache(data: any): void {

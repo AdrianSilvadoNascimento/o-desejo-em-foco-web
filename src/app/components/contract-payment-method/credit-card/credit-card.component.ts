@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { Subscription } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
 
 import { CreditCardModel } from '../../../../app/models/credit-card-model';
 import { GerenciaNetService } from '../../../../app/services/efi-payment-token.service';
@@ -36,21 +36,21 @@ export class CreditCardComponent implements OnInit, OnDestroy {
       planName: 'Assinatura - Plano Ouro',
       planAlias: 'ouro',
       price: parseFloat('1749.90'),
-      real: parseInt('174990'),
+      real: parseInt('14583'),
     },
     {
       id: 2,
       planName: 'Assinatura - Plano Prata',
       planAlias: 'prata',
       price: parseFloat('1139.90'),
-      real: parseInt('113990'),
+      real: parseInt('9499'),
     },
     {
       id: 3,
       planName: 'Assinatura - Plano Bronze',
       planAlias: 'bronze',
       price: parseFloat('899.90'),
-      real: parseInt('89990'),
+      real: parseInt('7499'),
     },
   ];
 
@@ -80,6 +80,7 @@ export class CreditCardComponent implements OnInit, OnDestroy {
   }
 
   async onSubmit() {
+    console.log('assinando...')
     const creditCard = this.paymentForm.value;
     creditCard.brand = creditCard.brand.toLowerCase();
     delete creditCard.card_name;
@@ -96,10 +97,12 @@ export class CreditCardComponent implements OnInit, OnDestroy {
       account_id
     );
 
-    console.log('antes de enviar:', subscriptionInfo)
-    
     this.subscriptionService
       .contractSubscription(subscriptionInfo)
+      .pipe(finalize(() =>{
+        console.log('Finalizou de processar')
+        this.createForm(new CreditCardModel());
+      }))
       .subscribe((res) => {
         console.log('chegou no component:', res);
       });

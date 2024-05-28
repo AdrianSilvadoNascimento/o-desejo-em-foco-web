@@ -51,15 +51,8 @@ export class UserAddressComponent implements OnInit {
     this.accountService
       .registerAddress(this.registerAddressForm.value)
       .subscribe(
-        (res) => {
-          const userId = localStorage.getItem('userId')!!;
-          const trialDays = localStorage.getItem('trialDays')!!;
-          console.log('retorno:', res);
-          this.accountService.userHaveToPay(userId, parseInt(trialDays));
-        },
-        (err) => {
-          console.error(err);
-        }
+        (res) => console.log('retorno:', res),
+        (err) => console.error(err)
       );
   }
 

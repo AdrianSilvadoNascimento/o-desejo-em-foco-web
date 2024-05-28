@@ -3,6 +3,7 @@ import { SubscriptionModel } from '../models/subscriptions-model';
 import { Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class SubscriptionsService {
     Authorization: `Bearer ${this.token}`,
   });
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   contractSubscription(subscriptionInfo: SubscriptionModel): Observable<any> {
     return this.http
@@ -23,6 +24,7 @@ export class SubscriptionsService {
       .pipe(
         tap((res) => {
           console.log(res);
+          this.router.navigate(['/index'])
         })
       );
   }

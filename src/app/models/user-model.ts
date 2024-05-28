@@ -13,7 +13,9 @@ export class UserModel {
   expiration_trial!: Date
   is_trial!: boolean
   is_assinant!: boolean
-  user_address!: {
+  subscription_plan?: number;
+  subscription_id?: number;
+  user_address!: [{
     street: string;
     house_number: number;
     neighborhood: string;
@@ -21,5 +23,5 @@ export class UserModel {
     country: string;
     created_at: Date;
     updated_at?: Date;
-  }
+  }]
 }

@@ -92,7 +92,7 @@ const routes: Routes = [
   {
     path: 'contract-subscription',
     component: ContractPaymentMethodComponent,
-    canActivate: [AuthGuard, RegisterAddressGuard],
+    canActivate: [AuthGuard, RegisterAddressGuard, SubscriptionGuard],
   },
   {
     path: 'register-address',

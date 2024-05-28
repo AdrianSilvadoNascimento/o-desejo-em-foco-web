@@ -39,13 +39,15 @@ export class HeaderComponent {
     });
 
     this.remainingDays = parseInt(localStorage.getItem('trialDays')!!);
-    
+
+    this.checkUser();
+
     this.utilService.$toggleRemainingInfoDays.subscribe((remainingDays) => {
       this.isRemainingInfoHide = remainingDays;
-    })
+    });
 
-    this.isRemainingInfoHide = !!localStorage.getItem('isHideRemainingInfo')!!
-    
+    this.isRemainingInfoHide = !!localStorage.getItem('isHideRemainingInfo')!!;
+
     this.accountName = localStorage.getItem('account_name')!!;
     this.accountService.updateHeaderAccountName(this.accountName);
 
@@ -54,8 +56,18 @@ export class HeaderComponent {
     });
   }
 
+  checkUser(): void {
+    this.accountService
+      .getUserInfo(localStorage.getItem('userId')!!)
+      .subscribe((res) => {
+        if (!res.is_trial) {
+          this.isRemainingInfoHide = false;
+        }
+      });
+  }
+
   toggleRemainingDays(): void {
-    this.isRemainingInfoHide = !this.isRemainingInfoHide
+    this.isRemainingInfoHide = !this.isRemainingInfoHide;
     this.utilService.toggleRemainingDays(this.isRemainingInfoHide);
   }
 

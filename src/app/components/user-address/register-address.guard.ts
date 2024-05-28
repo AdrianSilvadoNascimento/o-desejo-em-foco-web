@@ -10,13 +10,17 @@ export class RegisterAddressGuard implements CanActivate {
   constructor(private accountService: AccountService, private router: Router) {}
 
   canActivate(): Observable<boolean> {
-    return this.accountService.$userAccountInfo.pipe(map(userInfo => {
-      if (userInfo.user_address.created_at) {
-        return true;
-      } else {
-        this.router.navigate(['/register-address'])
-        return false;
-      }
-    }));
+    return this.accountService
+      .getUserInfo(localStorage.getItem('userId')!!)
+      .pipe(
+        map((userInfo) => {
+          if (userInfo.user_address.length > 0) {
+            return true;
+          } else {
+            this.router.navigate(['/register-address']);
+            return false;
+          }
+        })
+      );
   }
 }

@@ -10,13 +10,22 @@ export class SubscriptionGuard implements CanActivate {
   constructor(private accountService: AccountService, private router: Router) {}
 
   canActivate(): Observable<boolean> {
-    return this.accountService.$userHaveToPayObs.pipe(map(haveToPay => {
-      if (haveToPay) {
-        return true;
-      } else {
-        this.router.navigate(['/contract-subscription'])
-        return false;
-      }
-    }));
+    return this.accountService
+      .getUserInfo(localStorage.getItem('userId')!!)
+      .pipe(
+        map((userInfo) => {
+          if (
+            this.accountService.isLoggedIn() &&
+            (userInfo?.subscription_id ||
+              userInfo.is_assinant ||
+              !userInfo.is_trial)
+          ) {
+            return true;
+          } else {
+            this.router.navigate(['/index']);
+            return false;
+          }
+        })
+      );
   }
 }
